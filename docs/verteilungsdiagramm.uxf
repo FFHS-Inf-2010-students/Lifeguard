@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.custom.Artefact</type>
+    <coordinates>
+      <x>430</x>
+      <y>370</y>
+      <w>170</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;artifact&gt;&gt;
+Lifeguard.jar
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.Node</type>
+    <coordinates>
+      <x>610</x>
+      <y>230</y>
+      <w>170</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>center::SMS-Gateway
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>520</x>
+      <y>250</y>
+      <w>166</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&gt;
+communication
+</panel_attributes>
+    <additional_attributes>130;30;50;120</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.Node</type>
+    <coordinates>
+      <x>260</x>
+      <y>220</y>
+      <w>160</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>center:Android phone
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>330</x>
+      <y>260</y>
+      <w>140</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=.&lt;&gt;
+&lt;&lt;deploy&gt;&gt;</panel_attributes>
+    <additional_attributes>30;30;120;110</additional_attributes>
+  </element>
+</diagram>
