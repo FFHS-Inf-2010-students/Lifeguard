@@ -1,4 +1,4 @@
 Lifeguard
 =========
 
-Safes your life
+Saves your life
