@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="9" />
+        android:minSdkVersion="11"
+        android:targetSdkVersion="11" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +21,30 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="ch.ffhs.esa.lifeguard.ConfigurationActivity"
+            android:label="@string/title_activity_configuration"
+            android:parentActivityName="ch.ffhs.esa.lifeguard.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.ffhs.esa.lifeguard.MainActivity" />
+        </activity>
+        <activity
+            android:name="ch.ffhs.esa.lifeguard.ContactListActivity"
+            android:label="@string/title_activity_contact_list"
+            android:parentActivityName="ch.ffhs.esa.lifeguard.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.ffhs.esa.lifeguard.MainActivity" />
+        </activity>
+        <activity
+            android:name="ch.ffhs.esa.lifeguard.ContactDetailActivity"
+            android:label="@string/title_activity_contact_detail"
+            android:parentActivityName="ch.ffhs.esa.lifeguard.ContactListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.ffhs.esa.lifeguard.ContactListActivity" />
         </activity>
     </application>
 
