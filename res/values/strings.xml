@@ -3,11 +3,10 @@
 
     <string name="app_name">Lifeguard</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_configuration">ConfigurationActivity</string>
+    <string name="title_activity_configuration">Konfiguration</string>
     <string name="configuration_label_delay">Auslösedauer</string>
     <string name="configuration_label_save">Speichern</string>
-    <string name="title_activity_contact_list">ContactListActivity</string>
+    <string name="title_activity_contact_list">Kontakte</string>
     <string name="action_configuration">Konfiguration</string>
     <string name="action_contact_list">Empfänger</string>
     <string name="main_label_delay">Verbleibende Zeit</string>
@@ -15,9 +14,10 @@
     <string name="main_label_sos">SOS</string>
     <string name="main_label_sos_description">Halten Sie den Button für 5 Sekunden gedrückt um sofort einen Alarm auszulösen.</string>
     <string name="main_label_alarm_switch">Alarmierung</string>
-    <string name="title_activity_contact_detail">ContactDetailActivity</string>
+    <string name="title_activity_contact_detail">Kontaktangaben</string>
     <string name="contact_detail_label_name">Name</string>
     <string name="contact_detail_label_phone">Telefonnummer</string>
     <string name="contact_detail_label_save">Speichern</string>
+    <string name="action_add_contact">Kontakt hinzufügen</string>
 
 </resources>

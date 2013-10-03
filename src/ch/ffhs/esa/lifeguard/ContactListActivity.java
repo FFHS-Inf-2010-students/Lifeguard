@@ -16,7 +16,7 @@ import android.widget.ListView;
 public class ContactListActivity extends ListActivity {
 
 	static final String[] ENTRIES = {
-		"Jane Doe", "Hans Gseh", "Max Muster"
+		"1. Jane Doe", "2. Hans Gseh", "3. Max Muster"
 	};
 	
 	@Override
