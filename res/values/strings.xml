@@ -2,9 +2,9 @@
 <resources>
 
     <string name="app_name">Lifeguard</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Einstellungen</string>
     <string name="title_activity_configuration">Konfiguration</string>
-    <string name="configuration_label_delay">Auslösedauer</string>
+    <string name="configuration_label_delay">Auslösedauer (in Sekunden)</string>
     <string name="configuration_label_save">Speichern</string>
     <string name="title_activity_contact_list">Kontakte</string>
     <string name="action_configuration">Konfiguration</string>

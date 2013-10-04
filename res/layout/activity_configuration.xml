@@ -16,7 +16,7 @@
         <TextView
             android:id="@+id/textView1"
             android:layout_width="136dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/configuration_label_delay" />
 
         <EditText
