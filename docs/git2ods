@@ -1,0 +1,6 @@
+#!/bin/bash
+git log --pretty=format:'%h,%an,%ai,%s' > log.csv
+iconv -f UTF-8 -t ISO-8859-1 log.csv > log_iso.csv
+mv log_iso.csv log.csv
+$1 --headless --convert-to ods log.csv
+rm -f log.csv
