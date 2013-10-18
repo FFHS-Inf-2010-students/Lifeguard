@@ -31,21 +31,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/main_label_sos" />
-    
-	<ImageButton
+	<Button
         android:id="@+id/SOSButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="5dp"
-        android:src="@drawable/ic_launcher" />
+        android:text="@string/main_label_sos"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        android:background="@drawable/button_sos" />
 	
     <TextView
         android:id="@+id/textView2"
