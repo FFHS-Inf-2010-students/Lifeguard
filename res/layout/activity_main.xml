@@ -10,7 +10,7 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewDelayLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/main_label_delay" />
@@ -26,45 +26,54 @@
     <ProgressBar
         android:id="@+id/progressBarDelay"
         style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:max="100"
-        android:progress="75"
+        android:progress="75" />
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    
-   <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_light" >
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="0dp"
+            android:id="@+id/textViewAlarmSwitch"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.4"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:text="@string/main_label_alarm_switch" />
 
         <ToggleButton
-            android:id="@+id/toggleButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/toggleButtonAlarmSwitch"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/textViewAlarmSwitch" />
         
-    </LinearLayout>
-    
-	<Button
-        android:id="@+id/SOSButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/main_label_sos"
-        android:textColor="#FFFFFF"
-        android:textSize="60sp"
-        android:background="@drawable/button_sos" />
-	
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/main_label_sos_description"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <Button
+            android:id="@+id/SOSButton"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/toggleButtonAlarmSwitch"
+            android:background="@drawable/button_sos"
+            android:text="@string/main_label_sos"
+            android:textColor="#FFFFFF"
+            android:textSize="60sp" />
+        
+        <TextView
+            android:id="@+id/textViewSOSButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/SOSButton"
+            android:text="@string/main_label_sos_description"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </RelativeLayout>
 
 </LinearLayout>
