@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg height="501" version="1.1" width="772" xmlns="http://www.w3.org/2000/svg">
+<ellipse cx="623" cy="222" fill="#000000" rx="8.0" ry="8.0" stroke="#000000" stroke-width="1"/>
+<ellipse cx="623" cy="122" fill="#000000" rx="12.0" ry="12.0" stroke="#000000" stroke-width="1"/>
+<ellipse cx="623" cy="122" fill="#ffffff" rx="11.0" ry="11.0" stroke="#ffffff" stroke-width="1"/>
+<polyline fill="none" points="623,214 623,134" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="630" x2="623" y1="146" y2="134"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="616" x2="623" y1="146" y2="134"/>
+<text font-family="Dialog" font-size="12" x="628" y="195">
+createService</text>
+<rect fill="#00ff" height="59" rx="16" ry="16" stroke="#00ff" stroke-width="1" width="104" x="385" y="14"/>
+<rect fill="#ffffff" height="59" rx="16" ry="16" stroke="#000000" stroke-width="1" width="104" x="385" y="14"/>
+<rect fill="#ffffc8" height="57" rx="16" ry="16" stroke="#ffffc8" stroke-width="1" width="102" x="386" y="15"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="404" y="27">
+onCreate</text>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="385" x2="488" y1="37" y2="37"/>
+<rect fill="#00ff" height="44" rx="16" ry="16" stroke="#00ff" stroke-width="1" width="113" x="172" y="110"/>
+<rect fill="#ffffff" height="44" rx="16" ry="16" stroke="#000000" stroke-width="1" width="113" x="172" y="110"/>
+<rect fill="#ffffff" height="42" rx="16" ry="16" stroke="#ffffff" stroke-width="1" width="111" x="173" y="111"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="201" y="123">
+onStart</text>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="172" x2="284" y1="133" y2="133"/>
+<polyline fill="none" points="611,117 488,72" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="501" x2="488" y1="69" y2="72"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="496" x2="488" y1="82" y2="72"/>
+<text font-family="Dialog" font-size="12" x="513" y="75">
+ [does not exist]</text>
+<polyline fill="none" points="611,122 284,122" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="296" x2="284" y1="115" y2="122"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="296" x2="284" y1="129" y2="122"/>
+<text font-family="Dialog" font-size="12" x="527" y="137">
+ [does exist]</text>
+<rect fill="#00ff" height="59" rx="16" ry="16" stroke="#00ff" stroke-width="1" width="157" x="150" y="254"/>
+<rect fill="#ffffff" height="59" rx="16" ry="16" stroke="#000000" stroke-width="1" width="157" x="150" y="254"/>
+<rect fill="#ffc800" height="57" rx="16" ry="16" stroke="#ffc800" stroke-width="1" width="155" x="151" y="255"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="198" y="267">
+onCount</text>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="150" x2="306" y1="277" y2="277"/>
+<text font-family="Dialog" font-size="12" x="152" y="289">
+check Movement</text>
+<text font-family="Dialog" font-size="12" x="152" y="304">
+count</text>
+<rect fill="#00ff" height="53" rx="16" ry="16" stroke="#00ff" stroke-width="1" width="106" x="570" y="254"/>
+<rect fill="#ffffff" height="53" rx="16" ry="16" stroke="#000000" stroke-width="1" width="106" x="570" y="254"/>
+<rect fill="#ff0000" height="51" rx="16" ry="16" stroke="#ff0000" stroke-width="1" width="104" x="571" y="255"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="576" y="267">
+onSendAlarm</text>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="570" x2="675" y1="277" y2="277"/>
+<text font-family="Dialog" font-size="12" x="572" y="289">
+send SMS Alarm</text>
+<rect fill="#00ff" height="53" rx="16" ry="16" stroke="#00ff" stroke-width="1" width="131" x="558" y="398"/>
+<rect fill="#ffffff" height="53" rx="16" ry="16" stroke="#000000" stroke-width="1" width="131" x="558" y="398"/>
+<rect fill="#ff0000" height="51" rx="16" ry="16" stroke="#ff0000" stroke-width="1" width="129" x="559" y="399"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="575" y="411">
+onAwaitReply</text>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="558" x2="688" y1="421" y2="421"/>
+<text font-family="Dialog" font-size="12" x="560" y="433">
+check incoming SMS</text>
+<polyline fill="none" points="590,306 590,398" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="583" x2="590" y1="386" y2="398"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="597" x2="590" y1="386" y2="398"/>
+<text font-family="Dialog" font-size="12" x="519" y="374">
+alarm sent</text>
+<rect fill="#00ff" height="89" rx="16" ry="16" stroke="#00ff" stroke-width="1" width="113" x="172" y="398"/>
+<rect fill="#ffffff" height="89" rx="16" ry="16" stroke="#000000" stroke-width="1" width="113" x="172" y="398"/>
+<rect fill="#00ff00" height="87" rx="16" ry="16" stroke="#00ff00" stroke-width="1" width="111" x="173" y="399"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="199" y="411">
+onRelief</text>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="172" x2="284" y1="421" y2="421"/>
+<text font-family="Dialog" font-size="12" x="174" y="433">
+clean Alarm</text>
+<text font-family="Dialog" font-size="12" x="174" y="448">
+notify Relief</text>
+<polyline fill="none" points="654,398 654,306" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="661" x2="654" y1="318" y2="306"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="647" x2="654" y1="318" y2="306"/>
+<text font-family="Dialog" font-size="12" x="656" y="375">
+given up waiting</text>
+<ellipse cx="26" cy="282" fill="#000000" rx="12.0" ry="12.0" stroke="#000000" stroke-width="1"/>
+<ellipse cx="26" cy="282" fill="#ffffff" rx="11.0" ry="11.0" stroke="#ffffff" stroke-width="1"/>
+<ellipse cx="25" cy="281" fill="#000000" rx="7.5" ry="7.5" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="172,398 35,291" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="48" x2="35" y1="292" y2="291"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="40" x2="35" y1="303" y2="291"/>
+<text font-family="Dialog" font-size="12" x="77" y="378">
+notified</text>
+<polyline fill="none" points="558,422 284,422" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="296" x2="284" y1="415" y2="422"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="296" x2="284" y1="429" y2="422"/>
+<text font-family="Dialog" font-size="12" x="400" y="417">
+SMS arrived</text>
+<polyline fill="none" points="385,72 284,110" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="292" x2="284" y1="99" y2="110"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="297" x2="284" y1="112" y2="110"/>
+<polyline fill="none" points="246,153 246,254" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="239" x2="246" y1="242" y2="254"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="253" x2="246" y1="242" y2="254"/>
+<text font-family="Dialog" font-size="12" x="214" y="199">
+start</text>
+<polyline fill="none" points="190,254 190,153" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="197" x2="190" y1="165" y2="153"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="183" x2="190" y1="165" y2="153"/>
+<text font-family="Dialog" font-size="12" x="146" y="200">
+cancel</text>
+<polyline fill="none" points="262,153 262,254" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="255" x2="262" y1="242" y2="254"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="269" x2="262" y1="242" y2="254"/>
+<text font-family="Dialog" font-size="12" x="265" y="199">
+already counting</text>
+<polyline fill="none" points="306,262 570,262" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="558" x2="570" y1="269" y2="262"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="558" x2="570" y1="255" y2="262"/>
+<text font-family="Dialog" font-size="12" x="398" y="256">
+count reached</text>
+<polyline fill="none" points="306,294 570,294" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="558" x2="570" y1="301" y2="294"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="558" x2="570" y1="287" y2="294"/>
+<text font-family="Dialog" font-size="12" x="401" y="311">
+manual alarm</text>
+<polyline fill="none" points="172,153 34,274" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="38" x2="34" y1="260" y2="274"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="47" x2="34" y1="271" y2="274"/>
+<text font-family="Dialog" font-size="12" x="85" y="199">
+exit</text>
+<polyline fill="none" points="284,153 570,254" stroke="#333399" stroke-width="1"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="556" x2="570" y1="256" y2="254"/>
+<line fill="#333399" stroke="#333399" stroke-width="1" x1="561" x2="570" y1="243" y2="254"/>
+<text font-family="Dialog" font-size="12" x="433" y="201">
+manual alarm</text>
+</svg>

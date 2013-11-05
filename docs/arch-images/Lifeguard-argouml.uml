@@ -26,7 +26,7 @@
       <fontname>Dialog</fontname>
       <fontsize>12</fontsize>
       <defaultstereotypeview>0</defaultstereotypeview>
-      <activediagram>Service State Diagram</activediagram>
+      <activediagram>ServiceState</activediagram>
     </settings>
     <searchpath href="PROJECT_DIR" />
     <members>
@@ -58,7 +58,7 @@
 			CodeGeneration
 		</plugin>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Tue Nov 05 19:08:44 CET 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Tue Nov 05 19:36:28 CET 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -94,27 +94,11 @@
                 <UML:SimpleState xmi.id = '127-0-0-1--62e20ced:1421d73ee77:-8000:0000000000000870'
                   name = 'onCreate' isSpecification = 'false'>
                   <UML:StateVertex.outgoing>
-                    <UML:Transition xmi.idref = '127-0-0-1-6c6cadd4:1421e011be0:-8000:000000000000099C'/>
                     <UML:Transition xmi.idref = '127-0-0-1--62e20ced:1421d73ee77:-8000:00000000000008B3'/>
                   </UML:StateVertex.outgoing>
                   <UML:StateVertex.incoming>
-                    <UML:Transition xmi.idref = '127-0-0-1-6c6cadd4:1421e011be0:-8000:000000000000099C'/>
                     <UML:Transition xmi.idref = '127-0-0-1--62e20ced:1421d73ee77:-8000:0000000000000875'/>
                   </UML:StateVertex.incoming>
-                  <UML:State.internalTransition>
-                    <UML:Transition xmi.id = '127-0-0-1-6c6cadd4:1421e011be0:-8000:000000000000099C'
-                      isSpecification = 'false'>
-                      <UML:Transition.trigger>
-                        <UML:SignalEvent xmi.idref = '127-0-0-1-6c6cadd4:1421e011be0:-8000:000000000000099D'/>
-                      </UML:Transition.trigger>
-                      <UML:Transition.source>
-                        <UML:SimpleState xmi.idref = '127-0-0-1--62e20ced:1421d73ee77:-8000:0000000000000870'/>
-                      </UML:Transition.source>
-                      <UML:Transition.target>
-                        <UML:SimpleState xmi.idref = '127-0-0-1--62e20ced:1421d73ee77:-8000:0000000000000870'/>
-                      </UML:Transition.target>
-                    </UML:Transition>
-                  </UML:State.internalTransition>
                 </UML:SimpleState>
                 <UML:SimpleState xmi.id = '127-0-0-1--62e20ced:1421d73ee77:-8000:0000000000000871'
                   name = 'onStart' isSpecification = 'false'>
@@ -268,8 +252,8 @@
                 <UML:FinalState xmi.id = '127-0-0-1--62e20ced:1421d73ee77:-8000:00000000000008A6'
                   name = 'onDestroy' isSpecification = 'false'>
                   <UML:StateVertex.incoming>
-                    <UML:Transition xmi.idref = '127-0-0-1--62e20ced:1421d73ee77:-8000:00000000000008AA'/>
                     <UML:Transition xmi.idref = '127-0-0-1-11b35fb9:1421e2d0d15:-8000:0000000000000996'/>
+                    <UML:Transition xmi.idref = '127-0-0-1--62e20ced:1421d73ee77:-8000:00000000000008AA'/>
                   </UML:StateVertex.incoming>
                 </UML:FinalState>
               </UML:CompositeState.subvertex>
@@ -3778,7 +3762,7 @@
                         offset="5" />
     </private>
     <path name="Fig20.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -3835,7 +3819,7 @@
                         offset="28" />
     </private>
     <path name="Fig21.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -3892,7 +3876,7 @@
                         offset="5" />
     </private>
     <path name="Fig22.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -3951,7 +3935,7 @@
                         offset="5" />
     </private>
     <path name="Fig23.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -4008,7 +3992,7 @@
                         offset="5" />
     </private>
     <path name="Fig24.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -4197,7 +4181,7 @@
       bold="false"
       textsize="12"
       justification="Left"
-    >set Counter = 0</text>
+    ></text>
   </group>
   <group name="Fig4"
        description="org.argouml.uml.diagram.state.ui.FigSimpleState[358, 112, 113, 44]pathVisible=false;stereotypeView=0;"
@@ -4765,7 +4749,7 @@ notify Relief</text>
   >
     <private>
       sourcePortFig="Fig11.0"
-      destPortFig="Fig13.0"
+      destPortFig="Fig13"
       sourceFigNode="Fig11"
       destFigNode="Fig13"
       <argouml:pathitem figname="Fig14.1"
@@ -4785,7 +4769,7 @@ notify Relief</text>
       <moveto x="358"
               y="400" />
       <lineto x="221"
-              y="291" />
+              y="293" />
     </path>
   </group>
   <group name="Fig15"
