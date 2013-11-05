@@ -1,6 +1,6 @@
 package ch.ffhs.esa.lifeguard.service.state;
 
-public class OnTick
+public class TimingState
     extends AbstractAlarmState
 {
     @Override

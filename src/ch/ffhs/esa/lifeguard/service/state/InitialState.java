@@ -1,6 +1,6 @@
 package ch.ffhs.esa.lifeguard.service.state;
 
-public class OnConfirmed
+public class InitialState
     extends AbstractAlarmState
 {
     @Override
@@ -12,5 +12,5 @@ public class OnConfirmed
 
     @Override
     public AlarmStateId getId ()
-    { return AlarmStateId.CONFIRMED; }
+    { return AlarmStateId.INIT; }
 }

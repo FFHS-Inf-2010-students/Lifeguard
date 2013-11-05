@@ -3,7 +3,7 @@ package ch.ffhs.esa.lifeguard.service;
 import ch.ffhs.esa.lifeguard.service.context.AlarmContext;
 import ch.ffhs.esa.lifeguard.service.context.ServiceAlarmContext;
 import ch.ffhs.esa.lifeguard.service.state.AlarmStateListener;
-import ch.ffhs.esa.lifeguard.service.state.OnInit;
+import ch.ffhs.esa.lifeguard.service.state.InitialState;
 
 import android.app.Service;
 import android.content.Intent;
@@ -18,7 +18,7 @@ public class AlarmService
 
     public void onCreate ()
     {
-        context.setNext (new OnInit ());
+        context.setNext (new InitialState ());
         context.addListener (this);
     }
 
@@ -33,6 +33,7 @@ public class AlarmService
 
     private void sendStatus ()
     {
+        // @todo Send status via broadcast
     }
 
     @Override
