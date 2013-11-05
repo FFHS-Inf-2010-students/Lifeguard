@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg height="879" version="1.1" width="1108" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="83" stroke="#ffffff" stroke-width="1" width="271" x="71" y="198"/>
+<rect fill="none" height="83" stroke="#000000" stroke-width="1" width="271" x="71" y="198"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="160" y="230">
++ AlarmState</text>
+<text font-family="Dialog" font-size="12" x="158" y="212">
+&lt;&lt;interface&gt;&gt;</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="271" x="71" y="240"/>
+<text font-family="Dialog" font-size="12" x="75" y="254">
++process(context : AlarmContext)</text>
+<text font-family="Dialog" font-size="12" x="75" y="270">
++getId() : AlarmStateId</text>
+<rect fill="#ffffff" height="69" stroke="#ffffff" stroke-width="1" width="236" x="39" y="582"/>
+<rect fill="none" height="69" stroke="#000000" stroke-width="1" width="236" x="39" y="582"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="110" y="595">
++ InitialState</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="236" x="39" y="605"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="236" x="39" y="626"/>
+<text font-family="Dialog" font-size="12" x="43" y="640">
+#doProcess(context : AlarmContext)</text>
+<rect fill="#ffffff" height="69" stroke="#ffffff" stroke-width="1" width="236" x="39" y="676"/>
+<rect fill="none" height="69" stroke="#000000" stroke-width="1" width="236" x="39" y="676"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="107" y="689">
++ TimingState</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="236" x="39" y="699"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="236" x="39" y="720"/>
+<text font-family="Dialog" font-size="12" x="43" y="734">
+#doProcess(context : AlarmContext)</text>
+<rect fill="#ffffff" height="85" stroke="#ffffff" stroke-width="1" width="236" x="191" y="780"/>
+<rect fill="none" height="85" stroke="#000000" stroke-width="1" width="236" x="191" y="780"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="251" y="793">
++ AlarmingState</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="236" x="191" y="803"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="236" x="191" y="832"/>
+<text font-family="Dialog" font-size="12" x="195" y="846">
+#doProcess(context : AlarmContext)</text>
+<rect fill="#ffffff" height="69" stroke="#ffffff" stroke-width="1" width="236" x="351" y="676"/>
+<rect fill="none" height="69" stroke="#000000" stroke-width="1" width="236" x="351" y="676"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="411" y="689">
++ AwaitingState</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="236" x="351" y="699"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="236" x="351" y="720"/>
+<text font-family="Dialog" font-size="12" x="355" y="734">
+#doProcess(context : AlarmContext)</text>
+<rect fill="#ffffff" height="69" stroke="#ffffff" stroke-width="1" width="236" x="351" y="582"/>
+<rect fill="none" height="69" stroke="#000000" stroke-width="1" width="236" x="351" y="582"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="406" y="595">
++ ConfirmedState</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="236" x="351" y="605"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="236" x="351" y="626"/>
+<text font-family="Dialog" font-size="12" x="355" y="640">
+#doProcess(context : AlarmContext)</text>
+<rect fill="#ffffff" height="117" stroke="#ffffff" stroke-width="1" width="276" x="791" y="382"/>
+<rect fill="none" height="117" stroke="#000000" stroke-width="1" width="276" x="791" y="382"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="876" y="395">
++ AlarmService</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="276" x="791" y="405"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="276" x="791" y="426"/>
+<text font-family="Dialog" font-size="12" x="795" y="440">
++onCreate()</text>
+<text font-family="Dialog" font-size="12" x="795" y="456">
++onStart()</text>
+<text font-family="Dialog" font-size="12" x="795" y="472">
++onStateChanged(context : AlarmContext)</text>
+<text font-family="Dialog" font-size="12" x="795" y="488">
+-sendStatus()</text>
+<rect fill="#ffffff" height="99" stroke="#ffffff" stroke-width="1" width="280" x="431" y="14"/>
+<rect fill="none" height="99" stroke="#000000" stroke-width="1" width="280" x="431" y="14"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="516" y="46">
++ AlarmContext</text>
+<text font-family="Dialog" font-size="12" x="523" y="28">
+&lt;&lt;interface&gt;&gt;</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="280" x="431" y="56"/>
+<text font-family="Dialog" font-size="12" x="435" y="70">
++setNext(state : AlarmingState)</text>
+<text font-family="Dialog" font-size="12" x="435" y="86">
++getState() : AlarmState</text>
+<text font-family="Dialog" font-size="12" x="435" y="102">
++addListener(listener : AlarmStateListener)</text>
+<rect fill="#ffffff" height="67" stroke="#ffffff" stroke-width="1" width="276" x="759" y="198"/>
+<rect fill="none" height="67" stroke="#000000" stroke-width="1" width="276" x="759" y="198"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="821" y="230">
++ AlarmStateListener</text>
+<text font-family="Dialog" font-size="12" x="849" y="212">
+&lt;&lt;interface&gt;&gt;</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="276" x="759" y="240"/>
+<text font-family="Dialog" font-size="12" x="763" y="254">
++onStateChanged(context : AlarmContext)</text>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="382" y2="377"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="372" y2="367"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="362" y2="357"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="352" y2="347"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="342" y2="337"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="332" y2="327"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="322" y2="317"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="312" y2="307"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="302" y2="297"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="292" y2="287"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="282" y2="277"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="903" x2="903" y1="272" y2="267"/>
+<polygon fill="#ffffff" points="903,264 910,276 896,276" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="903,264 910,276 896,276" stroke="#000000" stroke-width="1"/>
+<rect fill="#ffffff" height="152" stroke="#ffffff" stroke-width="1" width="128" x="507" y="380"/>
+<rect fill="none" height="152" stroke="#000000" stroke-width="1" width="128" x="507" y="380"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="525" y="412">
+AlarmStateId</text>
+<text font-family="Dialog" font-size="12" x="511" y="394">
+&lt;&lt;enumeration&gt;&gt;</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="128" x="507" y="422"/>
+<text font-family="Dialog" font-size="12" x="511" y="436">
+INIT</text>
+<text font-family="Dialog" font-size="12" x="511" y="452">
+TICKING</text>
+<text font-family="Dialog" font-size="12" x="511" y="468">
+ALARMING</text>
+<text font-family="Dialog" font-size="12" x="511" y="484">
+AWAITING</text>
+<text font-family="Dialog" font-size="12" x="511" y="500">
+CONFIRMED</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="128" x="507" y="510"/>
+<rect fill="#ffffff" height="88" stroke="#ffffff" stroke-width="1" width="276" x="433" y="198"/>
+<rect fill="none" height="88" stroke="#000000" stroke-width="1" width="276" x="433" y="198"/>
+<text font-family="Dialog" font-size="12" font-weight="bold" x="491" y="211">
++ ServiceAlarmContext</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="276" x="433" y="221"/>
+<text font-family="Dialog" font-size="12" x="437" y="235">
+-listeners : ArrayList&lt;AlarmStateListener&gt;</text>
+<text font-family="Dialog" font-size="12" x="437" y="251">
+-current : AlarmState</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="276" x="433" y="261"/>
+<text font-family="Dialog" font-size="12" x="437" y="275">
+#notifyListeners()</text>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="567" x2="567" y1="198" y2="193"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="567" x2="567" y1="188" y2="183"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="567" x2="567" y1="178" y2="173"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="567" x2="567" y1="168" y2="163"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="567" x2="567" y1="158" y2="153"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="567" x2="567" y1="148" y2="143"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="567" x2="567" y1="138" y2="133"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="567" x2="567" y1="128" y2="123"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="567" x2="567" y1="118" y2="113"/>
+<polygon fill="#ffffff" points="567,112 574,124 560,124" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="567,112 574,124 560,124" stroke="#000000" stroke-width="1"/>
+<rect fill="#ffffff" height="136" stroke="#ffffff" stroke-width="1" width="372" x="15" y="380"/>
+<rect fill="none" height="136" stroke="#000000" stroke-width="1" width="372" x="15" y="380"/>
+<text font-family="Dialog" font-size="12" font-style="italic" font-weight="bold" x="126" y="393">
++ AbstractAlarmState</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="372" x="15" y="403"/>
+<text font-family="Dialog" font-size="12" x="19" y="417">
+-stateId : AlarmStateId</text>
+<text font-family="Dialog" font-size="12" x="19" y="433">
+-context : AlarmContext</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="372" x="15" y="443"/>
+<text font-family="Dialog" font-size="12" x="19" y="457">
+#AbstractAlarmState(id : AlarmStateId)</text>
+<text font-family="Dialog" font-size="12" x="19" y="473">
++process(context : AlarmContext)</text>
+<text font-family="Dialog" font-size="12" font-style="italic" x="19" y="489">
+#doProcess()</text>
+<text font-family="Dialog" font-size="12" x="19" y="505">
+#getContext()</text>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="199" x2="199" y1="380" y2="375"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="199" x2="199" y1="370" y2="365"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="199" x2="199" y1="360" y2="355"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="199" x2="199" y1="350" y2="345"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="199" x2="199" y1="340" y2="335"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="199" x2="199" y1="330" y2="325"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="199" x2="199" y1="320" y2="315"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="199" x2="199" y1="310" y2="305"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="199" x2="199" y1="300" y2="295"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="199" x2="199" y1="290" y2="285"/>
+<polygon fill="#ffffff" points="199,280 206,292 192,292" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="199,280 206,292 192,292" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="263,582 263,515" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="263,515 270,527 256,527" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="263,515 270,527 256,527" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="274,676 287,670 287,515" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="287,515 294,527 280,527" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="287,515 294,527 280,527" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="311,780 311,515" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="311,515 318,527 304,527" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="311,515 318,527 304,527" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="351,676 335,668 335,515" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="335,515 342,527 328,527" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="335,515 342,527 328,527" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="359,582 359,515" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="359,515 366,527 352,527" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="359,515 366,527 352,527" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="433,230 341,230" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="353" x2="341" y1="223" y2="230"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="353" x2="341" y1="237" y2="230"/>
+<text font-family="Dialog" font-size="12" x="356" y="210">
+ </text>
+<text font-family="Dialog" font-size="12" x="352" y="225">
+1</text>
+<polyline fill="none" points="708,222 759,222" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="747" x2="759" y1="229" y2="222"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="747" x2="759" y1="215" y2="222"/>
+<text font-family="Dialog" font-size="12" x="702" y="202">
+ </text>
+<text font-family="Dialog" font-size="12" x="733" y="217">
+0..*</text>
+<polyline fill="none" points="1055,382 1055,62 710,62" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="722" x2="710" y1="55" y2="62"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="722" x2="710" y1="69" y2="62"/>
+<text font-family="Dialog" font-size="12" x="1018" y="43">
+ </text>
+<text font-family="Dialog" font-size="12" x="721" y="57">
+1</text>
+<polyline fill="none" points="386,412 507,412" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="495" x2="507" y1="419" y2="412"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="495" x2="507" y1="405" y2="412"/>
+<text font-family="Dialog" font-size="12" x="415" y="392">
+ </text>
+<text font-family="Dialog" font-size="12" x="490" y="403">
+1</text>
+<polyline fill="none" points="47,380 47,62 431,62" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="419" x2="431" y1="69" y2="62"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="419" x2="431" y1="55" y2="62"/>
+<text font-family="Dialog" font-size="12" x="49" y="42">
+ </text>
+<text font-family="Dialog" font-size="12" x="412" y="57">
+1</text>
+</svg>

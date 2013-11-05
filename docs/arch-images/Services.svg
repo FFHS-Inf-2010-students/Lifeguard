@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="51cm" height="8cm" viewBox="53 63 1005 156" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="127" y="64" width="107.55" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="127" y="64" width="107.55" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="180.775" y="83">MainActivity</text>
+    <rect style="fill: #ffffff" x="127" y="92" width="107.55" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="127" y="92" width="107.55" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="518" y="64" width="112" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="518" y="64" width="112" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="574" y="83">AlarmService</text>
+    <rect style="fill: #ffffff" x="518" y="92" width="112" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="518" y="92" width="112" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="234.55,78 330,78 330,78 518,78 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="330" y="75">aktiviert</text>
+    <polygon style="fill: #000000" points="366.65,75 366.65,67 374.65,71 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="238.55" y="75"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="514" y="75"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="482" y="181.5" width="183.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="482" y="181.5" width="183.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="573.65" y="200.5">MoveDetectionService</text>
+    <rect style="fill: #ffffff" x="482" y="209.5" width="183.3" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="482" y="209.5" width="183.3" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="574,100 574,100 574,181.5 573.65,181.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="576" y="137.75">aktiviert</text>
+    <polygon style="fill: #000000" points="647.3,137.75 647.3,129.75 655.3,133.75 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="578" y="112"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="577.65" y="178.5"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="891" y="64.5" width="165.55" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="891" y="64.5" width="165.55" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="973.775" y="83.5">SMSAcceptorService</text>
+    <rect style="fill: #ffffff" x="891" y="92.5" width="165.55" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="891" y="92.5" width="165.55" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="630,78 711,78 711,78.5 891,78.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="713" y="75.25">aktiviert</text>
+    <polygon style="fill: #000000" points="784.3,75.25 784.3,67.25 792.3,71.25 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="634" y="75"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="887" y="75.5"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="54" y="177.5" width="237" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="54" y="177.5" width="237" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="172.5" y="196.5">MovementBroadcastReceiver</text>
+    <rect style="fill: #ffffff" x="54" y="205.5" width="237" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="54" y="205.5" width="237" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="291.993,195.5 382,195.5 382,195.5 482,195.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="382" y="192.5">Empfängt Nachricht von</text>
+    <polygon style="fill: #000000" points="468.7,192.5 468.7,184.5 476.7,188.5 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="295.993" y="192.5"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="478" y="192.5"/>
+  </g>
+</svg>
