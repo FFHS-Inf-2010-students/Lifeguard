@@ -7,8 +7,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * The application's main activity (aka home screen).
+ * 
+ * @author Thomas Aregger <thomas.aregger@students.ffhs.ch>
+ * @author Juerg Gutknecht <juerg.gutknecht@students.ffhs.ch>
+ *
+ */
 public class MainActivity extends Activity {
 
+	/*//////////////////////////////////////////////////////////////////////////
+	 * CREATION
+	 */
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,6 +32,11 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	
+	/*//////////////////////////////////////////////////////////////////////////
+	 * EVENT HANDLING
+	 */
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -36,16 +52,26 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	
+	/*//////////////////////////////////////////////////////////////////////////
+	 * ACTIONS
+	 */
+	
+	/**
+	 * Starts the configuration activity.
+	 */
 	public void openConfiguration() {
 		Log.d(MainActivity.class.toString(), "Open configuration...");
 		Intent intent = new Intent(this, ConfigurationActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Starts the contact list activity to display all available contacts.
+	 */
 	public void viewContacts() {
 		Log.d(MainActivity.class.toString(), "View contacts...");
 		Intent intent = new Intent(this, ContactListActivity.class);
 		startActivity(intent);
 	}
-
 }

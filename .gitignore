@@ -29,3 +29,7 @@ local.properties
 
 # Documentation
 docs/log.csv
+
+# VirtualParadigm
+docs/Lifeguard.vpp.*
+docs/Lifeguard.vpp~*

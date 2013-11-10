@@ -1,16 +1,33 @@
 package ch.ffhs.esa.lifeguard.service.state;
 
+/**
+ * 
+ * @author David Daniel <david.daniel@students.ffhs.ch>
+ *
+ */
 public class InitialState
     extends AbstractAlarmState
 {
-    @Override
-    protected void doProcess ()
-    {
-        // TODO Auto-generated method stub
-        
-    }
+    
+	/*//////////////////////////////////////////////////////////////////////////
+	 * PUBLIC INTERFACE
+	 */
+	
+	@Override
+	public AlarmStateId getId ()
+	{
+		return AlarmStateId.INIT;
+	}
 
-    @Override
-    public AlarmStateId getId ()
-    { return AlarmStateId.INIT; }
+	
+	/*//////////////////////////////////////////////////////////////////////////
+	 * PROTECTED OPERATIONS
+	 */
+
+	@Override
+	protected void doProcess ()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
