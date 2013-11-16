@@ -12,6 +12,8 @@ import android.util.Log;
 import ch.ffhs.esa.lifeguard.persistence.TableGateway;
 
 /**
+ * Contacts table gateway implementation
+ * 
  * @author Juerg Gutknecht <juerg.gutknecht@students.ffhs.ch>
  *
  */

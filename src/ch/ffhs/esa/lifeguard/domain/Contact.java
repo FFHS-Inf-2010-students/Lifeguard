@@ -1,6 +1,5 @@
 package ch.ffhs.esa.lifeguard.domain;
 
-import ch.ffhs.esa.lifeguard.persistence.Persistable;
 
 /**
  * Represents a single contact
@@ -47,7 +46,7 @@ public class Contact
 	 * @see ch.ffhs.esa.lifeguard.persistence.Persistable#setId(int)
 	 */
 	@Override
-	public Persistable setId(long id) {
+	public ContactInterface setId(long id) {
 		this.id = id;
 		return this;
 	}

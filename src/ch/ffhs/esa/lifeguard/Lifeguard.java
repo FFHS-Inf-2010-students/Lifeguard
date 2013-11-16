@@ -1,9 +1,14 @@
 package ch.ffhs.esa.lifeguard;
 
-import ch.ffhs.esa.lifeguard.persistence.DatabaseHelper;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import ch.ffhs.esa.lifeguard.domain.Configurations;
+import ch.ffhs.esa.lifeguard.domain.Contacts;
+import ch.ffhs.esa.lifeguard.persistence.DatabaseHelper;
+import ch.ffhs.esa.lifeguard.persistence.TableGatewayInterface;
 
 /**
  * Lifeguard application object
@@ -28,6 +33,7 @@ public class Lifeguard extends Application {
 	public void onCreate()
 	{
 		super.onCreate();
+		
 		databaseHelper = new DatabaseHelper(this);
 	}
 	
@@ -40,4 +46,13 @@ public class Lifeguard extends Application {
 		return databaseHelper;
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public static List<TableGatewayInterface> getTableGateways() {
+		List<TableGatewayInterface> gateways = new ArrayList<TableGatewayInterface>();
+		
+		gateways.add(new Contacts(databaseHelper));
+		gateways.add(new Configurations(databaseHelper));
+		
+		return gateways;
+	}
 }

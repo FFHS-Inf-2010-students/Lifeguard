@@ -4,8 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import ch.ffhs.esa.lifeguard.domain.Contacts;
-import ch.ffhs.esa.lifeguard.domain.ContactsInterface;
+import ch.ffhs.esa.lifeguard.Lifeguard;
 
 /**
  * @author Juerg Gutknecht <juerg.gutknecht@students.ffhs.ch>
@@ -44,10 +43,13 @@ public class DatabaseHelper
 	/* (non-Javadoc)
 	 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
 	 */
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		ContactsInterface contacts = new Contacts(this);
-		contacts.onCreate(db);
+		for (TableGatewayInterface gateway : Lifeguard.getTableGateways()) {
+			gateway.onCreate(db);
+		}
+		
 		Log.d("DatabaseHelper.onCreate", "db.isOpen: " + db.isOpen());
 		Log.d("DatabaseHelper.onCreate", "db.isDbLockedByCurrentThread: " + db.isDbLockedByCurrentThread());
 		Log.d("DatabaseHelper.onCreate", "db.isReadOnly: " + db.isReadOnly());
@@ -56,10 +58,11 @@ public class DatabaseHelper
 	/* (non-Javadoc)
 	 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)
 	 */
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		ContactsInterface contacts = new Contacts(this);
-		contacts.onUpgrade(db, 0, 0);
+		for (TableGatewayInterface gateway : Lifeguard.getTableGateways()) {
+			gateway.onUpgrade(db, DATABASE_VERSION-1 , DATABASE_VERSION);
+		}
 	}
-
 }

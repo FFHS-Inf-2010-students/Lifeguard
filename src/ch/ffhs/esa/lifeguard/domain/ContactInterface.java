@@ -3,7 +3,7 @@ package ch.ffhs.esa.lifeguard.domain;
 import ch.ffhs.esa.lifeguard.persistence.Persistable;
 
 /**
- * 
+ * Defines an interface for the Contact data type.
  * 
  * @author Juerg Gutknecht <juerg.gutknecht@students.ffhs.ch>
  *
