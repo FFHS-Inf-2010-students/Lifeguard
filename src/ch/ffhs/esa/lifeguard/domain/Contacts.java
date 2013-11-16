@@ -108,6 +108,8 @@ public class Contacts
 				int pos = this.getMaxPosition() + 1;
 				values.put(COLUMN_POSITION, pos);
 				id = this.getWritableDatabase().insert(this.getTable(), null, values);
+				object.setId(id);
+				object.setPosition(pos);
 			}
 		} catch (SQLiteException e) {
 			Log.e(Contacts.class.getName(), e.getMessage());

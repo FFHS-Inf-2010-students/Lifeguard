@@ -65,6 +65,10 @@ public class Contact
 	 */
 	@Override
 	public ContactInterface setName(String name) {
+		name = name.trim();
+		if (name.length() < 1) {
+			return this;
+		}
 		this.name = name;
 		return this;
 	}
@@ -82,6 +86,10 @@ public class Contact
 	 */
 	@Override
 	public ContactInterface setPhone(String phone) {
+		phone = phone.trim();
+		if (phone.length() < 3) {
+			return this;
+		}
 		this.phone = phone;
 		return this;
 	}
