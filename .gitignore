@@ -17,6 +17,7 @@ local.properties
 
 # Eclipse project files
 .classpath
+.project
 .settings
 
 # OS X files
@@ -28,3 +29,7 @@ local.properties
 
 # Documentation
 docs/log.csv
+
+# VirtualParadigm
+docs/Lifeguard.vpp.*
+docs/Lifeguard.vpp~*

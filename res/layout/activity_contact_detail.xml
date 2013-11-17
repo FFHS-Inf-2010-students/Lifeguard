@@ -32,17 +32,18 @@
         android:text="@string/contact_detail_label_phone" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/contactDetailPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="phone" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/contactDetailSaveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:onClick="saveContact"
         android:text="@string/contact_detail_label_save" />
 
 </LinearLayout>

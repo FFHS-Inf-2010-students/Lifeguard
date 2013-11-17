@@ -5,7 +5,7 @@ package ch.ffhs.esa.lifeguard.service.state;
  * @author David Daniel <david.daniel@students.ffhs.ch>
  *
  */
-public class AwaitingState
+public class TickingState
     extends AbstractAlarmState
 {
     
@@ -14,19 +14,20 @@ public class AwaitingState
 	 */
 	
 	@Override
-    public AlarmStateId getId ()
-    {
-		return AlarmStateId.AWAITING;
+	public AlarmStateId getId ()
+	{
+		return AlarmStateId.TICKING;
 	}
 	
 	
 	/*//////////////////////////////////////////////////////////////////////////
 	 * PROTECTED OPERATIONS
 	 */
-	
+
 	@Override
-    protected void doProcess ()
-    {
-        // TODO Auto-generated method stub
-    }
+	protected void doProcess ()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

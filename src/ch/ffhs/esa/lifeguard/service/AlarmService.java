@@ -9,13 +9,29 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+/**
+ * 
+ * @author David Daniel <david.daniel@students.ffhs.ch>
+ *
+ */
 public class AlarmService
     extends Service
     implements AlarmStateListener
 {
-    private AlarmContext context
+    
+	/*//////////////////////////////////////////////////////////////////////////
+	 * PROPERTIES
+	 */
+	
+	private AlarmContext context
         = new ServiceAlarmContext ();
 
+	
+	/*//////////////////////////////////////////////////////////////////////////
+	 * PUBLIC INTERFACE
+	 */
+	
+	@Override
     public void onCreate ()
     {
         context.setNext (new InitialState ());
@@ -23,20 +39,30 @@ public class AlarmService
     }
 
     public void onStart ()
-    { sendStatus (); }
+    {
+    	sendStatus ();
+	}
 
+    @Override
     public void onStateChanged (AlarmContext context)
     {
         sendStatus ();
         context.getState ().process (context);
     }
+    
+    @Override
+    public IBinder onBind (Intent intent)
+    {
+    	return null;
+    }
+    
+    
+    /*//////////////////////////////////////////////////////////////////////////
+	 * PRIVATE OPERATIONS
+	 */
 
     private void sendStatus ()
     {
         // @todo Send status via broadcast
     }
-
-    @Override
-    public IBinder onBind (Intent intent)
-    { return null; }
 }

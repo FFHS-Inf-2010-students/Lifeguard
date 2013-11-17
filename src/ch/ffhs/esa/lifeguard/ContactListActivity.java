@@ -1,5 +1,7 @@
 package ch.ffhs.esa.lifeguard;
 
+import java.util.List;
+
 import android.annotation.TargetApi;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -10,25 +12,46 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import ch.ffhs.esa.lifeguard.domain.Contact;
+import ch.ffhs.esa.lifeguard.domain.ContactInterface;
+import ch.ffhs.esa.lifeguard.domain.Contacts;
+import ch.ffhs.esa.lifeguard.domain.ContactsInterface;
+import ch.ffhs.esa.lifeguard.domain.ContactsListAdapter;
 
+/**
+ * Android activity to display a list of all available contacts.
+ * 
+ * @author Juerg Gutknecht <juerg.gutknecht@students.ffhs.ch>
+ * @author Thomas Aregger <thomas.aregger@students.ffhs.ch>
+ *
+ */
 public class ContactListActivity extends ListActivity {
 
 	static final String[] ENTRIES = {
 		"1. Jane Doe", "2. Hans Gseh", "3. Max Muster"
 	};
 	
+	/*//////////////////////////////////////////////////////////////////////////
+	 * PROPERTIES
+	 */
+	
+	private ContactsInterface dataSource;
+	
+	/*//////////////////////////////////////////////////////////////////////////
+	 * CREATION
+	 */
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		this.setListAdapter(
-			new ArrayAdapter<String>(
-				this, android.R.layout.simple_list_item_1, ENTRIES
-			)
-		);
+		
+		this.dataSource = new Contacts(Lifeguard.getDatabaseHelper());
+		
+		List<ContactInterface> contacts = this.dataSource.getAll();
+		this.setListAdapter(new ContactsListAdapter(this, contacts));
 	}
 
 	/**
@@ -48,17 +71,15 @@ public class ContactListActivity extends ListActivity {
 		return true;
 	}
 
+	
+	/*//////////////////////////////////////////////////////////////////////////
+	 * EVENT HANDLING
+	 */
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}
@@ -67,13 +88,13 @@ public class ContactListActivity extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
-		Log.d(ContactListActivity.class.toString(), String.valueOf(position));
+		
+		ContactInterface contact = (Contact)l.getItemAtPosition(position);
+
 		Intent intent = new Intent(this, ContactDetailActivity.class);
+		intent.putExtra("contact", contact);
+		
 		startActivity(intent);
 	}
-	
-	
-
 }
