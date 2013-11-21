@@ -71,7 +71,7 @@ public class Contacts
 		} catch (SQLiteException e) {
 			Log.d(Contacts.class.toString(), e.getMessage());
 		}
-	};
+	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
