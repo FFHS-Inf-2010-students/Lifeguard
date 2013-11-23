@@ -22,7 +22,7 @@ public class Configuration
 	 */
 	
 	private long id = 0;
-	
+	private int delay = 0;
 	
 	/*//////////////////////////////////////////////////////////////////////////
 	 * PUBLIC INTERFACE
@@ -30,8 +30,7 @@ public class Configuration
 	
 	@Override
 	public String toString() {
-		// TODO: Reasonable toString implementation
-		return "";
+		return "" + delay;
 	}
 	
 	/* (non-Javadoc)
@@ -53,14 +52,13 @@ public class Configuration
 
 	@Override
 	public int getDelay() {
-		// TODO Auto-generated method stub
-		return 0;
+		return delay;
 	}
 
 	@Override
 	public ConfigurationInterface setDelay(int delay) {
-		// TODO Auto-generated method stub
-		return null;
+		this.delay = delay;
+		return this;
 	}
 
 }
