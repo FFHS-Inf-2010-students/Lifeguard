@@ -5,6 +5,7 @@ package ch.ffhs.esa.lifeguard.domain;
  * Represents a single contact
  * 
  * @author Juerg Gutknecht <juerg.gutknecht@students.ffhs.ch>
+ * @author Thomas Aregger <thomas.aregger@students.ffhs.ch>
  *
  */
 public class Contact
@@ -18,12 +19,20 @@ public class Contact
 
 	private long id = 0;
 	
-	private String name = "";
+	private String name;
 	
-	private String phone = "";
+	private String phone;
 	
 	private int position = 0;
 	
+	public Contact(String name, String phone) {
+		this.name = name;
+		this.phone = phone;
+	}
+	
+	public Contact() {
+		this("","");
+	}
 	
 	/*//////////////////////////////////////////////////////////////////////////
 	 * PUBLIC INTERFACE

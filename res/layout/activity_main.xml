@@ -63,7 +63,8 @@
             android:background="@drawable/button_sos"
             android:text="@string/main_label_sos"
             android:textColor="#FFFFFF"
-            android:textSize="60sp" />
+            android:textSize="60sp"
+            android:longClickable="true" />
         
         <TextView
             android:id="@+id/textViewSOSButton"

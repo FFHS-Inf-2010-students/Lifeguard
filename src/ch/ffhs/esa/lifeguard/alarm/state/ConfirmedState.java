@@ -1,11 +1,11 @@
-package ch.ffhs.esa.lifeguard.service.state;
+package ch.ffhs.esa.lifeguard.alarm.state;
 
 /**
  * 
  * @author David Daniel <david.daniel@students.ffhs.ch>
  *
  */
-public class AwaitingState
+public class ConfirmedState
     extends AbstractAlarmState
 {
     
@@ -14,19 +14,19 @@ public class AwaitingState
 	 */
 	
 	@Override
-    public AlarmStateId getId ()
-    {
-		return AlarmStateId.AWAITING;
+	public AlarmStateId getId ()
+	{
+		return AlarmStateId.CONFIRMED;
 	}
 	
 	
 	/*//////////////////////////////////////////////////////////////////////////
 	 * PROTECTED OPERATIONS
 	 */
-	
+
 	@Override
-    protected void doProcess ()
-    {
-        // TODO Auto-generated method stub
-    }
+	protected void doProcess ()
+	{
+		// TODO Auto-generated method stub
+	}
 }

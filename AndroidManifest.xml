@@ -3,10 +3,10 @@
     package="ch.ffhs.esa.lifeguard"
     android:versionCode="1"
     android:versionName="1.0" >
-
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="11" />
+        android:minSdkVersion="14"
+        android:targetSdkVersion="14" />
 
     <application
         android:name="Lifeguard"
@@ -47,6 +47,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.ffhs.esa.lifeguard.ContactListActivity" />
         </activity>
+        <service
+            android:name="ch.ffhs.esa.lifeguard.alarm.AlarmService"/>
+       
     </application>
-
 </manifest>

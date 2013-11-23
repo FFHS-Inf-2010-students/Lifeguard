@@ -1,11 +1,11 @@
-package ch.ffhs.esa.lifeguard.service.state;
+package ch.ffhs.esa.lifeguard.alarm.state;
 
 /**
  * 
  * @author David Daniel <david.daniel@students.ffhs.ch>
  *
  */
-public class TickingState
+public class InitialState
     extends AbstractAlarmState
 {
     
@@ -16,9 +16,9 @@ public class TickingState
 	@Override
 	public AlarmStateId getId ()
 	{
-		return AlarmStateId.TICKING;
+		return AlarmStateId.INIT;
 	}
-	
+
 	
 	/*//////////////////////////////////////////////////////////////////////////
 	 * PROTECTED OPERATIONS

@@ -1,9 +1,9 @@
-package ch.ffhs.esa.lifeguard.service.context;
+package ch.ffhs.esa.lifeguard.alarm.context;
 
 import java.util.TreeSet;
 
-import ch.ffhs.esa.lifeguard.service.state.AlarmState;
-import ch.ffhs.esa.lifeguard.service.state.AlarmStateListener;
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
 
 /**
  * 

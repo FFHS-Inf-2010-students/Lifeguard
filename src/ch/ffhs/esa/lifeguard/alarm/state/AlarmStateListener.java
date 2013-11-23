@@ -1,6 +1,6 @@
-package ch.ffhs.esa.lifeguard.service.state;
+package ch.ffhs.esa.lifeguard.alarm.state;
 
-import ch.ffhs.esa.lifeguard.service.context.AlarmContext;
+import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
 
 /**
  * 

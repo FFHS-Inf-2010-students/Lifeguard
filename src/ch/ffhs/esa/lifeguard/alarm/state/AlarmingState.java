@@ -1,4 +1,4 @@
-package ch.ffhs.esa.lifeguard.service.state;
+package ch.ffhs.esa.lifeguard.alarm.state;
 
 /**
  * 
