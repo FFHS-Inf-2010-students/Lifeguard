@@ -12,7 +12,6 @@
     <string name="main_label_delay">Verbleibende Zeit</string>
     <string name="main_value_delay">00:10:00</string>
     <string name="main_label_sos">SOS</string>
-    <string name="main_label_sos_description">Halten Sie den Knopf für 5 Sekunden gedrückt um sofort einen Alarm auszulösen.</string>
     <string name="main_label_alarm_switch">Alarmierung bei Zeitüberschreitung</string>
     <string name="title_activity_contact_detail">Kontaktangaben</string>
     <string name="contact_detail_label_name">Name</string>

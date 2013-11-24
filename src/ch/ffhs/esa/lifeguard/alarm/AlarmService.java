@@ -5,6 +5,9 @@ import ch.ffhs.esa.lifeguard.alarm.context.ServiceAlarmContext;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmingState;
+import ch.ffhs.esa.lifeguard.alarm.state.AwaitingState;
+import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
+import ch.ffhs.esa.lifeguard.domain.Contact;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -19,6 +22,7 @@ import android.util.Log;
  */
 public class AlarmService extends Service implements AlarmStateListener {
     private final IBinder binder = new AlarmBinder();
+    private Contact lastNotifiedContact;
     
     
     /*//////////////////////////////////////////////////////////////////////////
@@ -36,6 +40,7 @@ public class AlarmService extends Service implements AlarmStateListener {
     public void onCreate ()
     {
         Log.d(AlarmService.class.toString(), "Service Started");
+        alarmContext.setNext(new InitialState());
     }
 
     public void onStart ()
@@ -60,9 +65,38 @@ public class AlarmService extends Service implements AlarmStateListener {
         return alarmContext.getState();
     }
     
-    public void doAlarm() {
-        alarmContext.setNext(new AlarmingState());
-        alarmContext.getState().process(alarmContext, getBaseContext());
+    public void doManualAlarm() {
+        if ( isAlarmingState() ) {
+            Log.d(this.getClass().toString(), "Already alarmed.");
+        } else {
+            alarmContext.setNext(new AlarmingState());
+            alarmContext.getState().process(alarmContext, getBaseContext());
+            lastNotifiedContact = ((AlarmingState) alarmContext.getState()).getLastNotifiedContact();
+            alarmContext.setNext(new AwaitingState());
+            alarmContext.getState().process(alarmContext, getBaseContext());
+        }
+       
+    }
+    
+    public String getAlarmButtonMsg() {
+        if ( alarmContext.getState().getClass() == AlarmingState.class ) {
+            return lastNotifiedContact.getName() + " wurde alarmiert.";
+        } else if (alarmContext.getState().getClass() == AwaitingState.class ) {
+            return lastNotifiedContact.getName() + " wurde bereits alarmiert.";
+        } else {
+            return "Halten Sie den Knopf für 5 Sekunden gedrückt um sofort einen Alarm auszulösen.";
+        }
+        
+    }
+    
+    private boolean isAlarmingState() {
+        if ( alarmContext.getState().getClass() == AlarmingState.class
+                || alarmContext.getState().getClass() == AwaitingState.class) {
+            return true;
+        } else {
+            return false;
+        }
+        
     }
     
     
