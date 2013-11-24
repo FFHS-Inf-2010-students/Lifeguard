@@ -49,7 +49,7 @@ public class Configurations
 				     + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
 				     + ", " + COLUMN_DELAY + " INTEGER NOT NULL"
 				     + ");";
-			Log.d(Configurations.class.toString(), "Creating table...");
+			Log.d(Configurations.class.toString(), "Creating table " + this.getTable());
 			Log.d(Configurations.class.toString(), query);
 			db.execSQL(query);
 			Log.d(Configurations.class.toString(), "Table created.");
@@ -65,10 +65,10 @@ public class Configurations
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Log.d(Configurations.class.toString(), "onUpdate...");
-		Log.d(Configurations.class.toString(), "Dropping table if exists...");
+		Log.d(Configurations.class.toString(), "onUpgrade...");
+		Log.d(Configurations.class.toString(), "Dropping table " + this.getTable() + " if it exists...");
 		db.execSQL("DROP TABLE IF EXISTS " + this.getTable());
-		Log.d(Configurations.class.toString(), "Table dropped.");
+		Log.d(Configurations.class.toString(), "Table " + this.getTable() + " dropped.");
 		this.onCreate(db);
 		
 	}
@@ -98,6 +98,8 @@ public class Configurations
 			} else {
 				// TODO not supporting more than one configuration entry 
 				// at the moment
+				id = this.getWritableDatabase().insert(this.getTable(), null, values);
+				object.setId(id);
 			}
 		} catch (SQLiteException e) {
 			Log.e(Contacts.class.getName(), e.getMessage());

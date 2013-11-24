@@ -22,8 +22,9 @@ public class Configuration
 	 */
 	
 	private long id = 0;
-	private int delay = 0;
-	
+	private static final int DEFAULT_DELAY = 60;
+	private int delay = DEFAULT_DELAY;
+
 	/*//////////////////////////////////////////////////////////////////////////
 	 * PUBLIC INTERFACE
 	 */
@@ -57,7 +58,8 @@ public class Configuration
 
 	@Override
 	public ConfigurationInterface setDelay(int delay) {
-		this.delay = delay;
+		if (delay == 0) this.delay = DEFAULT_DELAY;
+		else this.delay = delay;
 		return this;
 	}
 

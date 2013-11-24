@@ -59,10 +59,10 @@ public class Contacts
 				     + ", " + COLUMN_PHONE + " TEXT NOT NULL"
 				     + ", " + COLUMN_POSITION + " UNSIGNED INTEGER NOT NULL DEFAULT 0"
 				     + ");";
-			Log.d(Contacts.class.toString(), "Creating table...");
+			Log.d(Contacts.class.toString(), "Creating table " + this.getTable() + "...");
 			Log.d(Contacts.class.toString(), query);
 			db.execSQL(query);
-			Log.d(Contacts.class.toString(), "Table created.");
+			Log.d(Contacts.class.toString(), "Table " + this.getTable() + " created.");
 			
 			Log.d(Contacts.class.toString(), "Inserting test data...");
 			db.execSQL("INSERT INTO " + this.getTable() + " (name, phone, position) VALUES ('Thomas Aregger', '+41794198461', 1);");
@@ -76,10 +76,10 @@ public class Contacts
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Log.d(Contacts.class.toString(), "onUpdate...");
-		Log.d(Contacts.class.toString(), "Dropping table if exists...");
+		Log.d(Contacts.class.toString(), "onUpgrade...");
+		Log.d(Contacts.class.toString(), "Dropping table " + this.getTable() + " if exists...");
 		db.execSQL("DROP TABLE IF EXISTS " + this.getTable());
-		Log.d(Contacts.class.toString(), "Table dropped.");
+		Log.d(Contacts.class.toString(), "Table " + this.getTable() + " dropped.");
 		this.onCreate(db);
 	}
 
