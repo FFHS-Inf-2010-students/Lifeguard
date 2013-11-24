@@ -1,5 +1,6 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
+import android.content.Context;
 import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
 
 /**
@@ -15,7 +16,8 @@ public abstract class AbstractAlarmState
 	 * PROPERTIES
 	 */
 	
-	private AlarmContext context;
+	private AlarmContext alarmContext;
+	protected Context serviceContext;
 
 	
 	/*//////////////////////////////////////////////////////////////////////////
@@ -24,19 +26,20 @@ public abstract class AbstractAlarmState
 	
     public AbstractAlarmState setContext (AlarmContext context)
     {
-        this.context = context;
+        this.alarmContext = context;
         return this;
     }
 
     public AlarmContext getContext ()
     {
-    	return context;
+    	return alarmContext;
     }
 
     @Override
-    public void process (AlarmContext context)
+    public void process (AlarmContext alarmContext, Context serviceContext)
     {
-    	setContext (context).doProcess ();
+        this.serviceContext = serviceContext;
+    	setContext (alarmContext).doProcess ();
     }
 
     

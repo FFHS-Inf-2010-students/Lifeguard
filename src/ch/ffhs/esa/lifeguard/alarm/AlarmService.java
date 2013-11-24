@@ -1,25 +1,15 @@
 package ch.ffhs.esa.lifeguard.alarm;
 
-import java.util.ArrayList;
-
-import ch.ffhs.esa.lifeguard.MainActivity;
 import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
 import ch.ffhs.esa.lifeguard.alarm.context.ServiceAlarmContext;
-import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
-import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
-import ch.ffhs.esa.lifeguard.domain.Contact;
-import android.app.PendingIntent;
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmingState;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.telephony.SmsManager;
-import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * 
@@ -28,15 +18,14 @@ import android.widget.Toast;
  *
  */
 public class AlarmService extends Service implements AlarmStateListener {
-    private AlarmStateId alarmState;
     private final IBinder binder = new AlarmBinder();
-    private String alarmMessage;
+    
     
     /*//////////////////////////////////////////////////////////////////////////
      * PROPERTIES
      */
     
-    private AlarmContext context = new ServiceAlarmContext ();
+    private AlarmContext alarmContext = new ServiceAlarmContext ();
     
     
     /*//////////////////////////////////////////////////////////////////////////
@@ -46,17 +35,7 @@ public class AlarmService extends Service implements AlarmStateListener {
     @Override
     public void onCreate ()
     {
-        /*context.setNext (new InitialState ());
-        context.addListener (this);*/
-        alarmState = AlarmStateId.INIT;
         Log.d(AlarmService.class.toString(), "Service Started");
-        
-        // TODO How to get own name? Make own activity where user can configure his name?
-        // (TelephonyManager.TelephonyManager) is not reliable for getting phone number
-        String myName = "Hans Wurst";
-        
-        alarmMessage = myName + " needs help!";
-        
     }
 
     public void onStart ()
@@ -69,7 +48,7 @@ public class AlarmService extends Service implements AlarmStateListener {
     public void onStateChanged (AlarmContext context)
     {
         sendStatus ();
-        context.getState ().process (context);
+        context.getState ().process (context, getBaseContext());
     }
     
     @Override
@@ -77,42 +56,15 @@ public class AlarmService extends Service implements AlarmStateListener {
         return binder;
     }
     
-    public AlarmStateId getState() {
-        //return this.alarmState;
-        return AlarmStateId.INIT;
+    public AlarmState getState() {
+        return alarmContext.getState();
     }
     
-    public boolean doAlarm() {
-        //TODO Get next contact eligible for alarming (from DB or somewhere)
-        notifyRecipient(new Contact("Thomas Aregger", "+41794198461"));
-        return true;
+    public void doAlarm() {
+        alarmContext.setNext(new AlarmingState());
+        alarmContext.getState().process(alarmContext, getBaseContext());
     }
     
-    
-    private void notifyRecipient(Contact recipient) {
-        String phoneNumber = recipient.getPhone();
-        
-        ArrayList<PendingIntent> sentPendingIntents = new ArrayList<PendingIntent>();
-        ArrayList<PendingIntent> deliveredPendingIntents = new ArrayList<PendingIntent>();
-        PendingIntent sentPI = PendingIntent.getBroadcast(getBaseContext(), 0, new Intent(getBaseContext(), SmsSentReceiver.class), 0);
-        PendingIntent deliveredPI = PendingIntent.getBroadcast(getBaseContext(), 0, new Intent(getBaseContext(), SmsDeliveredReceiver.class), 0);
-        try {
-            SmsManager sms = SmsManager.getDefault();
-            ArrayList<String> mSMSMessage = sms.divideMessage(alarmMessage);
-            for (int i = 0; i < mSMSMessage.size(); i++) {
-                sentPendingIntents.add(i, sentPI);
-                deliveredPendingIntents.add(i, deliveredPI);
-            }
-            sms.sendMultipartTextMessage(phoneNumber, null, mSMSMessage,
-                    sentPendingIntents, deliveredPendingIntents);
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            Toast.makeText(getBaseContext(), "SMS sending failed...",Toast.LENGTH_SHORT).show();
-        }
-
-    }
     
     /*//////////////////////////////////////////////////////////////////////////
      * PRIVATE OPERATIONS

@@ -47,6 +47,7 @@ public class MainActivity extends Activity {
         
         Button sosButton = (Button) findViewById(R.id.SOSButton);
 
+        // TODO 5sec Click
         sosButton.setOnLongClickListener(new OnLongClickListener() { 
                 @Override
                 public boolean onLongClick(View v) {
@@ -62,7 +63,7 @@ public class MainActivity extends Activity {
         super.onStart();
                 
         if ( alarmService == null ) {
-            Log.d(MainActivity.class.toString(), "Service not started yet.");
+            Log.d(MainActivity.class.toString(), "AlarmService not started yet.");
         } else {
             Log.d(MainActivity.class.toString(), alarmService.getState().toString());
         }

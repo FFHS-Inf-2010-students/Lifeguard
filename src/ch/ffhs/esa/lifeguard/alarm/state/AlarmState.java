@@ -1,5 +1,6 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
+import android.content.Context;
 import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
 
 /**
@@ -9,7 +10,7 @@ import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
  */
 public interface AlarmState
 {
-	public void process (AlarmContext context);
+	public void process (AlarmContext alarmContext, Context serviceContext);
 
     public AlarmStateId getId ();
 }
