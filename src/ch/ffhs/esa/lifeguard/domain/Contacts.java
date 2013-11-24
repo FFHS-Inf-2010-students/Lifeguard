@@ -65,8 +65,9 @@ public class Contacts
 			Log.d(Contacts.class.toString(), "Table created.");
 			
 			Log.d(Contacts.class.toString(), "Inserting test data...");
-			db.execSQL("INSERT INTO " + this.getTable() + " (name, phone, position) VALUES ('Jane Doe', '0123456789', 1);");
-			db.execSQL("INSERT INTO " + this.getTable() + " (name, phone, position) VALUES ('John Doe', '0234567890', 2);");
+			db.execSQL("INSERT INTO " + this.getTable() + " (name, phone, position) VALUES ('Thomas Aregger', '+41794198461', 1);");
+			db.execSQL("INSERT INTO " + this.getTable() + " (name, phone, position) VALUES ('Jane Doe', '0123456789', 2);");
+			db.execSQL("INSERT INTO " + this.getTable() + " (name, phone, position) VALUES ('John Doe', '0234567890', 3);");
 			Log.d(Contacts.class.toString(), "Test data inserted.");
 		} catch (SQLiteException e) {
 			Log.d(Contacts.class.toString(), e.getMessage());

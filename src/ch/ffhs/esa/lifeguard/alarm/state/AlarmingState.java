@@ -1,10 +1,11 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
 import java.util.ArrayList;
-
+import ch.ffhs.esa.lifeguard.Lifeguard;
 import ch.ffhs.esa.lifeguard.alarm.SmsDeliveredReceiver;
 import ch.ffhs.esa.lifeguard.alarm.SmsSentReceiver;
 import ch.ffhs.esa.lifeguard.domain.Contact;
+import ch.ffhs.esa.lifeguard.domain.Contacts;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.telephony.SmsManager;
@@ -19,12 +20,20 @@ import android.widget.Toast;
 public class AlarmingState extends AbstractAlarmState {
     // TODO How to get own name? Make own activity where user can configure his name?
     // (TelephonyManager.TelephonyManager) is not reliable for getting phone number
-    String myName = "Hans Wurst";
-    String alarmMessage = myName + " needs help!";
+    private String myName = "Hans Wurst";
+    private String alarmMessage = myName + " needs help!";
+    private Object[]  contactList;
+    private int contactPosition;
 
     /*//////////////////////////////////////////////////////////////////////////
 	 * PUBLIC INTERFACE
 	 */
+    
+    public AlarmingState() {
+        super();
+        contactList = new Contacts(Lifeguard.getDatabaseHelper()).getAll().toArray();
+        contactPosition = -1;
+    }
 	
 	@Override
     public AlarmStateId getId ()
@@ -39,14 +48,28 @@ public class AlarmingState extends AbstractAlarmState {
 	
     @Override
     protected void doProcess () {
-        //TODO Get next contact eligible for alarming (from DB or somewhere)
-        notifyRecipient(new Contact("Thomas Aregger", "+41794198461"));
         Log.d(this.getClass().toString(), "doProcess ALarmingState");
+        try {
+            Contact recipient = getNextContact();
+            Log.d(this.getClass().toString(), "Try to notify " + recipient.getName()
+                    + " (" + recipient.getPhone() + ")" );
+            notifyRecipient(recipient);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // TODO maybe inform listeners
+            Log.d(this.getClass().toString(), "All contacts already alarmed" + e);
+        }
     }
     
-    /*public void setContext(Context context) {
-        this.context = context;
-    }*/
+
+    private Contact getNextContact() throws ArrayIndexOutOfBoundsException {
+        contactPosition++;
+        return (Contact) contactList[contactPosition];
+    }
+    
+    public Contact getLastNotifiedContact() {
+        return (Contact) contactList[contactPosition];
+    }
+    
     
     private void notifyRecipient(Contact recipient) {
         String phoneNumber = recipient.getPhone();

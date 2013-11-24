@@ -9,13 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import ch.ffhs.esa.lifeguard.alarm.AlarmService;
 import ch.ffhs.esa.lifeguard.alarm.AlarmService.AlarmBinder;
-import ch.ffhs.esa.lifeguard.domain.Contact;
 
 /**
  * The application's main activity (aka home screen).
@@ -52,7 +52,8 @@ public class MainActivity extends Activity {
                 @Override
                 public boolean onLongClick(View v) {
                     Log.d(MainActivity.class.toString(), "Long Click");
-                    alarmService.doAlarm();
+                    alarmService.doManualAlarm();
+                    ((TextView) findViewById(R.id.textViewSOSButton)).setText(alarmService.getAlarmButtonMsg());
                     return true;
                 }
             });
