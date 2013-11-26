@@ -11,41 +11,44 @@ import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
 public abstract class AbstractAlarmState
     implements AlarmState
 {
-    
-	/*//////////////////////////////////////////////////////////////////////////
-	 * PROPERTIES
-	 */
-	
-	private AlarmContext alarmContext;
-	protected Context serviceContext;
+    /*
+     * //////////////////////////////////////////////////////////////////////////
+     * PROPERTIES
+     */
 
-	
-	/*//////////////////////////////////////////////////////////////////////////
-	 * PUBLIC INTERFACE
-	 */
-	
-    public AbstractAlarmState setContext (AlarmContext context)
+    private AlarmContext alarmContext;
+
+    /*
+     * //////////////////////////////////////////////////////////////////////////
+     * PUBLIC INTERFACE
+     */
+
+    @Override
+    public void process (AlarmContext alarmContext)
+    {
+    	setContext (alarmContext).doProcess ();
+    }
+
+    /*
+     * //////////////////////////////////////////////////////////////////////////
+     * PROTECTED OPERATIONS
+     */
+
+    protected AbstractAlarmState setContext (AlarmContext context)
     {
         this.alarmContext = context;
         return this;
     }
 
-    public AlarmContext getContext ()
+    protected AlarmContext getContext ()
     {
     	return alarmContext;
     }
 
-    @Override
-    public void process (AlarmContext alarmContext, Context serviceContext)
+    protected Context getServiceContext ()
     {
-        this.serviceContext = serviceContext;
-    	setContext (alarmContext).doProcess ();
+        return alarmContext.getBaseContext ();
     }
 
-    
-    /*//////////////////////////////////////////////////////////////////////////
-	 * PROTECTED OPERATIONS
-	 */
-    
     protected abstract void doProcess ();
 }

@@ -2,8 +2,10 @@ package ch.ffhs.esa.lifeguard.alarm.context;
 
 import java.util.TreeSet;
 
+import android.content.Context;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
+import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
 
 /**
  * 
@@ -23,16 +25,31 @@ public class ServiceAlarmContext
 
     private AlarmState current = null;
 
+    private Context serviceContext;
+
     
     /*//////////////////////////////////////////////////////////////////////////
 	 * PUBLIC INTERFACE
 	 */
-    
+
+    public ServiceAlarmContext (Context serviceContext)
+    {
+        this.serviceContext = serviceContext;
+        current = new InitialState ();
+    }
+
+    @Override
+    public Context getBaseContext ()
+    {
+        return serviceContext;
+    }
+
     @Override
     public void setNext (AlarmState state)
     {
         current = state;
         notifyListeners ();
+        current.process (this);
     }
 
     @Override

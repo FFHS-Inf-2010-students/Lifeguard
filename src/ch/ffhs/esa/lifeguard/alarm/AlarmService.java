@@ -29,7 +29,7 @@ public class AlarmService extends Service implements AlarmStateListener {
      * PROPERTIES
      */
     
-    private AlarmContext alarmContext = new ServiceAlarmContext ();
+    private AlarmContext alarmContext = new ServiceAlarmContext (this.getBaseContext ());
     
     
     /*//////////////////////////////////////////////////////////////////////////
@@ -40,7 +40,6 @@ public class AlarmService extends Service implements AlarmStateListener {
     public void onCreate ()
     {
         Log.d(AlarmService.class.toString(), "Service Started");
-        alarmContext.setNext(new InitialState());
     }
 
     public void onStart ()
@@ -53,7 +52,6 @@ public class AlarmService extends Service implements AlarmStateListener {
     public void onStateChanged (AlarmContext context)
     {
         sendStatus ();
-        context.getState ().process (context, getBaseContext());
     }
     
     @Override
@@ -70,10 +68,10 @@ public class AlarmService extends Service implements AlarmStateListener {
             Log.d(this.getClass().toString(), "Already alarmed.");
         } else {
             alarmContext.setNext(new AlarmingState());
-            alarmContext.getState().process(alarmContext, getBaseContext());
+            alarmContext.getState().process(alarmContext);
             lastNotifiedContact = ((AlarmingState) alarmContext.getState()).getLastNotifiedContact();
             alarmContext.setNext(new AwaitingState());
-            alarmContext.getState().process(alarmContext, getBaseContext());
+            alarmContext.getState().process(alarmContext);
         }
        
     }
@@ -84,7 +82,7 @@ public class AlarmService extends Service implements AlarmStateListener {
         } else if (alarmContext.getState().getClass() == AwaitingState.class ) {
             return lastNotifiedContact.getName() + " wurde bereits alarmiert.";
         } else {
-            return "Halten Sie den Knopf fŸr 5 Sekunden gedrŸckt um sofort einen Alarm auszulšsen.";
+            return "Halten Sie den Knopf fï¿½r 5 Sekunden gedrï¿½ckt um sofort einen Alarm auszulï¿½sen.";
         }
         
     }
