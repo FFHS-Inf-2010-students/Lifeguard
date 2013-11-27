@@ -31,6 +31,16 @@ public class AlarmingState extends AbstractAlarmState {
      * PUBLIC INTERFACE
      */
 
+    public AlarmingState ()
+    {
+        this (-1);
+    }
+
+    public AlarmingState (int contactIndex)
+    {
+        this.contactPosition = contactIndex;
+    }
+
 	@Override
     public AlarmStateId getId ()
     {
@@ -45,24 +55,33 @@ public class AlarmingState extends AbstractAlarmState {
     @Override
     protected void doProcess () {
         contactList = new Contacts(Lifeguard.getDatabaseHelper()).getAll().toArray();
-        contactPosition = -1;
+        Contact recipient = null;
         Log.d(this.getClass().toString(), "doProcess ALarmingState");
         try {
-            Contact recipient = getNextContact();
+            recipient = getNextContact();
             Log.d(this.getClass().toString(), "Try to notify " + recipient.getName()
                     + " (" + recipient.getPhone() + ")" );
             notifyRecipient(recipient);
         } catch (ArrayIndexOutOfBoundsException e) {
             // TODO maybe inform listeners
-            Log.d(this.getClass().toString(), "All contacts already alarmed" + e);
+            Log.d(this.getClass().toString(), "Cannot notify the recipient of the alarm: " + e);
+            recipient = null;
         }
 
-        getContext ().setNext (new AwaitingState ());
+        if (recipient != null) {
+            getContext ().setNext (
+                    new AwaitingState (recipient.getPhone (), contactPosition));
+        }
     }
     
 
     private Contact getNextContact() throws ArrayIndexOutOfBoundsException {
         contactPosition++;
+        if (contactPosition >= contactList.length) {
+            /* Circulate through all contacts over and over, help is needed! */
+            contactPosition = 0;
+        }
+
         return (Contact) contactList[contactPosition];
     }
     

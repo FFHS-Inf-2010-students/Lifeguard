@@ -8,25 +8,26 @@ package ch.ffhs.esa.lifeguard.alarm.state;
 public class ConfirmedState
     extends AbstractAlarmState
 {
-    
-	/*//////////////////////////////////////////////////////////////////////////
-	 * PUBLIC INTERFACE
-	 */
-	
-	@Override
-	public AlarmStateId getId ()
-	{
-		return AlarmStateId.CONFIRMED;
-	}
-	
-	
-	/*//////////////////////////////////////////////////////////////////////////
-	 * PROTECTED OPERATIONS
-	 */
+    /*//////////////////////////////////////////////////////////////////////////
+     * PUBLIC INTERFACE
+     */
 
-	@Override
-	protected void doProcess ()
-	{
-		// TODO Auto-generated method stub
-	}
+    // public ConfirmedState (String rescuerNumber)
+
+
+    @Override
+    public AlarmStateId getId ()
+    {
+        return AlarmStateId.CONFIRMED;
+    }
+
+    /*//////////////////////////////////////////////////////////////////////////
+     * PROTECTED OPERATIONS
+     */
+
+    @Override
+    protected void doProcess ()
+    {
+        // TODO Auto-generated method stub
+    }
 }

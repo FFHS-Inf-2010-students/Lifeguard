@@ -69,7 +69,7 @@ public class AlarmService extends Service implements AlarmStateListener {
             alarmContext.setNext(new AlarmingState());
             alarmContext.getState().process(alarmContext);
             lastNotifiedContact = ((AlarmingState) alarmContext.getState()).getLastNotifiedContact();
-            alarmContext.setNext(new AwaitingState());
+            alarmContext.setNext(new AwaitingState(lastNotifiedContact.getPhone (), 0));
             alarmContext.getState().process(alarmContext);
         }
        
