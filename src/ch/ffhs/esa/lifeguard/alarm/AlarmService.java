@@ -6,7 +6,6 @@ import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmingState;
 import ch.ffhs.esa.lifeguard.alarm.state.AwaitingState;
-import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
 import ch.ffhs.esa.lifeguard.domain.Contact;
 import android.app.Service;
 import android.content.Intent;
@@ -39,13 +38,13 @@ public class AlarmService extends Service implements AlarmStateListener {
     @Override
     public void onCreate ()
     {
-        Log.d(AlarmService.class.toString(), "Service Started");
+        Log.d(AlarmService.class.toString(), "Service created");
     }
 
     public void onStart ()
     {
-        Log.d(AlarmService.class.toString(), "On start");
-        //sendStatus ();
+        Log.d(AlarmService.class.toString(), "Service on start");
+        sendStatus ();
     }
 
     @Override
@@ -104,7 +103,10 @@ public class AlarmService extends Service implements AlarmStateListener {
 
     private void sendStatus ()
     {
-        // @todo Send status via broadcast
+        Intent intent = new Intent (ServiceMessage.CURRENT_SERVICE_STATE);
+        AlarmState state = alarmContext.getState ();
+        intent.putExtra ("stateId", state.getId ().toString ());
+        alarmContext.getBaseContext ().sendBroadcast (intent);
     }
     
     public class AlarmBinder extends Binder {

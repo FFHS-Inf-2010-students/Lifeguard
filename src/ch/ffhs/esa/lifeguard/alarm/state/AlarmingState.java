@@ -56,6 +56,8 @@ public class AlarmingState extends AbstractAlarmState {
             // TODO maybe inform listeners
             Log.d(this.getClass().toString(), "All contacts already alarmed" + e);
         }
+
+        getContext ().setNext (new AwaitingState ());
     }
     
 
