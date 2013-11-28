@@ -4,9 +4,9 @@ import android.content.Context;
 import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
 
 /**
+ * Base for an alarm state.
  * 
  * @author David Daniel <david.daniel@students.ffhs.ch>
- *
  */
 public abstract class AbstractAlarmState
     implements AlarmState
@@ -28,6 +28,10 @@ public abstract class AbstractAlarmState
     {
     	setContext (alarmContext).doProcess ();
     }
+
+    @Override
+    public void cancel ()
+    {}
 
     /*
      * //////////////////////////////////////////////////////////////////////////

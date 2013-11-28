@@ -1,9 +1,9 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
 /**
+ * Handles the confirmation of the rescuers reply.
  * 
  * @author David Daniel <david.daniel@students.ffhs.ch>
- *
  */
 public class ConfirmedState
     extends AbstractAlarmState

@@ -64,6 +64,12 @@ public class ServiceAlarmContext
     	listeners.add (listener);
     }
 
+    @Override
+    public void cancel ()
+    {
+        current.cancel ();
+        current = new InitialState ();
+    }
     
     /*//////////////////////////////////////////////////////////////////////////
 	 * PROTECTED OPERATIONS

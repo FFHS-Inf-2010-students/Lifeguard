@@ -10,12 +10,18 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import ch.ffhs.esa.lifeguard.alarm.AlarmService;
+import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.alarm.AlarmService.AlarmBinder;
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
+import ch.ffhs.esa.lifeguard.ui.InitialView;
+import ch.ffhs.esa.lifeguard.ui.ViewStateStrategy;
 
 /**
  * The application's main activity (aka home screen).
@@ -28,6 +34,11 @@ public class MainActivity extends Activity {
     AlarmService alarmService;
     boolean bound = false;
 
+    private BroadcastReceiver stateChangeReceiver = new BroadcastReceiver () {
+        public void onReceive (Context context, Intent intent)
+        { onStateChanged (intent); }
+    };
+
     /*//////////////////////////////////////////////////////////////////////////
      * CREATION
      */
@@ -36,15 +47,19 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
+        registerReceiver (
+                stateChangeReceiver,
+                new IntentFilter (ServiceMessage.CURRENT_SERVICE_STATE));
+
         Intent intent = new Intent(this, AlarmService.class);
         Log.d(MainActivity.class.toString(), "Start Service");
         startService(intent);
-        
+
         Log.d(MainActivity.class.toString(), "Before Bind");
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
         Log.d(MainActivity.class.toString(), "After Bind");
-        
+
         Button sosButton = (Button) findViewById(R.id.SOSButton);
 
         // TODO 5sec Click
@@ -52,8 +67,8 @@ public class MainActivity extends Activity {
                 @Override
                 public boolean onLongClick(View v) {
                     Log.d(MainActivity.class.toString(), "Long Click");
-                    alarmService.doManualAlarm();
-                    ((TextView) findViewById(R.id.textViewSOSButton)).setText(alarmService.getAlarmButtonMsg());
+                    triggerManualAlarm ();
+//                    ((TextView) findViewById(R.id.textViewSOSButton)).setText(alarmService.getAlarmButtonMsg());
                     return true;
                 }
             });
@@ -66,7 +81,7 @@ public class MainActivity extends Activity {
         if ( alarmService == null ) {
             Log.d(MainActivity.class.toString(), "AlarmService not started yet.");
         } else {
-            Log.d(MainActivity.class.toString(), alarmService.getState().toString());
+//            Log.d(MainActivity.class.toString(), alarmService.getState().toString());
         }
     }
     
@@ -95,7 +110,12 @@ public class MainActivity extends Activity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    
+
+    @Override
+    public void onDestroy ()
+    {
+        unregisterReceiver (stateChangeReceiver);
+    }
     
     /*//////////////////////////////////////////////////////////////////////////
      * ACTIONS
@@ -132,4 +152,39 @@ public class MainActivity extends Activity {
             bound = false;
         }
     };
+
+    private void triggerManualAlarm ()
+    {
+        sendBroadcast (new Intent (ActivityMessage.MANUAL_ALARM));
+    }
+
+    private void triggerManualCancel ()
+    {
+        sendBroadcast (new Intent (ActivityMessage.CANCEL_OPERATION));
+    }
+
+    private void onStateChanged (Intent intent)
+    {
+        ViewStateStrategy strategy = null;
+
+        Bundle bundle = intent.getExtras ();
+        AlarmStateId current = AlarmStateId.valueOf (
+                AlarmStateId.class,
+                bundle.get ("stateId").toString ());
+
+        switch (current) {
+        case INIT:
+            strategy = new InitialView ();
+            break;
+        case TICKING:
+        case ALARMING:
+        case AWAITING:
+        case CONFIRMED:
+            break;
+        }
+
+        if (strategy != null) {
+            strategy.handleUi (this, intent);
+        }
+    }
 }

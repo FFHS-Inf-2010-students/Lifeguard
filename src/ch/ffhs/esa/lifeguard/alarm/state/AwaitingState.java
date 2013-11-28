@@ -12,21 +12,23 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 
 /**
+ * Awaiting the reply from the rescuer.
+ *
  * @author David Daniel <david.daniel@students.ffhs.ch>
  */
 public class AwaitingState extends AbstractAlarmState
 {
-    private class ReplyReceiver
+    private class SmsReceiver
         extends BroadcastReceiver
     {
         @Override
         public void onReceive (Context context, Intent intent)
-        { receiveReply (context, intent); }
+        { receiveSms (context, intent); }
     }
 
-    private ReplyReceiver replyReceiver = new ReplyReceiver ();
+    private SmsReceiver smsReceiver = new SmsReceiver ();
 
-    private String rescueNumber;
+    private String rescuerNumber;
 
     private int contactIndex;
 
@@ -37,9 +39,16 @@ public class AwaitingState extends AbstractAlarmState
      * PUBLIC INTERFACE
      */
 
-    public AwaitingState (String rescueNumber, int contactIndex)
+    /**
+     * Creates a new awaiting state with the given phone number and the
+     * corresponding contact index.
+     * @param rescuerNumber the phone number of the rescuer
+     * @param contactIndex the index of the corresponding contact within the
+     *                     contact list
+     */
+    public AwaitingState (String rescuerNumber, int contactIndex)
     {
-        this.rescueNumber = rescueNumber;
+        this.rescuerNumber = rescuerNumber;
         this.contactIndex = contactIndex;
     }
 
@@ -49,10 +58,14 @@ public class AwaitingState extends AbstractAlarmState
         return AlarmStateId.AWAITING;
     }
 
+    /**
+     * Cancels the listening on sms arrivals and the timeout.
+     */
+    @Override
     public void cancel ()
     {
         Context base = getContext ().getBaseContext ();
-        base.unregisterReceiver (replyReceiver);
+        base.unregisterReceiver (smsReceiver);
         if (timer != null) {
             timer.cancel ();
             timer = null;
@@ -71,12 +84,18 @@ public class AwaitingState extends AbstractAlarmState
         registerTimeout ();
     }
 
+    /**
+     * Registers the broadcast receiver for getting notified on sms arrival.
+     */
     protected void registerReceiver ()
     {
         IntentFilter filter = new IntentFilter ("android.provider.Telephony.SMS_RECEIVED");
-        getContext ().getBaseContext ().registerReceiver (replyReceiver, filter);
+        getContext ().getBaseContext ().registerReceiver (smsReceiver, filter);
     }
 
+    /**
+     * Registers the timeout.
+     */
     protected void registerTimeout ()
     {
         if (timer != null) {
@@ -88,7 +107,7 @@ public class AwaitingState extends AbstractAlarmState
             {
                 cancel ();
                 Intent intent = new Intent (ServiceMessage.ALARM_REPEATED);
-                intent.putExtra ("receiver", rescueNumber);
+                intent.putExtra ("receiver", rescuerNumber);
                 getContext ().getBaseContext ().sendBroadcast (intent);
                 getContext ().setNext (new AlarmingState (contactIndex));
             }
@@ -98,7 +117,10 @@ public class AwaitingState extends AbstractAlarmState
         timer.schedule (timeout, delay);
     }
 
-    protected void receiveReply (Context context, Intent intent)
+    /**
+     * Handles incoming sms messages.
+     */
+    protected void receiveSms (Context context, Intent intent)
     {
         Bundle bundle = intent.getExtras ();
         boolean helpConfirmed = false;
@@ -112,7 +134,7 @@ public class AwaitingState extends AbstractAlarmState
                 SmsMessage message = SmsMessage.createFromPdu ((byte []) pdus [i]);
                 String senderNumber = message.getOriginatingAddress ();
 
-                if (senderNumber.equals (rescueNumber)) {
+                if (senderNumber.equals (rescuerNumber)) {
                     helpConfirmed = true;
                     break;
                 }

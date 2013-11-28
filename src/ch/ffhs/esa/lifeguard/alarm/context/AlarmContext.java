@@ -17,5 +17,7 @@ public interface AlarmContext
 
     public AlarmState getState ();
 
+    public void cancel ();
+
     public void addListener (AlarmStateListener listener);
 }

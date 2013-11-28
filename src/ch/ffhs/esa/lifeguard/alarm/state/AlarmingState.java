@@ -13,9 +13,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 /**
+ * Sends an alarm message to the rescuer.
  * 
  * @author David Daniel <david.daniel@students.ffhs.ch>
- *
  */
 public class AlarmingState extends AbstractAlarmState {
     // TODO How to get own name? Make own activity where user can configure his name?

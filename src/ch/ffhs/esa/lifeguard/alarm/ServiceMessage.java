@@ -1,5 +1,8 @@
 package ch.ffhs.esa.lifeguard.alarm;
 
+/**
+ * All service messages.
+ */
 public abstract class ServiceMessage
 {
     public static final String CURRENT_SERVICE_STATE
