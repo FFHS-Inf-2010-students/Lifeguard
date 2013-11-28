@@ -21,7 +21,8 @@ public class Configuration
 	 * PROPERTIES
 	 */
 	
-	private long id = 0;
+	private long id = 0; // pseudo! we're only having 1 row anyway, as
+	// config values are organized as per-column
 	private static final int DEFAULT_DELAY = 60;
 	private int delay = DEFAULT_DELAY;
 
@@ -58,7 +59,7 @@ public class Configuration
 
 	@Override
 	public ConfigurationInterface setDelay(int delay) {
-		if (delay == 0) this.delay = DEFAULT_DELAY;
+		if (delay <= 0) this.delay = DEFAULT_DELAY;
 		else this.delay = delay;
 		return this;
 	}
