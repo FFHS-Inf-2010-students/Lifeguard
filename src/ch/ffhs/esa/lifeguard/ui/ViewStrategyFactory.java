@@ -1,5 +1,9 @@
 package ch.ffhs.esa.lifeguard.ui;
 
+import java.util.EnumMap;
+
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
+
 public class ViewStrategyFactory
 {
     private static class Entry
@@ -23,15 +27,15 @@ public class ViewStrategyFactory
     private Entry [] entries = {
         new Entry (AlarmStateId.INIT, new InitialView ()),
         new Entry (AlarmStateId.TICKING, new TickingView ()),
-        new Entry (AlarmStateId.ALARMING new AlarmingView ()),
-        new Entry (AlarmStateId.AWAITING new AwaitingView ()),
+        new Entry (AlarmStateId.ALARMING, new AlarmingView ()),
+        new Entry (AlarmStateId.AWAITING, new AwaitingView ()),
         new Entry (AlarmStateId.CONFIRMED, new RescuedView ())
     };
 
     private EnumMap<AlarmStateId, ViewStateStrategy> strategies
-        = new EnumMap<AlarmStateId, ViewStateStrategy> ();
+        = new EnumMap<AlarmStateId, ViewStateStrategy> (AlarmStateId.class);
 
-    public ViewStrategyFactory
+    public ViewStrategyFactory ()
     { buildFactory (); }
 
     public ViewStateStrategy create (AlarmStateId which)

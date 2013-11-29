@@ -22,6 +22,7 @@ import ch.ffhs.esa.lifeguard.alarm.AlarmService.AlarmBinder;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
 import ch.ffhs.esa.lifeguard.ui.InitialView;
 import ch.ffhs.esa.lifeguard.ui.ViewStateStrategy;
+import ch.ffhs.esa.lifeguard.ui.ViewStrategyFactory;
 
 /**
  * The application's main activity (aka home screen).
