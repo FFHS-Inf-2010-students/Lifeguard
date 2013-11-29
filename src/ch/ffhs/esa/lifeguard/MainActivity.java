@@ -39,6 +39,8 @@ public class MainActivity extends Activity {
         { onStateChanged (intent); }
     };
 
+    private ViewStrategyFactory viewStrategyFactory = new ViewStrategyFactory ();
+
     /*//////////////////////////////////////////////////////////////////////////
      * CREATION
      */
@@ -165,26 +167,12 @@ public class MainActivity extends Activity {
 
     private void onStateChanged (Intent intent)
     {
-        ViewStateStrategy strategy = null;
-
         Bundle bundle = intent.getExtras ();
+
         AlarmStateId current = AlarmStateId.valueOf (
                 AlarmStateId.class,
                 bundle.get ("stateId").toString ());
 
-        switch (current) {
-        case INIT:
-            strategy = new InitialView ();
-            break;
-        case TICKING:
-        case ALARMING:
-        case AWAITING:
-        case CONFIRMED:
-            break;
-        }
-
-        if (strategy != null) {
-            strategy.handleUi (this, intent);
-        }
+        viewStrategyFactory.create (current).handleUi (this, intent);
     }
 }
