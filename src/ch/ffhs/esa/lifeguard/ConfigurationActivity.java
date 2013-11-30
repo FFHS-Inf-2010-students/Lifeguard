@@ -1,5 +1,6 @@
 package ch.ffhs.esa.lifeguard;
 
+import android.R;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
