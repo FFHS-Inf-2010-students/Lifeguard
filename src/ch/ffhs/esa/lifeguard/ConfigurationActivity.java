@@ -1,6 +1,5 @@
 package ch.ffhs.esa.lifeguard;
 
-import android.R;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
@@ -24,7 +23,7 @@ public class ConfigurationActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_configuration);
+		setContentView(android.R.layout.activity_configuration);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -42,7 +41,7 @@ public class ConfigurationActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.configuration, menu);
+		getMenuInflater().inflate(android.R.menu.configuration, menu);
 		return true;
 	}
 	
