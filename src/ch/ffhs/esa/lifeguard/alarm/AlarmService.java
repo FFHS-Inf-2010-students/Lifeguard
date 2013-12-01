@@ -55,6 +55,7 @@ public class AlarmService extends Service implements AlarmStateListener {
     @Override
     public void onCreate ()
     {
+        super.onCreate ();
         Log.d(AlarmService.class.toString(), "Service created");
 
         alarmContext.setNext (new InitialState ());
@@ -89,6 +90,7 @@ public class AlarmService extends Service implements AlarmStateListener {
     {
         unregisterReceiver (alarmReceiver);
         unregisterReceiver (cancelReceiver);
+        super.onDestroy ();
     }
 //    
 //    public AlarmState getState() {
