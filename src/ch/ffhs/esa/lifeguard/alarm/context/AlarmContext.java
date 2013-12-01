@@ -20,4 +20,6 @@ public interface AlarmContext
     public void cancel ();
 
     public void addListener (AlarmStateListener listener);
+
+    public void removeListener (AlarmStateListener listener);
 }
