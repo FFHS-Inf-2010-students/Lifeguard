@@ -4,48 +4,55 @@ import android.content.Context;
 import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
 
 /**
+ * Base for an alarm state.
  * 
  * @author David Daniel <david.daniel@students.ffhs.ch>
- *
  */
 public abstract class AbstractAlarmState
     implements AlarmState
 {
-    
-	/*//////////////////////////////////////////////////////////////////////////
-	 * PROPERTIES
-	 */
-	
-	private AlarmContext alarmContext;
-	protected Context serviceContext;
+    /*
+     * //////////////////////////////////////////////////////////////////////////
+     * PROPERTIES
+     */
 
-	
-	/*//////////////////////////////////////////////////////////////////////////
-	 * PUBLIC INTERFACE
-	 */
-	
-    public AbstractAlarmState setContext (AlarmContext context)
+    private AlarmContext alarmContext;
+
+    /*
+     * //////////////////////////////////////////////////////////////////////////
+     * PUBLIC INTERFACE
+     */
+
+    @Override
+    public void process (AlarmContext alarmContext)
+    {
+    	setContext (alarmContext).doProcess ();
+    }
+
+    @Override
+    public void cancel ()
+    {}
+
+    /*
+     * //////////////////////////////////////////////////////////////////////////
+     * PROTECTED OPERATIONS
+     */
+
+    protected AbstractAlarmState setContext (AlarmContext context)
     {
         this.alarmContext = context;
         return this;
     }
 
-    public AlarmContext getContext ()
+    protected AlarmContext getContext ()
     {
     	return alarmContext;
     }
 
-    @Override
-    public void process (AlarmContext alarmContext, Context serviceContext)
+    protected Context getBaseContext ()
     {
-        this.serviceContext = serviceContext;
-    	setContext (alarmContext).doProcess ();
+        return alarmContext.getBaseContext ();
     }
 
-    
-    /*//////////////////////////////////////////////////////////////////////////
-	 * PROTECTED OPERATIONS
-	 */
-    
     protected abstract void doProcess ();
 }

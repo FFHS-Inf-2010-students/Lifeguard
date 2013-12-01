@@ -45,7 +45,7 @@ public class ContactListActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Show the Up button in the action bar.
-        setupActionBar();
+//        setupActionBar();
         
         this.dataSource = new Contacts(Lifeguard.getDatabaseHelper());
         
@@ -56,12 +56,12 @@ public class ContactListActivity extends ListActivity {
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void setupActionBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
+//    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+//    private void setupActionBar() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//            getActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,9 +78,10 @@ public class ContactListActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
+        // TODO R.id.home doesn't exist
+//        case R.id.home:
+//            NavUtils.navigateUpFromSameTask(this);
+//            return true;
         }
         return super.onOptionsItemSelected(item);
     }

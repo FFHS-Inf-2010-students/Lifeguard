@@ -38,7 +38,7 @@ public class ContactDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_detail);
 
-		setupActionBar();
+//		setupActionBar();
 		Intent i = this.getIntent();
 		
 		if (i.hasExtra("contact")) {
@@ -53,9 +53,9 @@ public class ContactDetailActivity extends Activity {
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */
-	private void setupActionBar() {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-	}
+//	private void setupActionBar() {
+//		getActionBar().setDisplayHomeAsUpEnabled(true);
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,9 +72,10 @@ public class ContactDetailActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+		// TODO R.id.home doesn't exist
+//		case R.id.home:
+//			NavUtils.navigateUpFromSameTask(this);
+//			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

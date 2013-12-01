@@ -11,10 +11,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:layout_width="136dp"
+            android:layout_height="match_parent"
+            android:text="@string/configuration_user_name_label" />
+
+        <EditText
+            android:id="@+id/configurationUserName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text">
+
+            <requestFocus />
+        </EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin" >
+
+        <TextView
             android:layout_width="136dp"
             android:layout_height="match_parent"
             android:text="@string/configuration_label_delay" />
@@ -24,19 +46,43 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
-            android:inputType="time" >
+            android:inputType="time" />
 
-            <requestFocus />
-        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin" >
+
+        <TextView
+            android:layout_width="136dp"
+            android:layout_height="match_parent"
+            android:text="@string/configuration_label_repeat_delay" />
+
+        <EditText
+            android:id="@+id/configurationRepeatDelay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number" />
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/saveConfiguration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:onClick="saveConfiguration"
         android:text="@string/configuration_label_save" />
+
+    <Button
+        android:id="@+id/cancelConfiguration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:onClick="cancelConfiguration"
+        android:text="@string/configuration_label_cancel" />
 
 </LinearLayout>

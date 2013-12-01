@@ -24,6 +24,7 @@ public class Lifeguard extends Application {
 	
 	private static SQLiteOpenHelper databaseHelper;
 	
+	public static final String APPLICATION_SETTINGS = "APPLICATION_SETTINGS";
 	
 	/*//////////////////////////////////////////////////////////////////////////
 	 * INITIALIZATION

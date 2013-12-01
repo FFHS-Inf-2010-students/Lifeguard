@@ -1,9 +1,11 @@
 package ch.ffhs.esa.lifeguard.alarm.context;
 
-import java.util.TreeSet;
+import java.util.ArrayList;
 
+import android.content.Context;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
+import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
 
 /**
  * 
@@ -18,21 +20,36 @@ public class ServiceAlarmContext
 	 * PROPERTIES
 	 */
 	
-	private TreeSet<AlarmStateListener> listeners
-        = new TreeSet<AlarmStateListener> ();
+	private ArrayList<AlarmStateListener> listeners
+        = new ArrayList<AlarmStateListener> ();
 
     private AlarmState current = null;
+
+    private Context baseContext;
 
     
     /*//////////////////////////////////////////////////////////////////////////
 	 * PUBLIC INTERFACE
 	 */
-    
+
+    public ServiceAlarmContext (Context baseContext)
+    {
+        this.baseContext = baseContext;
+        current = new InitialState ();
+    }
+
+    @Override
+    public Context getBaseContext ()
+    {
+        return baseContext;
+    }
+
     @Override
     public void setNext (AlarmState state)
     {
         current = state;
         notifyListeners ();
+        current.process (this);
     }
 
     @Override
@@ -47,6 +64,18 @@ public class ServiceAlarmContext
     	listeners.add (listener);
     }
 
+    @Override
+    public void removeListener (AlarmStateListener listener)
+    {
+        listeners.remove (listener);
+    }
+
+    @Override
+    public void cancel ()
+    {
+        current.cancel ();
+        current = new InitialState ();
+    }
     
     /*//////////////////////////////////////////////////////////////////////////
 	 * PROTECTED OPERATIONS
@@ -58,4 +87,5 @@ public class ServiceAlarmContext
             l.onStateChanged (this);
         }
     }
+
 }

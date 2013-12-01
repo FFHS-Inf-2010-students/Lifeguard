@@ -5,7 +5,10 @@
     <string name="action_settings">Einstellungen</string>
     <string name="title_activity_configuration">Konfiguration</string>
     <string name="configuration_label_delay">Auslösedauer (in Sekunden)</string>
+    <string name="configuration_user_name_label">Name (für den Empfänger des Alarms)</string>
+    <string name="configuration_label_repeat_delay">Alarm erneut auslösen nach (Sekunden)</string>
     <string name="configuration_label_save">Speichern</string>
+    <string name="configuration_label_cancel">Abbrechen</string>
     <string name="title_activity_contact_list">Kontakte</string>
     <string name="action_configuration">Konfiguration</string>
     <string name="action_contact_list">Empfänger</string>
@@ -18,5 +21,10 @@
     <string name="contact_detail_label_phone">Telefonnummer</string>
     <string name="contact_detail_label_save">Speichern</string>
     <string name="action_add_contact">Kontakt hinzufügen</string>
+    <string name="alarm_message_format_string"><![CDATA[
+        %s braucht dringend Deine Hilfe!
+        Bitte bestätige dieses SMS und eile so schnell wie möglich herbei!
+        ]]></string>
+    <string name="alarm_message_default_entry">Der Absender</string>
 
 </resources>
