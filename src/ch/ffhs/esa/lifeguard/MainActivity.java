@@ -117,8 +117,9 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy ()
     {
-        super.onDestroy ();
         unregisterReceiver (stateChangeReceiver);
+        unbindService (serviceConnection);
+        super.onDestroy ();
     }
     
     /*//////////////////////////////////////////////////////////////////////////
