@@ -118,6 +118,7 @@ public class MainActivity extends Activity {
     public void onDestroy ()
     {
         unregisterReceiver (stateChangeReceiver);
+        unbindService (serviceConnection);
         super.onDestroy ();
     }
     

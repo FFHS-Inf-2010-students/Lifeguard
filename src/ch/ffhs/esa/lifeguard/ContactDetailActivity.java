@@ -86,8 +86,11 @@ public class ContactDetailActivity extends Activity {
 		contact.setPhone(this.getPhoneField().getText().toString());
 		ContactsInterface contacts = new Contacts(Lifeguard.getDatabaseHelper());
 		if (contacts.persist(contact) > 0L) {
-			Intent i = new Intent(this, ContactListActivity.class);
-			startActivity(i);
+		    /* We already come from the list or from wherever, i recommend we just let
+		     * the user go "back" */
+		    finish ();
+//			Intent i = new Intent(this, ContactListActivity.class);
+//			startActivity(i);
 		}
 	}
 	
