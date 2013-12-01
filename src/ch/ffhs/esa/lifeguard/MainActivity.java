@@ -117,6 +117,7 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy ()
     {
+        super.onDestroy ();
         unregisterReceiver (stateChangeReceiver);
     }
     

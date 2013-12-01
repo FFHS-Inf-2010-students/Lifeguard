@@ -1,13 +1,18 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
 import java.util.ArrayList;
+
 import ch.ffhs.esa.lifeguard.Lifeguard;
 import ch.ffhs.esa.lifeguard.alarm.SmsDeliveredReceiver;
 import ch.ffhs.esa.lifeguard.alarm.SmsSentReceiver;
-import ch.ffhs.esa.lifeguard.domain.Contact;
+import ch.ffhs.esa.lifeguard.domain.ContactInterface;
 import ch.ffhs.esa.lifeguard.domain.Contacts;
+import ch.ffhs.esa.lifeguard.R;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,13 +23,10 @@ import android.widget.Toast;
  * @author David Daniel <david.daniel@students.ffhs.ch>
  */
 public class AlarmingState extends AbstractAlarmState {
-    // TODO How to get own name? Make own activity where user can configure his name?
-    // (TelephonyManager.TelephonyManager) is not reliable for getting phone number
-    /* Either by pulling it from some config or by getting it from the phone... */
-    private String myName = "Hans Wurst";
-    private String alarmMessage = myName + " needs help!";
-    private Object[]  contactList;
+
+    private Contacts contacts;
     private int contactPosition;
+    private int nrOfContacts = -1;
 
     /*
      * //////////////////////////////////////////////////////////////////////////
@@ -33,18 +35,19 @@ public class AlarmingState extends AbstractAlarmState {
 
     public AlarmingState ()
     {
-        this (-1);
+        this (0);
     }
 
     public AlarmingState (int contactIndex)
     {
         this.contactPosition = contactIndex;
+        this.contacts = new Contacts (Lifeguard.getDatabaseHelper ());
     }
 
 	@Override
     public AlarmStateId getId ()
     {
-		return AlarmStateId.ALARMING;
+        return AlarmStateId.ALARMING;
     }
 
     /*
@@ -54,52 +57,47 @@ public class AlarmingState extends AbstractAlarmState {
 
     @Override
     protected void doProcess () {
-        contactList = new Contacts(Lifeguard.getDatabaseHelper()).getAll().toArray();
-        Contact recipient = null;
-        Log.d(this.getClass().toString(), "doProcess ALarmingState");
-        try {
-            recipient = getNextContact();
-            Log.d(this.getClass().toString(), "Try to notify " + recipient.getName()
-                    + " (" + recipient.getPhone() + ")" );
-            notifyRecipient(recipient);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            // TODO maybe inform listeners
-            Log.d(this.getClass().toString(), "Cannot notify the recipient of the alarm: " + e);
-            recipient = null;
-        }
+//        contactList = new Contacts(Lifeguard.getDatabaseHelper()).getAll().toArray();
+        ContactInterface recipient = getNextContact ();
+        Log.d (this.getClass ().toString (), "doProcess ALarmingState");
+        Log.d (this.getClass ().toString (),
+                "Try to notify " + recipient.getName () + " ("
+                        + recipient.getPhone () + ")");
+        notifyRecipient (recipient);
 
-        if (recipient != null) {
-            getContext ().setNext (
-                    new AwaitingState (recipient.getPhone (), contactPosition));
-        }
+        getContext ().setNext (
+                new AwaitingState (recipient));
     }
     
 
-    private Contact getNextContact() throws ArrayIndexOutOfBoundsException {
+    private ContactInterface getNextContact() throws IllegalStateException {
         contactPosition++;
-        if (contactPosition >= contactList.length) {
+        if (nrOfContacts < 0) {
+            nrOfContacts = contacts.getCount ().intValue ();
+        }
+        if (contactPosition >= nrOfContacts) {
             /* Circulate through all contacts over and over, help is needed! */
-            contactPosition = 0;
+            contactPosition = 1;
         }
 
-        return (Contact) contactList[contactPosition];
+        ContactInterface contact = contacts.findByPosition (contactPosition);
+        if (null == contact) {
+            throw new IllegalStateException ("Cannot retrieve the next contact.");
+        }
+
+        return contact;
     }
-    
-    public Contact getLastNotifiedContact() {
-        return (Contact) contactList[contactPosition];
-    }
-    
-    
-    private void notifyRecipient(Contact recipient) {
+
+    private void notifyRecipient(ContactInterface recipient) {
         String phoneNumber = recipient.getPhone();
         
         ArrayList<PendingIntent> sentPendingIntents = new ArrayList<PendingIntent>();
         ArrayList<PendingIntent> deliveredPendingIntents = new ArrayList<PendingIntent>();
-        PendingIntent sentPI = PendingIntent.getBroadcast(getServiceContext (), 0, new Intent(getServiceContext (), SmsSentReceiver.class), 0);
-        PendingIntent deliveredPI = PendingIntent.getBroadcast(getServiceContext (), 0, new Intent(getServiceContext (), SmsDeliveredReceiver.class), 0);
+        PendingIntent sentPI = PendingIntent.getBroadcast(getBaseContext (), 0, new Intent(getBaseContext (), SmsSentReceiver.class), 0);
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(getBaseContext (), 0, new Intent(getBaseContext (), SmsDeliveredReceiver.class), 0);
         try {
             SmsManager sms = SmsManager.getDefault();
-            ArrayList<String> mSMSMessage = sms.divideMessage(alarmMessage);
+            ArrayList<String> mSMSMessage = sms.divideMessage(getAlarmMessage ());
             for (int i = 0; i < mSMSMessage.size(); i++) {
                 sentPendingIntents.add(i, sentPI);
                 deliveredPendingIntents.add(i, deliveredPI);
@@ -110,7 +108,25 @@ public class AlarmingState extends AbstractAlarmState {
         } catch (Exception e) {
 
             e.printStackTrace();
-            Toast.makeText(getServiceContext (), "SMS sending failed...",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext (), "SMS sending failed...",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private String getAlarmMessage ()
+    {
+        Context context = getBaseContext ();
+        Resources resources = context.getResources ();
+
+        final String format = resources.getString (
+                R.string.alarm_message_format_string).trim ();
+        final String entryForEmpty = resources.getString (
+                R.string.alarm_message_default_entry);
+
+        SharedPreferences prefs = context.getSharedPreferences (
+                Lifeguard.APPLICATION_SETTINGS, 0);
+
+        final String userName = prefs.getString ("userName", entryForEmpty);
+
+        return String.format (format, userName);
     }
 }

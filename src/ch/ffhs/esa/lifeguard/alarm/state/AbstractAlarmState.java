@@ -49,7 +49,7 @@ public abstract class AbstractAlarmState
     	return alarmContext;
     }
 
-    protected Context getServiceContext ()
+    protected Context getBaseContext ()
     {
         return alarmContext.getBaseContext ();
     }

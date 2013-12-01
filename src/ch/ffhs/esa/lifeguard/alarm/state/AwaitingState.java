@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
+import ch.ffhs.esa.lifeguard.domain.ContactInterface;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,9 +29,7 @@ public class AwaitingState extends AbstractAlarmState
 
     private SmsReceiver smsReceiver = new SmsReceiver ();
 
-    private String rescuerNumber;
-
-    private int contactIndex;
+    private ContactInterface contact;
 
     private Timer timer;
 
@@ -40,16 +39,12 @@ public class AwaitingState extends AbstractAlarmState
      */
 
     /**
-     * Creates a new awaiting state with the given phone number and the
-     * corresponding contact index.
-     * @param rescuerNumber the phone number of the rescuer
-     * @param contactIndex the index of the corresponding contact within the
-     *                     contact list
+     * Creates a new awaiting state that waits for a reply of the given contact.
+     * @param contact the contact to await the reply of
      */
-    public AwaitingState (String rescuerNumber, int contactIndex)
+    public AwaitingState (ContactInterface contact)
     {
-        this.rescuerNumber = rescuerNumber;
-        this.contactIndex = contactIndex;
+        this.contact = contact;
     }
 
     @Override
@@ -107,9 +102,9 @@ public class AwaitingState extends AbstractAlarmState
             {
                 cancel ();
                 Intent intent = new Intent (ServiceMessage.ALARM_REPEATED);
-                intent.putExtra ("receiver", rescuerNumber);
+                intent.putExtra ("receiver", contact.getId ());
                 getContext ().getBaseContext ().sendBroadcast (intent);
-                getContext ().setNext (new AlarmingState (contactIndex));
+                getContext ().setNext (new AlarmingState (contact.getPosition ()));
             }
         };
         /* TODO use a valid delay or calculate date */
@@ -132,9 +127,10 @@ public class AwaitingState extends AbstractAlarmState
 
             for (int i = 0; i < pdus.length; ++i) {
                 SmsMessage message = SmsMessage.createFromPdu ((byte []) pdus [i]);
-                String senderNumber = message.getOriginatingAddress ();
+                String senderNumber = getNormalizedPhone (
+                        message.getOriginatingAddress ());
 
-                if (senderNumber.equals (rescuerNumber)) {
+                if (senderNumber.equals (getNormalizedPhone (contact.getPhone ()))) {
                     helpConfirmed = true;
                     break;
                 }
@@ -143,10 +139,21 @@ public class AwaitingState extends AbstractAlarmState
 
         if (helpConfirmed) {
             cancel ();
-            getContext ().getBaseContext ()
-                .sendBroadcast (new Intent (ServiceMessage.RESCUE_CONFIRMED));
+            Intent message = new Intent (ServiceMessage.RESCUE_CONFIRMED);
+            message.putExtra ("rescuer", contact.getId ());
+            getContext ().getBaseContext ().sendBroadcast (message);
 
             getContext ().setNext (new ConfirmedState ());
         }
+    }
+
+    /**
+     * Removes everything but digits from the given phone number.
+     * @param original the phone number to normalize
+     * @return the normalized phone number
+     */
+    private String getNormalizedPhone (String original)
+    {
+        return original.replaceAll ("[^\\d]", "");
     }
 }
