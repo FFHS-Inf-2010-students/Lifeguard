@@ -23,26 +23,26 @@ public class ConfigurationActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(android.R.layout.activity_configuration);
+		setContentView(R.layout.activity_configuration);
 		// Show the Up button in the action bar.
-		setupActionBar();
+//		setupActionBar();
 	}
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
 	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-	}
+//	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+//	private void setupActionBar() {
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//			getActionBar().setDisplayHomeAsUpEnabled(true);
+//		}
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(android.R.menu.configuration, menu);
-		return true;
+		getMenuInflater().inflate(R.menu.configuration, menu);
+		return super.onCreateOptionsMenu (menu);
 	}
 	
 	
@@ -53,7 +53,7 @@ public class ConfigurationActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
+		case R.menu.main:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}
