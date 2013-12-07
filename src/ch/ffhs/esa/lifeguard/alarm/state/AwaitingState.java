@@ -3,6 +3,7 @@ package ch.ffhs.esa.lifeguard.alarm.state;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ch.ffhs.esa.lifeguard.Lifeguard;
 import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.domain.ContactInterface;
 import android.content.BroadcastReceiver;
@@ -107,9 +108,12 @@ public class AwaitingState extends AbstractAlarmState
                 getContext ().setNext (new AlarmingState (contact.getPosition ()));
             }
         };
-        /* TODO use a valid delay or calculate date */
-        long delay = 1000000;
-        timer.schedule (timeout, delay);
+
+        Long delay = getBaseContext ().getSharedPreferences (
+                Lifeguard.APPLICATION_SETTINGS, 0)
+                .getLong ("alarmRepeatDelay", 180);
+
+        timer.schedule (timeout, delay.longValue () * 1000);
     }
 
     /**
