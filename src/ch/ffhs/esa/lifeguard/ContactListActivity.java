@@ -8,7 +8,6 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,15 +29,12 @@ import ch.ffhs.esa.lifeguard.domain.ContactsListAdapter;
  */
 public class ContactListActivity extends ListActivity {
 
-    static final String[] ENTRIES = {
-        "1. Jane Doe", "2. Hans Gseh", "3. Max Muster"
-    };
-    
     /*//////////////////////////////////////////////////////////////////////////
      * PROPERTIES
      */
     
     private ContactsInterface dataSource;
+    
     
     /*//////////////////////////////////////////////////////////////////////////
      * CREATION
@@ -50,17 +46,17 @@ public class ContactListActivity extends ListActivity {
         // Show the Up button in the action bar.
 //        setupActionBar();
         
-        this.dataSource = new Contacts(Lifeguard.getDatabaseHelper());
+        dataSource = new Contacts(Lifeguard.getDatabaseHelper());
         
-        this.loadContacts();
+        loadContacts();
         
-        this.setOnItemLongClickListener();
+        setOnItemLongClickListener();
     }
     
     @Override
     protected void onResume() {
         super.onResume();
-        this.loadContacts();
+        loadContacts();
     }
 
     /**
@@ -83,7 +79,7 @@ public class ContactListActivity extends ListActivity {
     
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (this.dataSource.getAll().size() < 5L) {
+        if (dataSource.getAll().size() < 5L) {
             menu.getItem(0).setEnabled(true);
         } else {
             menu.getItem(0).setEnabled(false);
@@ -106,8 +102,8 @@ public class ContactListActivity extends ListActivity {
 //            return true;
         case R.id.addContact:
             Intent intent = new Intent(this, ContactDetailActivity.class);
-            intent.putExtra("count", this.dataSource.getAll().size());
-            this.startActivity(intent);
+            intent.putExtra("count", dataSource.getAll().size());
+            startActivity(intent);
             break;
         }
         return super.onOptionsItemSelected(item);
@@ -117,29 +113,29 @@ public class ContactListActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         
-        ContactInterface contact = this.getContactFromListView(l, position);
+        ContactInterface contact = getContactFromListView(l, position);
 
         Intent intent = new Intent(this, ContactDetailActivity.class);
         intent.putExtra("contact", contact);
-        intent.putExtra("count", this.dataSource.getAll().size());
+        intent.putExtra("count", dataSource.getAll().size());
         
         startActivity(intent);
     }
     
     protected void loadContacts() {
-        List<ContactInterface> contacts = this.dataSource.getAll();
-        this.setListAdapter(new ContactsListAdapter(this, contacts));
+        List<ContactInterface> contacts = dataSource.getAll();
+        setListAdapter(new ContactsListAdapter(this, contacts));
     }
     
     protected void setOnItemLongClickListener() {
-        this.getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
+        getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                     int position, long id) {
                 ContactInterface contact = getContactFromListView(parent, position);
                 
-                Dialog dialog = this.createDeleteDialog(contact);
+                Dialog dialog = createDeleteDialog(contact);
                 
                 dialog.show();
                 

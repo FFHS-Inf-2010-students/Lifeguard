@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import ch.ffhs.esa.lifeguard.persistence.Persistable;
 import ch.ffhs.esa.lifeguard.persistence.TableGateway;
 
 /**

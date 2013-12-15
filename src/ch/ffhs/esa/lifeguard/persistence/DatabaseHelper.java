@@ -3,7 +3,6 @@ package ch.ffhs.esa.lifeguard.persistence;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import ch.ffhs.esa.lifeguard.Lifeguard;
 
 /**

@@ -1,8 +1,5 @@
 package ch.ffhs.esa.lifeguard.ui;
 
-import ch.ffhs.esa.lifeguard.Lifeguard;
-import ch.ffhs.esa.lifeguard.domain.ContactInterface;
-import ch.ffhs.esa.lifeguard.domain.Contacts;
 import android.app.Activity;
 import android.content.Intent;
 
