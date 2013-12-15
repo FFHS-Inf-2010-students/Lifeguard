@@ -2,15 +2,18 @@ package ch.ffhs.esa.lifeguard;
 
 import java.util.List;
 
-import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import ch.ffhs.esa.lifeguard.domain.Contact;
 import ch.ffhs.esa.lifeguard.domain.ContactInterface;
@@ -49,8 +52,15 @@ public class ContactListActivity extends ListActivity {
         
         this.dataSource = new Contacts(Lifeguard.getDatabaseHelper());
         
-        List<ContactInterface> contacts = this.dataSource.getAll();
-        this.setListAdapter(new ContactsListAdapter(this, contacts));
+        this.loadContacts();
+        
+        this.setOnItemLongClickListener();
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.loadContacts();
     }
 
     /**
@@ -82,6 +92,11 @@ public class ContactListActivity extends ListActivity {
 //        case R.id.home:
 //            NavUtils.navigateUpFromSameTask(this);
 //            return true;
+        case R.id.addContact:
+            Log.d(ContactListActivity.class.getName(), "About to show contact details (addContact)...");
+            Intent intent = new Intent(this, ContactDetailActivity.class);
+            this.startActivity(intent);
+            break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -90,11 +105,68 @@ public class ContactListActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         
-        ContactInterface contact = (Contact)l.getItemAtPosition(position);
+        ContactInterface contact = this.getContactFromListView(l, position);
 
         Intent intent = new Intent(this, ContactDetailActivity.class);
         intent.putExtra("contact", contact);
         
         startActivity(intent);
+    }
+    
+    protected void loadContacts() {
+        List<ContactInterface> contacts = this.dataSource.getAll();
+        this.setListAdapter(new ContactsListAdapter(this, contacts));
+    }
+    
+    protected void setOnItemLongClickListener() {
+        this.getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+                Log.d(ContactListActivity.class.getName(), "Long click...");
+                ContactInterface contact = getContactFromListView(parent, position);
+                
+                Dialog dialog = this.createDeleteDialog(contact);
+                
+                dialog.show();
+                
+                return false;
+            }
+            
+            protected Dialog createDeleteDialog(final ContactInterface contact) {
+                String msg = String.format(getString(
+                    R.string.contact_list_confirm_delete),
+                    contact.getName()
+                );
+                
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContactListActivity.this);
+                
+                builder.setMessage(msg)
+                   .setCancelable(false)
+                   .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ContactsInterface contacts = new Contacts(Lifeguard.getDatabaseHelper());
+                            
+                            if (contacts.delete(contact) > 0) {
+                                ContactListActivity.this.loadContacts();
+                            }
+                        }
+                    })
+                   .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                   });
+                
+                return builder.create();
+            }
+        });
+    }
+    
+    protected ContactInterface getContactFromListView(AdapterView<?> v, int position) {
+        return (Contact)v.getItemAtPosition(position);
     }
 }

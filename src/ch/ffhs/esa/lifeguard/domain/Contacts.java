@@ -137,11 +137,21 @@ public class Contacts extends TableGateway implements ContactsInterface
     }
 
     @Override
-    public void delete (ContactInterface object)
+    public int delete (ContactInterface object)
     {
-        this.getWritableDatabase ().delete (this.getTable (), "_id = ?",
+        int rows = this.getWritableDatabase ().delete (this.getTable (), "_id = ?",
                 new String[] { String.valueOf (object.getId ()) });
+        
+        if (rows > 0) {
+            // Re-ordering all contacts after deleting one
+            int position = 0;
+            for (ContactInterface contact : this.getAll()) {
+                this.persist(contact.setPosition(++position));
+            }
+        }
+        
         this.closeDatabase ();
+        return rows;
     }
 
     @Override
