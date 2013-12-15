@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,14 +43,14 @@ public class ContactDetailActivity extends Activity {
 		setContentView(R.layout.activity_contact_detail);
 
 //		setupActionBar();
-		Intent intent = this.getIntent();
+		Intent intent = getIntent();
 		
 		int count = 1;
 		if (intent.hasExtra("contact")) {
-			this.contact = (Contact)intent.getSerializableExtra("contact");
+			contact = (Contact)intent.getSerializableExtra("contact");
 			count = intent.getIntExtra("count", 1);
 		} else {
-			this.contact = new Contact();
+			contact = new Contact();
 			count = intent.getIntExtra("count", 1);
 			count++;
 		}
@@ -57,7 +59,7 @@ public class ContactDetailActivity extends Activity {
         for (int i = 0; i < count; ++i) {
             positions[i] = String.valueOf(i+1);
         }
-        Spinner spinner = this.getPositionSpinner();
+        Spinner spinner = getPositionSpinner();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
             this, android.R.layout.simple_spinner_item, positions
         );
@@ -65,8 +67,8 @@ public class ContactDetailActivity extends Activity {
             android.R.layout.simple_spinner_dropdown_item
         );
         spinner.setAdapter(adapter);
-		
-		this.populate();
+        
+		populate();
 	}
 
 	/**
@@ -100,14 +102,23 @@ public class ContactDetailActivity extends Activity {
 	}
 
 	public void saveContact(View view) {
-		Log.d(ContactDetailActivity.class.getName(), "Saving contact...");
-		contact.setName(this.getNameField().getText().toString());
-		contact.setPhone(this.getPhoneField().getText().toString());
-		contact.setPosition(Integer.parseInt((String) this.getPositionSpinner().getSelectedItem()));
+		if (!validate()) {
+		    return;
+		}
+	    
+	    contact.setName(getNameField().getText().toString());
+		contact.setPhone(getPhoneField().getText().toString());
+		contact.setPosition(
+	        Integer.parseInt((String) getPositionSpinner().getSelectedItem())
+        );
 		ContactsInterface contacts = new Contacts(Lifeguard.getDatabaseHelper());
 		if (contacts.persist(contact) > 0L) {
 		    finish ();
 		}
+	}
+	
+	public void cancel(View view) {
+	    finish();
 	}
 	
 	
@@ -116,26 +127,46 @@ public class ContactDetailActivity extends Activity {
 	 */
 	
 	protected void populate() {
-		this.getNameField().setText(this.contact.getName());
-		this.getPhoneField().setText(this.contact.getPhone());
+		getNameField().setText(contact.getName());
+		getPhoneField().setText(contact.getPhone());
 		
-		Spinner s = this.getPositionSpinner();
-		if (this.contact.getPosition() > 0) {
-		    s.setSelection(this.contact.getPosition()-1);
+		Spinner s = getPositionSpinner();
+		if (contact.getPosition() > 0) {
+		    s.setSelection(contact.getPosition()-1);
 		} else {
 		    s.setSelection(s.getCount()-1); // new contact => set highest position
 		}
 	}
 	
+	protected boolean validate() {
+	    boolean valid = true;
+	    
+	    if (0 == getNameField().getText().length()) {
+	        getNameField().setError(
+                getString(R.string.contact_detail_error_name)
+            );
+	        valid = false;
+	    }
+	    
+	    if (0 == getPhoneField().getText().length()) {
+	        getPhoneField().setError(
+                getString(R.string.contact_detail_error_phone)
+            );
+	        valid = false;
+	    }
+	    
+	    return valid;
+	}
+	
 	protected EditText getNameField() {
-		return (EditText)this.findViewById(R.id.contactDetailName);
+		return (EditText)findViewById(R.id.contactDetailName);
 	}
 	
 	protected EditText getPhoneField() {
-		return (EditText)this.findViewById(R.id.contactDetailPhone);
+		return (EditText)findViewById(R.id.contactDetailPhone);
 	}
 	
 	protected Spinner getPositionSpinner() {
-	    return (Spinner)this.findViewById(R.id.contactDetailPosition);
+	    return (Spinner)findViewById(R.id.contactDetailPosition);
 	}
 }

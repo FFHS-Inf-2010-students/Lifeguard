@@ -77,6 +77,18 @@ public class ContactListActivity extends ListActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.contact_list, menu);
+        
+        return true;
+    }
+    
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (this.dataSource.getAll().size() < 5L) {
+            menu.getItem(0).setEnabled(true);
+        } else {
+            menu.getItem(0).setEnabled(false);
+        }
+        
         return true;
     }
 
@@ -125,7 +137,6 @@ public class ContactListActivity extends ListActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                     int position, long id) {
-                Log.d(ContactListActivity.class.getName(), "Long click...");
                 ContactInterface contact = getContactFromListView(parent, position);
                 
                 Dialog dialog = this.createDeleteDialog(contact);

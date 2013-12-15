@@ -49,10 +49,6 @@ public class DatabaseHelper
 		for (TableGatewayInterface gateway : Lifeguard.getTableGateways()) {
 			gateway.onCreate(db);
 		}
-		
-		Log.d("DatabaseHelper.onCreate", "db.isOpen: " + db.isOpen());
-		Log.d("DatabaseHelper.onCreate", "db.isDbLockedByCurrentThread: " + db.isDbLockedByCurrentThread());
-		Log.d("DatabaseHelper.onCreate", "db.isReadOnly: " + db.isReadOnly());
 	}
 
 	/* (non-Javadoc)
