@@ -28,8 +28,9 @@ public interface TableGatewayInterface<E> {
 	 * Deletes an object from the database
 	 * 
 	 * @param object The object to delete
+	 * @return The number of rows deleted
 	 */
-	public void delete(E object);
+	public int delete(E object);
 	
 	/**
 	 * Retrieves all rows from the database table

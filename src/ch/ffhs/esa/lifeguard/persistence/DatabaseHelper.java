@@ -3,7 +3,6 @@ package ch.ffhs.esa.lifeguard.persistence;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import ch.ffhs.esa.lifeguard.Lifeguard;
 
 /**
@@ -49,10 +48,6 @@ public class DatabaseHelper
 		for (TableGatewayInterface gateway : Lifeguard.getTableGateways()) {
 			gateway.onCreate(db);
 		}
-		
-		Log.d("DatabaseHelper.onCreate", "db.isOpen: " + db.isOpen());
-		Log.d("DatabaseHelper.onCreate", "db.isDbLockedByCurrentThread: " + db.isDbLockedByCurrentThread());
-		Log.d("DatabaseHelper.onCreate", "db.isReadOnly: " + db.isReadOnly());
 	}
 
 	/* (non-Javadoc)
