@@ -93,8 +93,8 @@ public class ContactListActivity extends ListActivity {
 //            NavUtils.navigateUpFromSameTask(this);
 //            return true;
         case R.id.addContact:
-            Log.d(ContactListActivity.class.getName(), "About to show contact details (addContact)...");
             Intent intent = new Intent(this, ContactDetailActivity.class);
+            intent.putExtra("count", this.dataSource.getAll().size());
             this.startActivity(intent);
             break;
         }
@@ -109,6 +109,7 @@ public class ContactListActivity extends ListActivity {
 
         Intent intent = new Intent(this, ContactDetailActivity.class);
         intent.putExtra("contact", contact);
+        intent.putExtra("count", this.dataSource.getAll().size());
         
         startActivity(intent);
     }

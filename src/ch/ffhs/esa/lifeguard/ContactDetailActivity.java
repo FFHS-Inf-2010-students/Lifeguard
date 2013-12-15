@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import ch.ffhs.esa.lifeguard.domain.Contact;
 import ch.ffhs.esa.lifeguard.domain.ContactInterface;
 import ch.ffhs.esa.lifeguard.domain.Contacts;
@@ -39,15 +41,32 @@ public class ContactDetailActivity extends Activity {
 		setContentView(R.layout.activity_contact_detail);
 
 //		setupActionBar();
-		Intent i = this.getIntent();
+		Intent intent = this.getIntent();
 		
-		if (i.hasExtra("contact")) {
-			this.contact = (Contact)i.getSerializableExtra("contact");
-			Log.d(ContactDetailActivity.class.getName(), contact.toString());
-			this.populate();
+		int count = 1;
+		if (intent.hasExtra("contact")) {
+			this.contact = (Contact)intent.getSerializableExtra("contact");
+			count = intent.getIntExtra("count", 1);
 		} else {
 			this.contact = new Contact();
+			count = intent.getIntExtra("count", 1);
+			count++;
 		}
+		
+		String positions[] = new String[count];
+        for (int i = 0; i < count; ++i) {
+            positions[i] = String.valueOf(i+1);
+        }
+        Spinner spinner = this.getPositionSpinner();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+            this, android.R.layout.simple_spinner_item, positions
+        );
+        adapter.setDropDownViewResource(
+            android.R.layout.simple_spinner_dropdown_item
+        );
+        spinner.setAdapter(adapter);
+		
+		this.populate();
 	}
 
 	/**
@@ -84,6 +103,7 @@ public class ContactDetailActivity extends Activity {
 		Log.d(ContactDetailActivity.class.getName(), "Saving contact...");
 		contact.setName(this.getNameField().getText().toString());
 		contact.setPhone(this.getPhoneField().getText().toString());
+		contact.setPosition(Integer.parseInt((String) this.getPositionSpinner().getSelectedItem()));
 		ContactsInterface contacts = new Contacts(Lifeguard.getDatabaseHelper());
 		if (contacts.persist(contact) > 0L) {
 		    finish ();
@@ -98,6 +118,13 @@ public class ContactDetailActivity extends Activity {
 	protected void populate() {
 		this.getNameField().setText(this.contact.getName());
 		this.getPhoneField().setText(this.contact.getPhone());
+		
+		Spinner s = this.getPositionSpinner();
+		if (this.contact.getPosition() > 0) {
+		    s.setSelection(this.contact.getPosition()-1);
+		} else {
+		    s.setSelection(s.getCount()-1); // new contact => set highest position
+		}
 	}
 	
 	protected EditText getNameField() {
@@ -106,5 +133,9 @@ public class ContactDetailActivity extends Activity {
 	
 	protected EditText getPhoneField() {
 		return (EditText)this.findViewById(R.id.contactDetailPhone);
+	}
+	
+	protected Spinner getPositionSpinner() {
+	    return (Spinner)this.findViewById(R.id.contactDetailPosition);
 	}
 }
