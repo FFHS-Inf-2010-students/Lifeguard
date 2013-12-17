@@ -31,7 +31,7 @@ public class AlarmService extends Service implements AlarmStateListener {
      * PROPERTIES
      */
     
-    private AlarmContext alarmContext = new ServiceAlarmContext (this.getBaseContext ());
+    private AlarmContext alarmContext = new ServiceAlarmContext (this);
 
     private BroadcastReceiver cancelReceiver = new BroadcastReceiver () {
         public void onReceive (Context context, Intent intent) {
