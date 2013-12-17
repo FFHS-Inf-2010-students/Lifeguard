@@ -3,14 +3,17 @@ package ch.ffhs.esa.lifeguard.alarm.state;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ch.ffhs.esa.lifeguard.Lifeguard;
 import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.domain.ContactInterface;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 
 /**
  * Awaiting the reply from the rescuer.
@@ -107,8 +110,9 @@ public class AwaitingState extends AbstractAlarmState
                 getContext ().setNext (new AlarmingState (contact.getPosition ()));
             }
         };
-        /* TODO use a valid delay or calculate date */
-        long delay = 1000000;
+        SharedPreferences prefs =  getBaseContext().getSharedPreferences(Lifeguard.APPLICATION_SETTINGS, 0);
+        //default timeout 10min
+        long delay = Long.parseLong(prefs.getString ("alarmRepeatDelay", "600")) * 1000;
         timer.schedule (timeout, delay);
     }
 
