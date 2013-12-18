@@ -14,11 +14,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/contact_detail_label_name" />
-
     <EditText
         android:id="@+id/contactDetailName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/contact_detail_hint_name"
         android:ems="10" android:inputType="textPersonName">
 
         <requestFocus />
@@ -30,14 +30,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="@string/contact_detail_label_phone" />
-
     <EditText
         android:id="@+id/contactDetailPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/contact_detail_hint_phone"
         android:ems="10"
         android:inputType="phone" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/contact_detail_label_position" />
+    <Spinner
+	    android:id="@+id/contactDetailPosition"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" />
+    
     <Button
         android:id="@+id/contactDetailSaveButton"
         android:layout_width="match_parent"
@@ -45,5 +56,13 @@
         android:layout_marginTop="25dp"
         android:onClick="saveContact"
         android:text="@string/contact_detail_label_save" />
+    
+    <Button
+        android:id="@+id/contactDetailCancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:onClick="cancel"
+        android:text="@string/contact_detail_label_cancel" />
 
 </LinearLayout>

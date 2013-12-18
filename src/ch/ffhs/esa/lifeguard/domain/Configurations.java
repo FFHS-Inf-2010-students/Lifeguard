@@ -8,14 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import ch.ffhs.esa.lifeguard.persistence.Persistable;
 import ch.ffhs.esa.lifeguard.persistence.TableGateway;
 
 /**
  * Configurations table gateway implementation
  * 
  * @author Juerg Gutknecht <juerg.gutknecht@students.ffhs.ch>
- * @author Christof K„lin <christof.kaelin@students.ffhs.ch>
+ * @author Christof Kï¿½lin <christof.kaelin@students.ffhs.ch>
  * 
  */
 public class Configurations
@@ -105,13 +104,14 @@ implements ConfigurationsInterface {
 	}
 
 	@Override
-	public void delete(ConfigurationInterface object) {
-		this.getWritableDatabase().delete(
+	public int delete(ConfigurationInterface object) {
+		int rows = this.getWritableDatabase().delete(
 				this.getTable(),
 				"_id = ?",
 				new String[] {String.valueOf(object.getId())}
 				);
-		this.closeDatabase();	
+		this.closeDatabase();
+		return rows;
 	}
 
 	@Override

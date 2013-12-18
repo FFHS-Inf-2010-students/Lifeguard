@@ -1,14 +1,5 @@
 package ch.ffhs.esa.lifeguard.alarm;
 
-import ch.ffhs.esa.lifeguard.ActivityMessage;
-import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
-import ch.ffhs.esa.lifeguard.alarm.context.ServiceAlarmContext;
-import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
-import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
-import ch.ffhs.esa.lifeguard.alarm.state.AlarmingState;
-import ch.ffhs.esa.lifeguard.alarm.state.AwaitingState;
-import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
-import ch.ffhs.esa.lifeguard.domain.Contact;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,6 +8,13 @@ import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import ch.ffhs.esa.lifeguard.ActivityMessage;
+import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
+import ch.ffhs.esa.lifeguard.alarm.context.ServiceAlarmContext;
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmingState;
+import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
 
 /**
  * The background service of Lifeguard.
@@ -33,7 +31,7 @@ public class AlarmService extends Service implements AlarmStateListener {
      * PROPERTIES
      */
     
-    private AlarmContext alarmContext = new ServiceAlarmContext (this.getBaseContext ());
+    private AlarmContext alarmContext = new ServiceAlarmContext (this);
 
     private BroadcastReceiver cancelReceiver = new BroadcastReceiver () {
         public void onReceive (Context context, Intent intent) {

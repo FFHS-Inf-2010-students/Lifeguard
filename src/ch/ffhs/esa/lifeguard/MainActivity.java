@@ -1,27 +1,24 @@
 package ch.ffhs.esa.lifeguard;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
-import android.widget.TextView;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import ch.ffhs.esa.lifeguard.alarm.AlarmService;
-import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.alarm.AlarmService.AlarmBinder;
+import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
-import ch.ffhs.esa.lifeguard.ui.InitialView;
-import ch.ffhs.esa.lifeguard.ui.ViewStateStrategy;
 import ch.ffhs.esa.lifeguard.ui.ViewStrategyFactory;
 
 /**
@@ -130,7 +127,6 @@ public class MainActivity extends Activity {
      * Starts the configuration activity.
      */
     public void openConfiguration() {
-        Log.d(MainActivity.class.toString(), "Open configuration...");
         Intent intent = new Intent(this, ConfigurationActivity.class);
         startActivity(intent);
     }
@@ -139,7 +135,6 @@ public class MainActivity extends Activity {
      * Starts the contact list activity to display all available contacts.
      */
     public void viewContacts() {
-        Log.d(MainActivity.class.toString(), "View contacts...");
         Intent intent = new Intent(this, ContactListActivity.class);
         startActivity(intent);
     }

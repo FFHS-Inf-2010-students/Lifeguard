@@ -18,13 +18,25 @@
     <string name="main_label_alarm_switch">Alarmierung bei Zeitüberschreitung</string>
     <string name="title_activity_contact_detail">Kontaktangaben</string>
     <string name="contact_detail_label_name">Name</string>
+    <string name="contact_detail_hint_name">John Doe</string>
+    <string name="contact_detail_error_name">Name is required</string>
     <string name="contact_detail_label_phone">Telefonnummer</string>
+    <string name="contact_detail_hint_phone">+41791234567</string>
+    <string name="contact_detail_error_phone">Phone number is required and must be of valid format, e.g. +41791234567</string>
+    <string name="contact_detail_label_position">Position</string>
     <string name="contact_detail_label_save">Speichern</string>
+    <string name="contact_detail_label_cancel">Abbrechen</string>
+    <string name="contact_list_confirm_delete"><![CDATA[
+        Soll %s gelöscht werden?
+    ]]></string>
     <string name="action_add_contact">Kontakt hinzufügen</string>
     <string name="alarm_message_format_string"><![CDATA[
         %s braucht dringend Deine Hilfe!
         Bitte bestätige dieses SMS und eile so schnell wie möglich herbei!
         ]]></string>
     <string name="alarm_message_default_entry">Der Absender</string>
+    
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
 
 </resources>

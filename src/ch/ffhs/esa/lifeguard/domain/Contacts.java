@@ -106,18 +106,21 @@ public class Contacts extends TableGateway implements ContactsInterface
         ContentValues values = new ContentValues ();
         values.put (COLUMN_NAME, object.getName ());
         values.put (COLUMN_PHONE, object.getPhone ());
-        values.put (COLUMN_POSITION, object.getPosition ());
 
         long id = -1L;
+        
+        int targetPos = object.getPosition();
 
         try {
             if (object.getId () > 0) {
+                // Update
                 this.getWritableDatabase ().update (this.getTable (), values,
                         COLUMN_ID + " = ?",
                         new String[] { String.valueOf (object.getId ()) });
                 id = object.getId ();
             }
             else {
+                // Insert
                 int pos = this.getMaxPosition () + 1;
                 values.put (COLUMN_POSITION, pos);
                 id = this.getWritableDatabase ().insert (this.getTable (),
@@ -132,16 +135,23 @@ public class Contacts extends TableGateway implements ContactsInterface
         finally {
             this.closeDatabase ();
         }
+        
+        this.moveContact(object, targetPos);
 
         return id;
     }
 
     @Override
-    public void delete (ContactInterface object)
+    public int delete (ContactInterface object)
     {
-        this.getWritableDatabase ().delete (this.getTable (), "_id = ?",
+        int rows = this.getWritableDatabase ().delete (this.getTable (), "_id = ?",
                 new String[] { String.valueOf (object.getId ()) });
         this.closeDatabase ();
+        
+        if (rows > 0) {
+            this.reorder();
+        }
+        return rows;
     }
 
     @Override
@@ -194,6 +204,7 @@ public class Contacts extends TableGateway implements ContactsInterface
 
     /**
      * Returns the number of stored contacts.
+     * 
      * @return the number of stored contacts
      * @throws IllegalStateException if the query has failed
      */
@@ -256,6 +267,12 @@ public class Contacts extends TableGateway implements ContactsInterface
      * PROTECTED OPERATIONS
      */
 
+    /**
+     * Creates a contact object from a database cursor
+     * 
+     * @param cursor The cursor to retrieve the data from
+     * @return The contact object
+     */
     protected ContactInterface createContact (Cursor cursor)
     {
         ContactInterface contact = new Contact ();
@@ -268,6 +285,11 @@ public class Contacts extends TableGateway implements ContactsInterface
         return contact;
     }
 
+    /**
+     * Retrieves the highest currently store position
+     * 
+     * @return The max position
+     */
     protected int getMaxPosition ()
     {
         String query = "SELECT MAX(" + COLUMN_POSITION + ") FROM "
@@ -280,5 +302,74 @@ public class Contacts extends TableGateway implements ContactsInterface
         }
 
         return pos;
+    }
+    
+    /**
+     * Moves a contact up or down to targetPos.
+     * 
+     * @param contact The contact to move
+     * @param targetPos The position to move to
+     */
+    protected void moveContact(ContactInterface contact, int targetPos) {
+        ContactInterface storedContact = this.findById(contact.getId());
+        int storedPos = storedContact.getPosition();
+        
+        if (storedPos == targetPos) {
+            return;
+        }
+        
+        /*
+         * Why are we iterating over all contacts? Wouldn't it be better to
+         * select only the relevant rows from the database?
+         * 
+         * Yes, it would. But we only have <= 5 rows (contacts), so why bother?
+         */
+        
+        if (storedPos > targetPos) {
+            // Moving up
+            for (ContactInterface c : this.getAll()) {
+                if (c.getPosition() >= targetPos) {
+                    this.updatePosition(c, c.getPosition()+1);
+                }
+            }
+        } else {
+            // Moving down
+            for (ContactInterface c : this.getAll()) {
+                if (c.getPosition() >= storedPos
+                    && c.getPosition() <= targetPos) {
+                    this.updatePosition(c, c.getPosition()-1);
+                }
+            }
+        }
+        
+        this.updatePosition(contact, targetPos);
+        this.reorder();
+    }
+    
+    /**
+     * Re-orders the contacts' positions to eliminate gaps in positions.
+     * 
+     * Example: (1,2,4) -> (1,2,3)
+     */
+    protected void reorder() {
+        int pos = 0;
+        for (ContactInterface c : this.getAll()) {
+            this.updatePosition(c, ++pos);
+        }
+    }
+    
+    /**
+     * Low-cost convenience operation to update a contact's position.
+     * 
+     * @param contact The contact to move
+     * @param pos The position to move to
+     */
+    protected void updatePosition(ContactInterface contact, int pos) {
+        ContentValues values = new ContentValues ();
+        values.put (COLUMN_POSITION, pos);
+        this.getWritableDatabase ().update (this.getTable (), values,
+                COLUMN_ID + " = ?",
+                new String[] { String.valueOf (contact.getId ()) });
+        this.closeDatabase();
     }
 }

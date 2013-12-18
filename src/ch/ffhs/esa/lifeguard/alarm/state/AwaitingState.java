@@ -10,8 +10,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 
 /**
  * Awaiting the reply from the rescuer.
@@ -108,12 +110,10 @@ public class AwaitingState extends AbstractAlarmState
                 getContext ().setNext (new AlarmingState (contact.getPosition ()));
             }
         };
-
-        Long delay = getBaseContext ().getSharedPreferences (
-                Lifeguard.APPLICATION_SETTINGS, 0)
-                .getLong ("alarmRepeatDelay", 180);
-
-        timer.schedule (timeout, delay.longValue () * 1000);
+        SharedPreferences prefs =  getBaseContext().getSharedPreferences(Lifeguard.APPLICATION_SETTINGS, 0);
+        //default timeout 10min
+        long delay = Long.parseLong(prefs.getString ("alarmRepeatDelay", "600")) * 1000;
+        timer.schedule (timeout, delay);
     }
 
     /**
