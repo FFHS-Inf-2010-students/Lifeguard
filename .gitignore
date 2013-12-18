@@ -33,3 +33,7 @@ docs/log.csv
 # VirtualParadigm
 docs/Lifeguard.vpp.*
 docs/Lifeguard.vpp~*
+
+# Maven
+target/
+android.properties

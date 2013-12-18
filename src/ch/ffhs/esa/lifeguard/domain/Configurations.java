@@ -15,7 +15,7 @@ import ch.ffhs.esa.lifeguard.persistence.TableGateway;
  * Configurations table gateway implementation
  * 
  * @author Juerg Gutknecht <juerg.gutknecht@students.ffhs.ch>
- * @author Christof Kälin <christof.kaelin@students.ffhs.ch>
+ * @author Christof K„lin <christof.kaelin@students.ffhs.ch>
  * 
  */
 public class Configurations

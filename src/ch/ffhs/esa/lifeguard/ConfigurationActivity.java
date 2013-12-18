@@ -1,12 +1,10 @@
 package ch.ffhs.esa.lifeguard;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,8 +56,8 @@ public class ConfigurationActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.menu.main:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+                   finish ();
+                   return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
