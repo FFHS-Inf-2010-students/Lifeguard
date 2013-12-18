@@ -1,5 +1,8 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
+import android.content.Intent;
+import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
+
 /**
  * Handles the confirmation of the rescuers reply.
  * 
@@ -26,8 +29,7 @@ public class ConfirmedState
      */
 
     @Override
-    protected void doProcess ()
-    {
+    protected void doProcess () {
         // TODO Auto-generated method stub
     }
 }
