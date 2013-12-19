@@ -3,6 +3,8 @@ package ch.ffhs.esa.lifeguard.alarm.context;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
+import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
 import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
@@ -43,14 +45,31 @@ public class ServiceAlarmContext
     {
         return baseContext;
     }
+    
+    private void sendStatus (Intent extraIntent)
+    {
+        Intent intent = new Intent (ServiceMessage.CURRENT_SERVICE_STATE);
+        if (extraIntent != null) {
+            intent.putExtras(extraIntent.getExtras());
+        }
+        intent.putExtra ("stateId", getState().getId().toString ());
+        getBaseContext ().sendBroadcast (intent);
+    }
 
     @Override
     public void setNext (AlarmState state)
     {
+        setNext(state, null);
+    }
+    
+    public void setNext (AlarmState state, Intent intent)
+    {
         current = state;
-        notifyListeners ();
+        //notifyListeners ();
+        sendStatus(intent);
         current.process (this);
     }
+    
 
     @Override
     public AlarmState getState ()
@@ -76,16 +95,4 @@ public class ServiceAlarmContext
         current.cancel ();
         current = new InitialState ();
     }
-    
-    /*//////////////////////////////////////////////////////////////////////////
-	 * PROTECTED OPERATIONS
-	 */
-    
-    protected void notifyListeners ()
-    {
-        for (AlarmStateListener l : listeners) {
-            l.onStateChanged (this);
-        }
-    }
-
 }

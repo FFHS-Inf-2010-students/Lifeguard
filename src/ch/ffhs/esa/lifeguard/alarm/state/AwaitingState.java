@@ -145,10 +145,10 @@ public class AwaitingState extends AbstractAlarmState
         if (helpConfirmed) {
             cancel ();
             Intent message = new Intent (ServiceMessage.RESCUE_CONFIRMED);
-            message.putExtra ("rescuer", contact.getId ());
+            message.putExtra ("rescuer", contact.getName());
             getContext ().getBaseContext ().sendBroadcast (message);
 
-            getContext ().setNext (new ConfirmedState ());
+            getContext ().setNext (new ConfirmedState (), message);
         }
     }
 

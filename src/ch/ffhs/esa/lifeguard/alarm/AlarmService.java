@@ -11,8 +11,6 @@ import android.util.Log;
 import ch.ffhs.esa.lifeguard.ActivityMessage;
 import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
 import ch.ffhs.esa.lifeguard.alarm.context.ServiceAlarmContext;
-import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
-import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmingState;
 import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
 
@@ -22,7 +20,7 @@ import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
  * @author David Daniel <david.daniel@students.ffhs.ch>
  * @author Thomas Aregger <thomas.aregger@students.ffhs.ch>
  */
-public class AlarmService extends Service implements AlarmStateListener {
+public class AlarmService extends Service {
     private final IBinder binder = new AlarmBinder();
 //    private Contact lastNotifiedContact;
     
@@ -69,15 +67,8 @@ public class AlarmService extends Service implements AlarmStateListener {
     public void onStart ()
     {
         Log.d(AlarmService.class.toString(), "Service on start");
-        sendStatus ();
     }
 
-    @Override
-    public void onStateChanged (AlarmContext context)
-    {
-        sendStatus ();
-    }
-    
     @Override
     public IBinder onBind (Intent intent) {
         return binder;
@@ -91,19 +82,6 @@ public class AlarmService extends Service implements AlarmStateListener {
         super.onDestroy ();
     }
 
-    
-    /*//////////////////////////////////////////////////////////////////////////
-     * PRIVATE OPERATIONS
-     */
-
-    private void sendStatus ()
-    {
-        Intent intent = new Intent (ServiceMessage.CURRENT_SERVICE_STATE);
-        AlarmState state = alarmContext.getState ();
-        intent.putExtra ("stateId", state.getId ().toString ());
-        alarmContext.getBaseContext ().sendBroadcast (intent);
-    }
-    
     public class AlarmBinder extends Binder {
         public AlarmService getService() {
             return AlarmService.this;
@@ -113,13 +91,11 @@ public class AlarmService extends Service implements AlarmStateListener {
     private void onManualCancel ()
     {
         alarmContext.cancel ();
-        sendStatus ();
     }
 
     private void onManualAlarm ()
     {
         alarmContext.cancel ();
         alarmContext.setNext (new AlarmingState ());
-        sendStatus ();
     }
 }

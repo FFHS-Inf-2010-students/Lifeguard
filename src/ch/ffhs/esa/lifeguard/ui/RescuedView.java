@@ -4,6 +4,7 @@ import ch.ffhs.esa.lifeguard.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class RescuedView
     implements ViewStateStrategy
@@ -15,6 +16,8 @@ public class RescuedView
         button.setEnabled (true);
         button = (Button) activity.findViewById (R.id.toggleButtonAlarmSwitch);
         button.setEnabled (true);
-        // TODO Show the user that he will be rescued
+        
+        TextView sosText = (TextView)activity.findViewById(R.id.textViewSOSButton);
+        sosText.setText(intent.getExtras().getString("rescuer").toString() + " eilt zur Hilfe!");
     }
 }

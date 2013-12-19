@@ -54,7 +54,7 @@ public class AlarmingState extends AbstractAlarmState {
      * //////////////////////////////////////////////////////////////////////////
      * PROTECTED OPERATIONS
      */
-
+    
     @Override
     protected void doProcess () {
 //        contactList = new Contacts(Lifeguard.getDatabaseHelper()).getAll().toArray();
@@ -64,7 +64,6 @@ public class AlarmingState extends AbstractAlarmState {
                 "Try to notify " + recipient.getName () + " ("
                         + recipient.getPhone () + ")");
         notifyRecipient (recipient);
-
         getContext ().setNext (
                 new AwaitingState (recipient));
     }
