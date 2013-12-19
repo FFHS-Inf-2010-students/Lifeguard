@@ -170,6 +170,8 @@ public class MainActivity extends Activity {
         AlarmStateId current = AlarmStateId.valueOf (
                 AlarmStateId.class,
                 bundle.get ("stateId").toString ());
+        
+        Log.d(getClass().toString(), "State Change: " + current.toString());
 
         viewStrategyFactory.create (current).handleUi (this, intent);
     }

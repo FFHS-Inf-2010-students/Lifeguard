@@ -90,45 +90,7 @@ public class AlarmService extends Service implements AlarmStateListener {
         unregisterReceiver (cancelReceiver);
         super.onDestroy ();
     }
-//    
-//    public AlarmState getState() {
-//        return alarmContext.getState();
-//    }
-    
-//    public void doManualAlarm() {
-//        if ( isAlarmingState() ) {
-//            Log.d(this.getClass().toString(), "Already alarmed.");
-//        } else {
-//            alarmContext.setNext(new AlarmingState());
-//            alarmContext.getState().process(alarmContext);
-//            lastNotifiedContact = ((AlarmingState) alarmContext.getState()).getLastNotifiedContact();
-//            alarmContext.setNext(new AwaitingState(lastNotifiedContact.getPhone (), 0));
-//            alarmContext.getState().process(alarmContext);
-//        }
-//       
-//    }
-//    
-//    public String getAlarmButtonMsg() {
-//        if ( alarmContext.getState().getClass() == AlarmingState.class ) {
-//            return lastNotifiedContact.getName() + " wurde alarmiert.";
-//        } else if (alarmContext.getState().getClass() == AwaitingState.class ) {
-//            return lastNotifiedContact.getName() + " wurde bereits alarmiert.";
-//        } else {
-//            return "Halten Sie den Knopf f�r 5 Sekunden gedr�ckt um sofort einen Alarm auszul�sen.";
-//        }
-//        
-//    }
-//    
-//    private boolean isAlarmingState() {
-//        if ( alarmContext.getState().getClass() == AlarmingState.class
-//                || alarmContext.getState().getClass() == AwaitingState.class) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//        
-//    }
-//    
+
     
     /*//////////////////////////////////////////////////////////////////////////
      * PRIVATE OPERATIONS

@@ -135,6 +135,7 @@ public class AwaitingState extends AbstractAlarmState
                         message.getOriginatingAddress ());
 
                 if (senderNumber.equals (getNormalizedPhone (contact.getPhone ()))) {
+                    Log.d(getClass().toString(), getNormalizedPhone(contact.getPhone()) + " has responded to alarm." );
                     helpConfirmed = true;
                     break;
                 }
