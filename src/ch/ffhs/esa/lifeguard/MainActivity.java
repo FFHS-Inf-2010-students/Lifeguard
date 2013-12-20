@@ -94,10 +94,10 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
 
-        menu.add (0, ACTION_CONFIGURATION, Menu.NONE, getText (R.string.action_configuration));
-        menu.add (0, ACTION_CONTACT_LIST, Menu.NONE, getText (R.string.action_contact_list));
+        menu.add (Menu.NONE, ACTION_CONFIGURATION, Menu.NONE, getText (R.string.action_configuration));
+        menu.add (Menu.NONE, ACTION_CONTACT_LIST, Menu.NONE, getText (R.string.action_contact_list));
 
-        return true;
+        return super.onCreateOptionsMenu (menu);
     }
     
     
