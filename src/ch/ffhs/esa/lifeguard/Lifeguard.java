@@ -47,6 +47,10 @@ public class Lifeguard extends Application {
 		return databaseHelper;
 	}
 	
+	public static void setDatabaseHelper(SQLiteOpenHelper helper) {
+	    databaseHelper = helper;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public static List<TableGatewayInterface> getTableGateways() {
 		List<TableGatewayInterface> gateways = new ArrayList<TableGatewayInterface>();
