@@ -161,7 +161,7 @@ public class Contacts extends TableGateway implements ContactsInterface
         try {
             cursor = this.getReadableDatabase ().rawQuery (
                     "SELECT * FROM " + this.getTable () + " WHERE ? ORDER BY "
-                            + COLUMN_POSITION, new String[] { "1" });
+                            + COLUMN_POSITION + " ASC", new String[] { "1" });
         }
         catch (IllegalStateException e) {
             Log.e (Contacts.class.toString (), e.getMessage ());
