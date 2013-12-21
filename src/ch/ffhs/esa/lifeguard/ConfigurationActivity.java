@@ -63,9 +63,8 @@ public class ConfigurationActivity extends Activity {
 
 	public void saveConfiguration (View view)
 	{
-	    // TODO save config
 	    SharedPreferences prefs = getBaseContext ()
-	            .getSharedPreferences (Lifeguard.APPLICATION_SETTINGS, 0);
+            .getSharedPreferences (((Lifeguard)getApplication()).getSharedPreferencesIdentifier(), 0);
 	    Editor editor = prefs.edit ();
 
 	    EditText item = (EditText) findViewById (R.id.configurationUserName);
@@ -90,7 +89,7 @@ public class ConfigurationActivity extends Activity {
 	private void loadSettings ()
 	{
 	    SharedPreferences prefs = getBaseContext ()
-	            .getSharedPreferences (Lifeguard.APPLICATION_SETTINGS, 0);
+            .getSharedPreferences (((Lifeguard)getApplication()).getSharedPreferencesIdentifier(), 0);
 
 	    EditText item = (EditText) findViewById (R.id.configurationUserName);
 	    item.setText (prefs.getString ("userName", ""));
