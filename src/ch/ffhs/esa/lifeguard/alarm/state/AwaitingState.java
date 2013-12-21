@@ -154,7 +154,7 @@ public class AwaitingState extends AbstractAlarmState
             message.putExtra ("rescuer", contact.getId ());
             getAlarmContext ().getAndroidContext ().sendBroadcast (message);
 
-            getAlarmContext ().setNext (new ConfirmedState ());
+            getAlarmContext ().setNext (new ConfirmedState (contact));
         }
     }
 
