@@ -20,11 +20,11 @@ import android.widget.Toast;
 /**
  * Sends an alarm message to the rescuer.
  * 
+ * @author Thomas Aregger <thomas.aregger@students.ffhs.ch>
  * @author David Daniel <david.daniel@students.ffhs.ch>
  */
 public class AlarmingState extends AbstractAlarmState
 {
-
     private Contacts contacts;
     private long contactPosition;
     private long nrOfContacts = -1;
@@ -52,7 +52,7 @@ public class AlarmingState extends AbstractAlarmState
     }
 
     @Override
-    public void getStateInfo (Intent intent)
+    public void putStateInfo (Intent intent)
     {
         intent.putExtra ("contactId", contactPosition);
     }

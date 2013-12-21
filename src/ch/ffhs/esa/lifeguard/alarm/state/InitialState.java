@@ -32,8 +32,8 @@ public class InitialState
 
 
     @Override
-    public void getStateInfo (Intent intent)
+    public void putStateInfo (Intent intent)
     {
-        // TODO Auto-generated method stub
+        // no info available / none needed
     }
 }

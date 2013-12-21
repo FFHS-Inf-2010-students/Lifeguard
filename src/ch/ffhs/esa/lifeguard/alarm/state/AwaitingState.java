@@ -34,7 +34,7 @@ public class AwaitingState extends AbstractAlarmState
 
     private ContactInterface contact;
 
-    private Timer timer;
+    private Timer timer = null;
 
     /*
      * //////////////////////////////////////////////////////////////////////////
@@ -71,7 +71,7 @@ public class AwaitingState extends AbstractAlarmState
     }
 
     @Override
-    public void getStateInfo (Intent intent)
+    public void putStateInfo (Intent intent)
     {
         intent.putExtra ("contactId", contact.getId ());
     }
@@ -141,7 +141,9 @@ public class AwaitingState extends AbstractAlarmState
                         message.getOriginatingAddress ());
 
                 if (senderNumber.equals (getNormalizedPhone (contact.getPhone ()))) {
-                    Log.d(getClass().toString(), getNormalizedPhone(contact.getPhone()) + " has responded to alarm." );
+                    Log.d(getClass().toString(),
+                            contact.getName () + " has responded to alarm ("
+                            + contact.getPhone () + ").");
                     helpConfirmed = true;
                     break;
                 }

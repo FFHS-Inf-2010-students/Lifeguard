@@ -257,6 +257,7 @@ public class Contacts extends TableGateway implements ContactsInterface
             if (cursor.moveToFirst ()) {
                 contact = createContact (cursor);
             }
+            cursor.close ();
             closeDatabase ();
 
 	    return contact;

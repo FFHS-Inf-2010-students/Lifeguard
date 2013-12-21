@@ -46,7 +46,7 @@ public class ConfirmedState
     }
 
     @Override
-    public void getStateInfo (Intent intent)
+    public void putStateInfo (Intent intent)
     {
         intent.putExtra ("contactId", contact.getId ());
     }

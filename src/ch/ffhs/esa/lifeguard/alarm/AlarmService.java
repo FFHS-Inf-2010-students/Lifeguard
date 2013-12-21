@@ -99,7 +99,7 @@ public class AlarmService extends Service implements AlarmStateListener {
         Intent intent = new Intent (ServiceMessage.CURRENT_SERVICE_STATE);
         AlarmState state = alarmContext.getState ();
         intent.putExtra ("stateId", state.getId ().toString ());
-        state.getStateInfo (intent);
+        state.putStateInfo (intent);
         sendBroadcast (intent);
     }
     

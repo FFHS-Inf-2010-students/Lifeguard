@@ -1,5 +1,8 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.content.Intent;
 
 /**
@@ -10,6 +13,13 @@ import android.content.Intent;
 public class TickingState
     extends AbstractAlarmState
 {
+    private Timer timer;
+
+    private TimerTask task = new TimerTask() {
+        @Override
+        public void run ()
+        { tick (); }
+    };
 
     /*//////////////////////////////////////////////////////////////////////////
      * PUBLIC INTERFACE
@@ -29,12 +39,28 @@ public class TickingState
     @Override
     protected void start ()
     {
-        // TODO Auto-generated method stub
+        timer = new Timer (true);
+        timer.scheduleAtFixedRate (task, 0L, 1000L);
     }
 
     @Override
-    public void getStateInfo (Intent intent)
+    public void cancel ()
     {
-        // TODO Auto-generated method stub
+        if (timer != null) {
+            timer.cancel ();
+            timer = null;
+        }
+    }
+
+    @Override
+    public void putStateInfo (Intent intent)
+    {
+        // TODO Put the real clock tick into the intent
+//        intent.putExtra ("clockTick", clockTick);
+    }
+
+    private void tick ()
+    {
+        
     }
 }

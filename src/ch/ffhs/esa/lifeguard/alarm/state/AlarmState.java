@@ -31,5 +31,5 @@ public interface AlarmState
      * Puts the representation of this state into the given intent.
      * @param intent the intent to inform about this state
      */
-    public void getStateInfo (Intent intent);
+    public void putStateInfo (Intent intent);
 }
