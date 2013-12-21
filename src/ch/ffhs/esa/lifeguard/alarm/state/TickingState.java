@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import ch.ffhs.esa.lifeguard.Lifeguard;
 import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import android.content.Intent;
+import android.util.Log;
 
 /**
  * This state is active when the user activity has to be watched.
@@ -49,7 +50,7 @@ public class TickingState
         cancel ();
         maxClockTick = Long.parseLong(
                 getAndroidContext ().getSharedPreferences (Lifeguard.APPLICATION_SETTINGS, 0)
-                    .getString ("alarmDelay", "600")) * 1000;
+                    .getString ("alarmDelay", "600"));
         clockTick = 0L;
         timer = new Timer (true);
         timer.scheduleAtFixedRate (task, 1000L, 1000L);
@@ -79,6 +80,7 @@ public class TickingState
         Intent intent = new Intent (ServiceMessage.ALARM_CLOCK_TICK);
         putStateInfo (intent);
         getAndroidContext ().sendBroadcast (intent);
+        Log.d (TickingState.class.getName (), "Tick: " + clockTick);
 
         if (clockTick.compareTo (maxClockTick) >= 0) {
             cancel ();

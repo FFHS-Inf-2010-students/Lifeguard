@@ -21,4 +21,9 @@ public class AwaitingView
         //ContactInterface contact = contacts.findById (id);
         
     }
+
+    @Override
+    public void onClose ()
+    {
+    }
 }

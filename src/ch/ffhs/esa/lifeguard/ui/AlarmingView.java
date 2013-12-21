@@ -17,4 +17,9 @@ public class AlarmingView
         button.setEnabled (false);
         // TODO Maybe we should add a "cancel button"
     }
+
+    @Override
+    public void onClose ()
+    {
+    }
 }

@@ -116,6 +116,7 @@ public class MainActivity extends Activity {
     {
         unregisterReceiver (stateChangeReceiver);
         unbindService (serviceConnection);
+        viewStrategyFactory.notifiyClose ();
         super.onDestroy ();
     }
     
@@ -138,7 +139,7 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, ContactListActivity.class);
         startActivity(intent);
     }
-    
+
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
@@ -155,12 +156,9 @@ public class MainActivity extends Activity {
 
     private void triggerManualAlarm ()
     {
-        sendBroadcast (new Intent (ActivityMessage.MANUAL_ALARM));
-    }
-
-    private void triggerManualCancel ()
-    {
-        sendBroadcast (new Intent (ActivityMessage.CANCEL_OPERATION));
+        Intent intent = new Intent (ActivityMessage.STATE_CHANGE_REQUEST);
+        intent.putExtra ("stateId", AlarmStateId.ALARMING.toString ());
+        sendBroadcast (intent);
     }
 
     private void onStateChanged (Intent intent)

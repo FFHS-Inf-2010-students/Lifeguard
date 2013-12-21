@@ -20,4 +20,9 @@ public class RescuedView
         TextView sosText = (TextView)activity.findViewById(R.id.textViewSOSButton);
         sosText.setText(intent.getExtras().getString("rescuer").toString() + " eilt zur Hilfe!");
     }
+
+    @Override
+    public void onClose ()
+    {
+    }
 }

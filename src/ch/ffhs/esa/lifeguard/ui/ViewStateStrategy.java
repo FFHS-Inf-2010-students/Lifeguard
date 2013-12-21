@@ -16,4 +16,9 @@ public interface ViewStateStrategy
      * @param intent the original intent (the source event, the message)
      */
     public void handleUi (Activity activity, Intent intent);
+
+    /**
+     * Called when the ui gets closed.
+     */
+    public void onClose ();
 }

@@ -49,6 +49,16 @@ public class ViewStrategyFactory
         return strategy;
     }
 
+    /**
+     * Notifies all view state strategies about the ui close.
+     */
+    public void notifiyClose ()
+    {
+        for (ViewStateStrategy strategy : strategies.values ()) {
+            strategy.onClose ();
+        }
+    }
+
     private void buildFactory ()
     {
         for (Entry entry : entries) {

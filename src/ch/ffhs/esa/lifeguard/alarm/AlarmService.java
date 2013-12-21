@@ -12,8 +12,10 @@ import ch.ffhs.esa.lifeguard.ActivityMessage;
 import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
 import ch.ffhs.esa.lifeguard.alarm.context.ServiceAlarmContext;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmingState;
+import ch.ffhs.esa.lifeguard.alarm.state.TickingState;
 
 /**
  * The background service of Lifeguard.
@@ -34,13 +36,13 @@ public class AlarmService extends Service implements AlarmStateListener {
 
     private BroadcastReceiver cancelReceiver = new BroadcastReceiver () {
         public void onReceive (Context context, Intent intent) {
-            onManualCancel ();
+            onManualCancel (intent);
         }
     };
 
-    private BroadcastReceiver alarmReceiver = new BroadcastReceiver () {
+    private BroadcastReceiver stateChangeRequestListener = new BroadcastReceiver () {
         public void onReceive (Context context, Intent intent) {
-            onManualAlarm ();
+            onStateChangeRequest (intent);
         }
     };
     
@@ -56,8 +58,8 @@ public class AlarmService extends Service implements AlarmStateListener {
         Log.d(AlarmService.class.toString(), "Service created");
 
         registerReceiver (
-                alarmReceiver,
-                new IntentFilter (ActivityMessage.MANUAL_ALARM));
+                stateChangeRequestListener,
+                new IntentFilter (ActivityMessage.STATE_CHANGE_REQUEST));
         registerReceiver (
                 cancelReceiver,
                 new IntentFilter (ActivityMessage.CANCEL_OPERATION));
@@ -85,7 +87,7 @@ public class AlarmService extends Service implements AlarmStateListener {
     @Override
     public void onDestroy ()
     {
-        unregisterReceiver (alarmReceiver);
+        unregisterReceiver (stateChangeRequestListener);
         unregisterReceiver (cancelReceiver);
         super.onDestroy ();
     }
@@ -103,21 +105,42 @@ public class AlarmService extends Service implements AlarmStateListener {
         state.putStateInfo (intent);
         sendBroadcast (intent);
     }
-    
+
     public class AlarmBinder extends Binder {
         public AlarmService getService() {
             return AlarmService.this;
         }
     }
 
-    private void onManualCancel ()
+    private void onManualCancel (Intent intent)
     {
         alarmContext.cancel ();
     }
 
-    private void onManualAlarm ()
+    private void onStateChangeRequest (Intent intent)
     {
-        alarmContext.getState ().cancel ();
-        alarmContext.setNext (new AlarmingState ());
+        AlarmStateId id = AlarmStateId.valueOf (
+                AlarmStateId.class, intent.getExtras ().getString ("stateId"));
+        
+        AlarmState state = null;
+
+        switch (id) {
+        case ALARMING:
+            state = new AlarmingState ();
+            break;
+        case TICKING:
+            state = new TickingState ();
+            break;
+        default:
+        case AWAITING:
+        case CONFIRMED:
+        case INIT:
+            break;
+        }
+
+        if (state != null) {
+            alarmContext.getState ().cancel ();
+            alarmContext.setNext (state);
+        }
     }
 }
