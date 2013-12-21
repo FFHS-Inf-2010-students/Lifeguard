@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteOpenHelper;
-import ch.ffhs.esa.lifeguard.domain.Configurations;
 import ch.ffhs.esa.lifeguard.domain.Contacts;
 import ch.ffhs.esa.lifeguard.persistence.DatabaseHelper;
 import ch.ffhs.esa.lifeguard.persistence.TableGatewayInterface;
@@ -26,6 +25,10 @@ public class Lifeguard extends Application {
 	
 	public static final String APPLICATION_SETTINGS = "APPLICATION_SETTINGS";
 	
+	@SuppressWarnings("rawtypes")
+    private static List<TableGatewayInterface> gateways;
+	
+	
 	/*//////////////////////////////////////////////////////////////////////////
 	 * INITIALIZATION
 	 */
@@ -34,7 +37,6 @@ public class Lifeguard extends Application {
 	public void onCreate()
 	{
 		super.onCreate();
-		
 		databaseHelper = new DatabaseHelper(this);
 	}
 	
@@ -43,21 +45,40 @@ public class Lifeguard extends Application {
 	 * PUBLIC INTERFACE
 	 */
 	
+	/**
+	 * Returns the application-wide database helper
+	 * 
+	 * @return The database helper
+	 */
 	public static SQLiteOpenHelper getDatabaseHelper() {
 		return databaseHelper;
 	}
 	
+	/**
+	 * Sets a new application-wide database helper
+	 * 
+	 * @param helper The new database helper to set
+	 */
 	public static void setDatabaseHelper(SQLiteOpenHelper helper) {
 	    databaseHelper = helper;
 	}
 	
+	/**
+	 * Returns a list of all registered table gateways
+	 * 
+	 * @return The list of registerd gateways
+	 */
 	@SuppressWarnings("rawtypes")
 	public static List<TableGatewayInterface> getTableGateways() {
-		List<TableGatewayInterface> gateways = new ArrayList<TableGatewayInterface>();
-		
-		gateways.add(new Contacts(databaseHelper));
-		gateways.add(new Configurations(databaseHelper));
+		if (null == gateways) {
+		    gateways = new ArrayList<TableGatewayInterface>();
+		    gateways.add(new Contacts(databaseHelper));
+		}
 		
 		return gateways;
+	}
+	
+	public String getSharedPreferencesIdentifier() {
+	    return APPLICATION_SETTINGS;
 	}
 }
