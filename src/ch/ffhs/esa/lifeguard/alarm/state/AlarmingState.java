@@ -65,8 +65,7 @@ public class AlarmingState extends AbstractAlarmState
     @Override
     protected void start ()
     {
-        // contactList = new
-        // Contacts(Lifeguard.getDatabaseHelper()).getAll().toArray();
+//        contactList = new Contacts(Lifeguard.getDatabaseHelper()).getAll().toArray();
         ContactInterface recipient = getNextContact ();
         Log.d (this.getClass ().toString (), "doProcess ALarmingState");
         Log.d (this.getClass ().toString (),
@@ -76,9 +75,9 @@ public class AlarmingState extends AbstractAlarmState
 
         getAlarmContext ().setNext (new AwaitingState (recipient));
     }
+    
 
-    private ContactInterface getNextContact () throws IllegalStateException
-    {
+    private ContactInterface getNextContact() throws IllegalStateException {
         contactPosition++;
         if (nrOfContacts < 0) {
             nrOfContacts = contacts.getCount ();
@@ -90,8 +89,7 @@ public class AlarmingState extends AbstractAlarmState
 
         ContactInterface contact = contacts.findByPosition (contactPosition);
         if (null == contact) {
-            throw new IllegalStateException (
-                    "Cannot retrieve the next contact.");
+            throw new IllegalStateException ("Cannot retrieve the next contact.");
         }
 
         return contact;
