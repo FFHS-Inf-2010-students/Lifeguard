@@ -32,11 +32,6 @@ public class MainActivity extends Activity {
     AlarmService alarmService;
     boolean bound = false;
 
-    /** Id for the menu action "go to the configuration" */
-    private static final int ACTION_CONFIGURATION = Menu.FIRST;
-    /** Id for the menu action "go to the contact list" */
-    private static final int ACTION_CONTACT_LIST = Menu.FIRST + 1;
-
     private BroadcastReceiver stateChangeReceiver = new BroadcastReceiver () {
         public void onReceive (Context context, Intent intent)
         { onStateChanged (intent); }
@@ -93,10 +88,7 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
-        menu.add (Menu.NONE, ACTION_CONFIGURATION, Menu.NONE, getText (R.string.action_configuration));
-        menu.add (Menu.NONE, ACTION_CONTACT_LIST, Menu.NONE, getText (R.string.action_contact_list));
-
+        getMenuInflater ().inflate (R.menu.main, menu);
         return super.onCreateOptionsMenu (menu);
     }
     
@@ -108,10 +100,10 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case ACTION_CONFIGURATION:
+            case R.id.action_configuration:
                 openConfiguration();
                 return true;
-            case ACTION_CONTACT_LIST:
+            case R.id.action_contact_list:
                 viewContacts();
                 return true;
             default:
