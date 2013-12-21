@@ -14,7 +14,6 @@ import ch.ffhs.esa.lifeguard.alarm.context.ServiceAlarmContext;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmingState;
-import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
 
 /**
  * The background service of Lifeguard.
@@ -64,10 +63,12 @@ public class AlarmService extends Service implements AlarmStateListener {
                 new IntentFilter (ActivityMessage.CANCEL_OPERATION));
     }
 
-    public void onStart ()
+    @Override
+    public int onStartCommand (Intent intent, int flags, int startId)
     {
         Log.d(AlarmService.class.toString(), "Service on start");
         sendStatus ();
+        return START_STICKY;
     }
 
     @Override

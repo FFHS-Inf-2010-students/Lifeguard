@@ -3,6 +3,8 @@ package ch.ffhs.esa.lifeguard.alarm.state;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ch.ffhs.esa.lifeguard.Lifeguard;
+import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import android.content.Intent;
 
 /**
@@ -13,7 +15,11 @@ import android.content.Intent;
 public class TickingState
     extends AbstractAlarmState
 {
-    private Timer timer;
+    private Timer timer = null;
+
+    private Long clockTick = 0L;
+
+    private Long maxClockTick;
 
     private TimerTask task = new TimerTask() {
         @Override
@@ -39,8 +45,15 @@ public class TickingState
     @Override
     protected void start ()
     {
+        //default timeout 10min
+        cancel ();
+        maxClockTick = Long.parseLong(
+                getAndroidContext ().getSharedPreferences (Lifeguard.APPLICATION_SETTINGS, 0)
+                    .getString ("alarmDelay", "600")) * 1000;
+        clockTick = 0L;
         timer = new Timer (true);
-        timer.scheduleAtFixedRate (task, 0L, 1000L);
+        timer.scheduleAtFixedRate (task, 1000L, 1000L);
+        // TODO Create and start a motion listener that resets the counter
     }
 
     @Override
@@ -55,12 +68,21 @@ public class TickingState
     @Override
     public void putStateInfo (Intent intent)
     {
-        // TODO Put the real clock tick into the intent
-//        intent.putExtra ("clockTick", clockTick);
+        intent.putExtra ("clockTick", clockTick);
+        intent.putExtra ("maxClockTick", maxClockTick);
     }
 
     private void tick ()
     {
-        
+        ++clockTick;
+
+        Intent intent = new Intent (ServiceMessage.ALARM_CLOCK_TICK);
+        putStateInfo (intent);
+        getAndroidContext ().sendBroadcast (intent);
+
+        if (clockTick.compareTo (maxClockTick) >= 0) {
+            cancel ();
+            getAlarmContext ().setNext (new AlarmingState ());
+        }
     }
 }

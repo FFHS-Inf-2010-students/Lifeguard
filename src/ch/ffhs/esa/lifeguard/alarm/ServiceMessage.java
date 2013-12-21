@@ -13,4 +13,7 @@ public abstract class ServiceMessage
 
     public static final String ALARM_REPEATED
         = "ch.ffhs.lifeguard.alarm.ALARM_REPEATED";
+
+    public static final String ALARM_CLOCK_TICK
+        = "ch.ffhs.lifeguard.alarm.ALARM_CLOCK_TICK";
 }
