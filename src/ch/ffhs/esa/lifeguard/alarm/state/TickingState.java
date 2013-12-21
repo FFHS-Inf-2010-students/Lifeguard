@@ -1,5 +1,7 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
+import android.content.Intent;
+
 /**
  * This state is active when the user activity has to be watched.
  * 
@@ -25,9 +27,14 @@ public class TickingState
      */
 
     @Override
-    protected void doProcess ()
+    protected void start ()
     {
         // TODO Auto-generated method stub
+    }
 
+    @Override
+    public void getStateInfo (Intent intent)
+    {
+        // TODO Auto-generated method stub
     }
 }

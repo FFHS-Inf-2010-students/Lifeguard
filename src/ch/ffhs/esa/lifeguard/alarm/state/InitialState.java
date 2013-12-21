@@ -1,5 +1,7 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
+import android.content.Intent;
+
 /**
  * Represents the initial state of the service.
  *
@@ -25,6 +27,13 @@ public class InitialState
      */
 
     @Override
-    protected void doProcess ()
+    protected void start ()
     {}
+
+
+    @Override
+    public void getStateInfo (Intent intent)
+    {
+        // TODO Auto-generated method stub
+    }
 }

@@ -11,7 +11,7 @@ import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
  */
 public interface AlarmContext
 {
-    public Context getBaseContext ();
+    public Context getAndroidContext ();
 
     public void setNext (AlarmState state);
 

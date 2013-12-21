@@ -22,11 +22,12 @@ import android.widget.Toast;
  * 
  * @author David Daniel <david.daniel@students.ffhs.ch>
  */
-public class AlarmingState extends AbstractAlarmState {
+public class AlarmingState extends AbstractAlarmState
+{
 
     private Contacts contacts;
-    private int contactPosition;
-    private int nrOfContacts = -1;
+    private long contactPosition;
+    private long nrOfContacts = -1;
 
     /*
      * //////////////////////////////////////////////////////////////////////////
@@ -38,16 +39,22 @@ public class AlarmingState extends AbstractAlarmState {
         this (0);
     }
 
-    public AlarmingState (int contactIndex)
+    public AlarmingState (long contactIndex)
     {
         this.contactPosition = contactIndex;
         this.contacts = new Contacts (Lifeguard.getDatabaseHelper ());
     }
 
-	@Override
+    @Override
     public AlarmStateId getId ()
     {
         return AlarmStateId.ALARMING;
+    }
+
+    @Override
+    public void getStateInfo (Intent intent)
+    {
+        intent.putExtra ("contactId", contactPosition);
     }
 
     /*
@@ -56,8 +63,10 @@ public class AlarmingState extends AbstractAlarmState {
      */
 
     @Override
-    protected void doProcess () {
-//        contactList = new Contacts(Lifeguard.getDatabaseHelper()).getAll().toArray();
+    protected void start ()
+    {
+        // contactList = new
+        // Contacts(Lifeguard.getDatabaseHelper()).getAll().toArray();
         ContactInterface recipient = getNextContact ();
         Log.d (this.getClass ().toString (), "doProcess ALarmingState");
         Log.d (this.getClass ().toString (),
@@ -65,15 +74,14 @@ public class AlarmingState extends AbstractAlarmState {
                         + recipient.getPhone () + ")");
         notifyRecipient (recipient);
 
-        getContext ().setNext (
-                new AwaitingState (recipient));
+        getAlarmContext ().setNext (new AwaitingState (recipient));
     }
-    
 
-    private ContactInterface getNextContact() throws IllegalStateException {
+    private ContactInterface getNextContact () throws IllegalStateException
+    {
         contactPosition++;
         if (nrOfContacts < 0) {
-            nrOfContacts = contacts.getCount ().intValue ();
+            nrOfContacts = contacts.getCount ();
         }
         if (contactPosition >= nrOfContacts) {
             /* Circulate through all contacts over and over, help is needed! */
@@ -82,39 +90,46 @@ public class AlarmingState extends AbstractAlarmState {
 
         ContactInterface contact = contacts.findByPosition (contactPosition);
         if (null == contact) {
-            throw new IllegalStateException ("Cannot retrieve the next contact.");
+            throw new IllegalStateException (
+                    "Cannot retrieve the next contact.");
         }
 
         return contact;
     }
 
-    private void notifyRecipient(ContactInterface recipient) {
-        String phoneNumber = recipient.getPhone();
-        
-        ArrayList<PendingIntent> sentPendingIntents = new ArrayList<PendingIntent>();
-        ArrayList<PendingIntent> deliveredPendingIntents = new ArrayList<PendingIntent>();
-        PendingIntent sentPI = PendingIntent.getBroadcast(getBaseContext (), 0, new Intent(getBaseContext (), SmsSentReceiver.class), 0);
-        PendingIntent deliveredPI = PendingIntent.getBroadcast(getBaseContext (), 0, new Intent(getBaseContext (), SmsDeliveredReceiver.class), 0);
+    private void notifyRecipient (ContactInterface recipient)
+    {
+        String phoneNumber = recipient.getPhone ();
+
+        ArrayList<PendingIntent> sentPendingIntents = new ArrayList<PendingIntent> ();
+        ArrayList<PendingIntent> deliveredPendingIntents = new ArrayList<PendingIntent> ();
+        PendingIntent sentPI = PendingIntent.getBroadcast (getAndroidContext (), 0,
+                new Intent (getAndroidContext (), SmsSentReceiver.class), 0);
+        PendingIntent deliveredPI = PendingIntent.getBroadcast (getAndroidContext (), 0,
+                new Intent (getAndroidContext (), SmsDeliveredReceiver.class), 0);
         try {
-            SmsManager sms = SmsManager.getDefault();
-            ArrayList<String> mSMSMessage = sms.divideMessage(getAlarmMessage ());
-            for (int i = 0; i < mSMSMessage.size(); i++) {
-                sentPendingIntents.add(i, sentPI);
-                deliveredPendingIntents.add(i, deliveredPI);
+            SmsManager sms = SmsManager.getDefault ();
+            ArrayList<String> mSMSMessage = sms
+                    .divideMessage (getAlarmMessage ());
+            for (int i = 0; i < mSMSMessage.size (); i++) {
+                sentPendingIntents.add (i, sentPI);
+                deliveredPendingIntents.add (i, deliveredPI);
             }
-            sms.sendMultipartTextMessage(phoneNumber, null, mSMSMessage,
+            sms.sendMultipartTextMessage (phoneNumber, null, mSMSMessage,
                     sentPendingIntents, deliveredPendingIntents);
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
 
-            e.printStackTrace();
-            Toast.makeText(getBaseContext (), "SMS sending failed...",Toast.LENGTH_SHORT).show();
+            e.printStackTrace ();
+            Toast.makeText (getAndroidContext (),
+                    "SMS sending failed...", Toast.LENGTH_SHORT).show ();
         }
     }
 
     private String getAlarmMessage ()
     {
-        Context context = getBaseContext ();
+        Context context = getAndroidContext ();
         Resources resources = context.getResources ();
 
         final String format = resources.getString (

@@ -56,8 +56,6 @@ public class AlarmService extends Service implements AlarmStateListener {
         super.onCreate ();
         Log.d(AlarmService.class.toString(), "Service created");
 
-        alarmContext.setNext (new InitialState ());
-
         registerReceiver (
                 alarmReceiver,
                 new IntentFilter (ActivityMessage.MANUAL_ALARM));
@@ -101,7 +99,8 @@ public class AlarmService extends Service implements AlarmStateListener {
         Intent intent = new Intent (ServiceMessage.CURRENT_SERVICE_STATE);
         AlarmState state = alarmContext.getState ();
         intent.putExtra ("stateId", state.getId ().toString ());
-        alarmContext.getBaseContext ().sendBroadcast (intent);
+        state.getStateInfo (intent);
+        sendBroadcast (intent);
     }
     
     public class AlarmBinder extends Binder {
@@ -113,13 +112,11 @@ public class AlarmService extends Service implements AlarmStateListener {
     private void onManualCancel ()
     {
         alarmContext.cancel ();
-        sendStatus ();
     }
 
     private void onManualAlarm ()
     {
-        alarmContext.cancel ();
+        alarmContext.getState ().cancel ();
         alarmContext.setNext (new AlarmingState ());
-        sendStatus ();
     }
 }

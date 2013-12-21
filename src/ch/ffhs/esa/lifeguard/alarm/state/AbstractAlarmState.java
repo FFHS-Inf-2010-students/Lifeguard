@@ -24,9 +24,9 @@ public abstract class AbstractAlarmState
      */
 
     @Override
-    public void process (AlarmContext alarmContext)
+    public void start (AlarmContext alarmContext)
     {
-    	setContext (alarmContext).doProcess ();
+    	setContext (alarmContext).start ();
     }
 
     @Override
@@ -44,15 +44,15 @@ public abstract class AbstractAlarmState
         return this;
     }
 
-    protected AlarmContext getContext ()
+    protected AlarmContext getAlarmContext ()
     {
     	return alarmContext;
     }
 
-    protected Context getBaseContext ()
+    protected Context getAndroidContext ()
     {
-        return alarmContext.getBaseContext ();
+        return alarmContext.getAndroidContext ();
     }
 
-    protected abstract void doProcess ();
+    protected abstract void start ();
 }

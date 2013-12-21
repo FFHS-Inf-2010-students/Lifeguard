@@ -1,5 +1,6 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
+import android.content.Intent;
 import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
 
 /**
@@ -9,9 +10,26 @@ import ch.ffhs.esa.lifeguard.alarm.context.AlarmContext;
  */
 public interface AlarmState
 {
-    public void process (AlarmContext alarmContext);
+    /**
+     * Starts this state, sets it to be active.
+     * @param alarmContext the alarm context
+     */
+    public void start (AlarmContext alarmContext);
 
+    /**
+     * Cancels this state, aborts its processing.
+     */
     public void cancel ();
 
+    /**
+     * Returns the id of this state.
+     * @return the id of this state.
+     */
     public AlarmStateId getId ();
+
+    /**
+     * Puts the representation of this state into the given intent.
+     * @param intent the intent to inform about this state
+     */
+    public void getStateInfo (Intent intent);
 }

@@ -25,23 +25,23 @@ public class ServiceAlarmContext
 
     private AlarmState current = null;
 
-    private Context baseContext;
+    private Context androidContext;
 
     
     /*//////////////////////////////////////////////////////////////////////////
 	 * PUBLIC INTERFACE
 	 */
 
-    public ServiceAlarmContext (Context baseContext)
+    public ServiceAlarmContext (Context androidContext)
     {
-        this.baseContext = baseContext;
+        this.androidContext = androidContext;
         current = new InitialState ();
     }
 
     @Override
-    public Context getBaseContext ()
+    public Context getAndroidContext ()
     {
-        return baseContext;
+        return androidContext;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ServiceAlarmContext
     {
         current = state;
         notifyListeners ();
-        current.process (this);
+        current.start (this);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class ServiceAlarmContext
     public void cancel ()
     {
         current.cancel ();
-        current = new InitialState ();
+        setNext (new InitialState ());
     }
     
     /*//////////////////////////////////////////////////////////////////////////

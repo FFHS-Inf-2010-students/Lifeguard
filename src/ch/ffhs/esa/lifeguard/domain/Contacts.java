@@ -234,7 +234,7 @@ public class Contacts extends TableGateway implements ContactsInterface
      * @throws IllegalArgumentException if position < 1
      * @throws IllegalStateException if the query has failed
      */
-    public ContactInterface findByPosition (int position)
+    public ContactInterface findByPosition (long position)
         {
 	    if (position < 1) {
 	        throw new IllegalArgumentException ("There is no position below 1");

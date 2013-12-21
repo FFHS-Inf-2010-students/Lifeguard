@@ -29,7 +29,13 @@ public class ConfirmedState
      */
 
     @Override
-    protected void doProcess () {
+    protected void start () {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void getStateInfo (Intent intent)
+    {
         // TODO Auto-generated method stub
     }
 }

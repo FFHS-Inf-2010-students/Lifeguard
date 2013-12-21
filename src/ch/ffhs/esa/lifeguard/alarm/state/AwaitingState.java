@@ -62,12 +62,18 @@ public class AwaitingState extends AbstractAlarmState
     @Override
     public void cancel ()
     {
-        Context base = getContext ().getBaseContext ();
+        Context base = getAlarmContext ().getAndroidContext ();
         base.unregisterReceiver (smsReceiver);
         if (timer != null) {
             timer.cancel ();
             timer = null;
         }
+    }
+
+    @Override
+    public void getStateInfo (Intent intent)
+    {
+        intent.putExtra ("contactId", contact.getId ());
     }
 
     /*
@@ -76,7 +82,7 @@ public class AwaitingState extends AbstractAlarmState
      */
 
     @Override
-    protected void doProcess ()
+    protected void start ()
     {
         registerReceiver ();
         registerTimeout ();
@@ -88,7 +94,7 @@ public class AwaitingState extends AbstractAlarmState
     protected void registerReceiver ()
     {
         IntentFilter filter = new IntentFilter ("android.provider.Telephony.SMS_RECEIVED");
-        getContext ().getBaseContext ().registerReceiver (smsReceiver, filter);
+        getAlarmContext ().getAndroidContext ().registerReceiver (smsReceiver, filter);
     }
 
     /**
@@ -106,11 +112,11 @@ public class AwaitingState extends AbstractAlarmState
                 cancel ();
                 Intent intent = new Intent (ServiceMessage.ALARM_REPEATED);
                 intent.putExtra ("receiver", contact.getId ());
-                getContext ().getBaseContext ().sendBroadcast (intent);
-                getContext ().setNext (new AlarmingState (contact.getPosition ()));
+                getAlarmContext ().getAndroidContext ().sendBroadcast (intent);
+                getAlarmContext ().setNext (new AlarmingState (contact.getPosition ()));
             }
         };
-        SharedPreferences prefs =  getBaseContext().getSharedPreferences(Lifeguard.APPLICATION_SETTINGS, 0);
+        SharedPreferences prefs =  getAndroidContext().getSharedPreferences(Lifeguard.APPLICATION_SETTINGS, 0);
         //default timeout 10min
         long delay = Long.parseLong(prefs.getString ("alarmRepeatDelay", "600")) * 1000;
         timer.schedule (timeout, delay);
@@ -146,9 +152,9 @@ public class AwaitingState extends AbstractAlarmState
             cancel ();
             Intent message = new Intent (ServiceMessage.RESCUE_CONFIRMED);
             message.putExtra ("rescuer", contact.getId ());
-            getContext ().getBaseContext ().sendBroadcast (message);
+            getAlarmContext ().getAndroidContext ().sendBroadcast (message);
 
-            getContext ().setNext (new ConfirmedState ());
+            getAlarmContext ().setNext (new ConfirmedState ());
         }
     }
 
@@ -161,4 +167,5 @@ public class AwaitingState extends AbstractAlarmState
     {
         return original.replaceAll ("[^\\d]", "");
     }
+
 }
