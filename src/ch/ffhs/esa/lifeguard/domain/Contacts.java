@@ -68,9 +68,6 @@ public class Contacts extends TableGateway implements ContactsInterface
             Log.d (Contacts.class.toString (), "Inserting test data...");
             db.execSQL ("INSERT INTO "
                     + this.getTable ()
-                    + " (name, phone, position) VALUES ('Thomas Aregger', '+41794198461', 1);");
-            db.execSQL ("INSERT INTO "
-                    + this.getTable ()
                     + " (name, phone, position) VALUES ('Jane Doe', '0123456789', 2);");
             db.execSQL ("INSERT INTO "
                     + this.getTable ()
