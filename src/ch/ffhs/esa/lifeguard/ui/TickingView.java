@@ -86,14 +86,7 @@ public class TickingView
         double percentage = ((double) maxTick - tick) / maxTick;
         bar.setProgress ((int) (maxProgress * percentage));
 
-        long toGo = maxTick - tick;
-
-        long minutes = toGo / 60;
-        long seconds = toGo % 60;
-        long hours = minutes / 60;
-        minutes %= 60;
-
-        delayText.setText (String.format ("%02d:%02d:%02d", hours, minutes, seconds));
+        delayText.setText (ClockTickFormatter.format (tick, maxTick));
     }
 
     private void triggerManualCancel ()
@@ -103,7 +96,6 @@ public class TickingView
 
     private void startListening ()
     {
-        bar.setProgress (0);
         if (listening) {
             stopListening ();
         }
