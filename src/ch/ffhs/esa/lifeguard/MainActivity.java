@@ -93,6 +93,7 @@ public class MainActivity extends Activity {
 			}
 		};
 
+		// TODO: Visual button feedback (pressing button) should be possible
 		sosButton.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View view, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN)
