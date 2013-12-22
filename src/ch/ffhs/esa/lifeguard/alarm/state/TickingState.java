@@ -4,7 +4,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ch.ffhs.esa.lifeguard.Lifeguard;
+import ch.ffhs.esa.lifeguard.R;
 import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -48,9 +50,13 @@ public class TickingState
     {
         //default timeout 10min
         cancel ();
-        maxClockTick = Long.parseLong(
-                getAndroidContext ().getSharedPreferences (Lifeguard.APPLICATION_SETTINGS, 0)
-                    .getString ("alarmDelay", "600"));
+        Context ctx = getAndroidContext ();
+        maxClockTick
+            = Long.parseLong (
+                    ctx.getSharedPreferences (
+                            Lifeguard.APPLICATION_SETTINGS, Lifeguard.MODE_PRIVATE)
+                .getString (ctx.getString (R.string.alarmDelayConfigurationKey), "600"));
+
         clockTick = 0L;
         timer = new Timer (true);
         timer.scheduleAtFixedRate (task, 1000L, 1000L);
@@ -69,8 +75,8 @@ public class TickingState
     @Override
     public void putStateInfo (Intent intent)
     {
-        intent.putExtra ("clockTick", clockTick);
-        intent.putExtra ("maxClockTick", maxClockTick);
+        intent.putExtra (ServiceMessage.Key.CLOCK_TICK, clockTick);
+        intent.putExtra (ServiceMessage.Key.MAX_CLOCK_TICK, maxClockTick);
     }
 
     private void tick ()

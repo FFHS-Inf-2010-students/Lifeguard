@@ -35,25 +35,29 @@ public class InitialView
         Button button = (Button) activity.findViewById (R.id.SOSButton);
         button.setEnabled (true);
 
-        CompoundButton tickButton = (CompoundButton) activity.findViewById (R.id.toggleButtonAlarmSwitch);
+        CompoundButton tickButton
+            = (CompoundButton) activity.findViewById (R.id.toggleButtonAlarmSwitch);
 
         tickButton.setOnCheckedChangeListener (null);
         tickButton.setChecked (false);
-        tickButton.setEnabled (true);
-        tickButton.setOnCheckedChangeListener (tickToggleListener);
 
         ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBarDelay);
         bar.setProgress(bar.getMax ());
 
         long maxTick
             = Long.parseLong(
-                activity
-                .getSharedPreferences (Lifeguard.APPLICATION_SETTINGS, 0)
-                .getString ("alarmDelay", "600"));
+                activity.getSharedPreferences (
+                    Lifeguard.APPLICATION_SETTINGS, Lifeguard.MODE_PRIVATE)
+                .getString (
+                        activity.getString (R.string.alarmDelayConfigurationKey),
+                        "600"));
 
         TextView delayText = (TextView) activity.findViewById (R.id.textViewDelay);
 
         delayText.setText (ClockTickFormatter.format (0, maxTick));
+
+        tickButton.setEnabled (true);
+        tickButton.setOnCheckedChangeListener (tickToggleListener);
     }
 
     @Override
@@ -63,7 +67,9 @@ public class InitialView
     private void triggerStartTicking ()
     {
         Intent intent = new Intent (ActivityMessage.STATE_CHANGE_REQUEST);
-        intent.putExtra ("stateId", AlarmStateId.TICKING.toString ());
+        intent.putExtra (ActivityMessage.Key.ALARM_STATE_ID,
+                AlarmStateId.TICKING.toString ());
+
         activity.sendBroadcast (intent);
     }
 }

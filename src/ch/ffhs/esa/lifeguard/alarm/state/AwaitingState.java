@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ch.ffhs.esa.lifeguard.Lifeguard;
+import ch.ffhs.esa.lifeguard.R;
 import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.domain.ContactInterface;
 import android.content.BroadcastReceiver;
@@ -73,7 +74,7 @@ public class AwaitingState extends AbstractAlarmState
     @Override
     public void putStateInfo (Intent intent)
     {
-        intent.putExtra ("contactId", contact.getId ());
+        intent.putExtra (ServiceMessage.Key.CONTACT_ID, contact.getId ());
     }
 
     /*
@@ -111,14 +112,19 @@ public class AwaitingState extends AbstractAlarmState
             {
                 cancel ();
                 Intent intent = new Intent (ServiceMessage.ALARM_REPEATED);
-                intent.putExtra ("receiver", contact.getId ());
+                intent.putExtra (ServiceMessage.Key.ALARM_RECEIVER_ID, contact.getId ());
                 getAlarmContext ().getAndroidContext ().sendBroadcast (intent);
                 getAlarmContext ().setNext (new AlarmingState (contact.getPosition ()));
             }
         };
-        SharedPreferences prefs =  getAndroidContext().getSharedPreferences(Lifeguard.APPLICATION_SETTINGS, 0);
+        SharedPreferences prefs = getAndroidContext ().getSharedPreferences (
+                Lifeguard.APPLICATION_SETTINGS, 0);
         //default timeout 10min
-        long delay = Long.parseLong(prefs.getString ("alarmRepeatDelay", "600")) * 1000;
+        long delay
+            = Long.parseLong(prefs.getString (getAndroidContext ().getString (
+                    R.string.alarmRepeatDelayConfigurationKey), "600"))
+                * 1000;
+
         timer.schedule (timeout, delay);
     }
 
@@ -153,7 +159,7 @@ public class AwaitingState extends AbstractAlarmState
         if (helpConfirmed) {
             cancel ();
             Intent message = new Intent (ServiceMessage.RESCUE_CONFIRMED);
-            message.putExtra ("rescuer", contact.getId ());
+            message.putExtra (ServiceMessage.Key.RESCUER_ID, contact.getId ());
             getAlarmContext ().getAndroidContext ().sendBroadcast (message);
 
             getAlarmContext ().setNext (new ConfirmedState (contact));

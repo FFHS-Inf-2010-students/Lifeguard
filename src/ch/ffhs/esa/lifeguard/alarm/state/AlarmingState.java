@@ -3,12 +3,15 @@ package ch.ffhs.esa.lifeguard.alarm.state;
 import java.util.ArrayList;
 
 import ch.ffhs.esa.lifeguard.Lifeguard;
+import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.alarm.SmsDeliveredReceiver;
 import ch.ffhs.esa.lifeguard.alarm.SmsSentReceiver;
 import ch.ffhs.esa.lifeguard.domain.ContactInterface;
 import ch.ffhs.esa.lifeguard.domain.Contacts;
 import ch.ffhs.esa.lifeguard.R;
+import android.app.Activity;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -54,7 +57,7 @@ public class AlarmingState extends AbstractAlarmState
     @Override
     public void putStateInfo (Intent intent)
     {
-        intent.putExtra ("contactId", contactPosition);
+        intent.putExtra (ServiceMessage.Key.CONTACT_ID, contactPosition);
     }
 
     /*
@@ -135,10 +138,13 @@ public class AlarmingState extends AbstractAlarmState
         final String entryForEmpty = resources.getString (
                 R.string.alarm_message_default_entry);
 
-        SharedPreferences prefs = context.getSharedPreferences (
-                Lifeguard.APPLICATION_SETTINGS, 0);
+        SharedPreferences prefs
+            = context.getSharedPreferences (
+                    Lifeguard.APPLICATION_SETTINGS, Lifeguard.MODE_PRIVATE);
 
-        final String userName = prefs.getString ("userName", entryForEmpty);
+        final String userName = prefs.getString (
+                getAndroidContext ().getString (R.string.userNameConfigurationKey),
+                entryForEmpty);
 
         return String.format (format, userName);
     }

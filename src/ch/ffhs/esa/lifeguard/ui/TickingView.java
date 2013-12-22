@@ -65,7 +65,7 @@ public class TickingView
     {
         AlarmStateId alarmId = AlarmStateId.valueOf (
                 AlarmStateId.class,
-                intent.getExtras ().getString ("stateId"));
+                intent.getExtras ().getString (ServiceMessage.Key.ALARM_STATE_ID));
         if (alarmId != AlarmStateId.TICKING) {
             stopListening ();
         }
@@ -75,10 +75,10 @@ public class TickingView
     {
         Bundle bundle = intent.getExtras ();
 
-        long maxTick = bundle.getLong ("maxClockTick");
+        long maxTick = bundle.getLong (ServiceMessage.Key.MAX_CLOCK_TICK);
         if (maxTick < 1) maxTick = 1;
 
-        long tick = bundle.getLong ("clockTick", 0);
+        long tick = bundle.getLong (ServiceMessage.Key.CLOCK_TICK, 0);
         int maxProgress = bar.getMax ();
 
         /* Take the inverse - the amount to still tick instead of how long
