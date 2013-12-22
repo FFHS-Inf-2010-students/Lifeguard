@@ -1,6 +1,7 @@
 package ch.ffhs.esa.lifeguard.ui;
 
 import ch.ffhs.esa.lifeguard.ActivityMessage;
+import ch.ffhs.esa.lifeguard.Lifeguard;
 import ch.ffhs.esa.lifeguard.R;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
 import android.app.Activity;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 public class InitialView
     implements ViewStateStrategy
@@ -41,7 +43,17 @@ public class InitialView
         tickButton.setOnCheckedChangeListener (tickToggleListener);
 
         ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBarDelay);
-        bar.setProgress(0);
+        bar.setProgress(bar.getMax ());
+
+        long maxTick
+            = Long.parseLong(
+                activity
+                .getSharedPreferences (Lifeguard.APPLICATION_SETTINGS, 0)
+                .getString ("alarmDelay", "600"));
+
+        TextView delayText = (TextView) activity.findViewById (R.id.textViewDelay);
+
+        delayText.setText (ClockTickFormatter.format (0, maxTick));
     }
 
     @Override
