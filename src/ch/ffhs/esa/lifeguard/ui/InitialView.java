@@ -33,6 +33,7 @@ public class InitialView
         this.activity = activity;
 
         Button button = (Button) activity.findViewById (R.id.SOSButton);
+        button.setText(R.string.main_label_sos);
         button.setEnabled (true);
 
         CompoundButton tickButton

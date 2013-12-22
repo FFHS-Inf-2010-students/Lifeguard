@@ -158,8 +158,9 @@ public class AwaitingState extends AbstractAlarmState
 
         if (helpConfirmed) {
             cancel ();
-            Intent message = new Intent (ServiceMessage.RESCUE_CONFIRMED);
+            Intent message = new Intent (ServiceMessage.UI_MESSAGE);
             message.putExtra (ServiceMessage.Key.RESCUER_ID, contact.getId ());
+            message.putExtra (ServiceMessage.Key.RESCUER_NAME, contact.getName());
             getAlarmContext ().getAndroidContext ().sendBroadcast (message);
 
             getAlarmContext ().setNext (new ConfirmedState (contact));

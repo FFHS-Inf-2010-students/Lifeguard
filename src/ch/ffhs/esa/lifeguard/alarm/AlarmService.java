@@ -57,6 +57,10 @@ public class AlarmService extends Service implements AlarmStateListener {
         alarmContext.addListener (this);
     }
     
+    public AlarmContext getContext() {
+        return alarmContext;
+    }
+    
     @Override
     public void onCreate ()
     {

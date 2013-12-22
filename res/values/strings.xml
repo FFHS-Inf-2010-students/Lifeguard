@@ -43,5 +43,6 @@
     <string name="alarmDelayConfigurationKey">alarmDelayConfigurationKey</string>
     <string name="alarmRepeatDelayConfigurationKey">alarmRepeatDelayConfigurationKey</string>
     <string name="userNameConfigurationKey">userNameConfigurationKey</string>
+    <string name="main_label_cancel">Cancel</string>
 
 </resources>
