@@ -31,10 +31,17 @@ import ch.ffhs.esa.lifeguard.ui.ViewStrategyFactory;
 public class MainActivity extends Activity {
     AlarmService alarmService;
     boolean bound = false;
+    private Intent uiMessageIntent;
 
     private BroadcastReceiver stateChangeReceiver = new BroadcastReceiver () {
         public void onReceive (Context context, Intent intent)
         { onStateChanged (intent); }
+    };
+    
+    private BroadcastReceiver uiMessgageReceiver = new BroadcastReceiver () {
+        public void onReceive (Context context, Intent intent) {
+            setUiMessageIntent (intent);
+        }
     };
 
     private ViewStrategyFactory viewStrategyFactory = new ViewStrategyFactory ();
@@ -51,6 +58,8 @@ public class MainActivity extends Activity {
         registerReceiver (
                 stateChangeReceiver,
                 new IntentFilter (ServiceMessage.CURRENT_SERVICE_STATE));
+        
+        registerReceiver(uiMessgageReceiver, new IntentFilter(ServiceMessage.UI_MESSAGE));
 
         Intent intent = new Intent(this, AlarmService.class);
         Log.d(MainActivity.class.toString(), "Start Service");
@@ -114,6 +123,7 @@ public class MainActivity extends Activity {
     public void onDestroy ()
     {
         unregisterReceiver (stateChangeReceiver);
+        unregisterReceiver (uiMessgageReceiver);
         unbindService (serviceConnection);
         viewStrategyFactory.notifiyClose ();
         super.onDestroy ();
@@ -162,10 +172,24 @@ public class MainActivity extends Activity {
 
         sendBroadcast (intent);
     }
+    
+    private void setUiMessageIntent (Intent intent) {
+        uiMessageIntent = intent;
+    }
+    
+    private void putUiMessage (Intent intent) {
+        if (uiMessageIntent != null) {
+            Bundle extras = uiMessageIntent.getExtras();
+            if (extras != null) {
+                intent.putExtras(extras);
+            }
+        }
+    }
 
     private void onStateChanged (Intent intent)
     {
         Bundle bundle = intent.getExtras ();
+        putUiMessage(intent);
 
         AlarmStateId current = AlarmStateId.valueOf (
                 AlarmStateId.class,
