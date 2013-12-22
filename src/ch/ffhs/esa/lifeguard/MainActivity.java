@@ -68,7 +68,6 @@ public class MainActivity extends Activity {
                 public boolean onLongClick(View v) {
                     Log.d(MainActivity.class.toString(), "Long Click");
                     triggerManualAlarm ();
-//                    ((TextView) findViewById(R.id.textViewSOSButton)).setText(alarmService.getAlarmButtonMsg());
                     return true;
                 }
             });
@@ -157,7 +156,10 @@ public class MainActivity extends Activity {
     private void triggerManualAlarm ()
     {
         Intent intent = new Intent (ActivityMessage.STATE_CHANGE_REQUEST);
-        intent.putExtra ("stateId", AlarmStateId.ALARMING.toString ());
+        intent.putExtra (
+                ActivityMessage.Key.ALARM_STATE_ID,
+                AlarmStateId.ALARMING.toString ());
+
         sendBroadcast (intent);
     }
 
@@ -167,7 +169,7 @@ public class MainActivity extends Activity {
 
         AlarmStateId current = AlarmStateId.valueOf (
                 AlarmStateId.class,
-                bundle.get ("stateId").toString ());
+                bundle.get (ServiceMessage.Key.ALARM_STATE_ID).toString ());
         
         Log.d(getClass().toString(), "State Change: " + current.toString());
 

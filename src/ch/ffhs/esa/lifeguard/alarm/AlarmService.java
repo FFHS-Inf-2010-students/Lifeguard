@@ -15,6 +15,7 @@ import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmingState;
+import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
 import ch.ffhs.esa.lifeguard.alarm.state.TickingState;
 
 /**
@@ -36,13 +37,13 @@ public class AlarmService extends Service implements AlarmStateListener {
 
     private BroadcastReceiver cancelReceiver = new BroadcastReceiver () {
         public void onReceive (Context context, Intent intent) {
-            onManualCancel (intent);
+            handleManualCancel (intent);
         }
     };
 
     private BroadcastReceiver stateChangeRequestListener = new BroadcastReceiver () {
         public void onReceive (Context context, Intent intent) {
-            onStateChangeRequest (intent);
+            handleStateChangeRequest (intent);
         }
     };
 
@@ -106,8 +107,12 @@ public class AlarmService extends Service implements AlarmStateListener {
     {
         Intent intent = new Intent (ServiceMessage.CURRENT_SERVICE_STATE);
         AlarmState state = alarmContext.getState ();
-        intent.putExtra ("stateId", state.getId ().toString ());
+
+        intent.putExtra (
+                ServiceMessage.Key.ALARM_STATE_ID,
+                state.getId ().toString ());
         state.putStateInfo (intent);
+
         sendBroadcast (intent);
     }
 
@@ -117,15 +122,15 @@ public class AlarmService extends Service implements AlarmStateListener {
         }
     }
 
-    private void onManualCancel (Intent intent)
+    private void handleManualCancel (Intent intent)
     {
         alarmContext.cancel ();
     }
 
-    private void onStateChangeRequest (Intent intent)
+    private void handleStateChangeRequest (Intent intent)
     {
-        AlarmStateId id = AlarmStateId.valueOf (
-                AlarmStateId.class, intent.getExtras ().getString ("stateId"));
+        AlarmStateId id = AlarmStateId.valueOf (AlarmStateId.class,
+                intent.getExtras ().getString (ActivityMessage.Key.ALARM_STATE_ID));
         
         AlarmState state = null;
 
@@ -136,10 +141,12 @@ public class AlarmService extends Service implements AlarmStateListener {
         case TICKING:
             state = new TickingState ();
             break;
-        default:
-        case AWAITING:
-        case CONFIRMED:
         case INIT:
+            state = new InitialState ();
+            break;
+        default:
+        case AWAITING: // not allowed
+        case CONFIRMED: // not allowed
             break;
         }
 

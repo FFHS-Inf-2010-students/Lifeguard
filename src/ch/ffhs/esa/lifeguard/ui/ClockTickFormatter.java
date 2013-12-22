@@ -1,7 +1,5 @@
 package ch.ffhs.esa.lifeguard.ui;
 
-import android.annotation.SuppressLint;
-
 /**
  * Formats a clock tick to the remaining time.
  */
@@ -13,7 +11,6 @@ public class ClockTickFormatter
      * @param maxTick the maximum tick
      * @return the given clock tick as a representation of hours:minutes:seconds left to go
      */
-    @SuppressLint ("DefaultLocale")
     public static String format (long currentTick, long maxTick)
     {
         long toGo = maxTick - currentTick;

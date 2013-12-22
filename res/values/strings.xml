@@ -39,4 +39,9 @@
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
 
+    <!-- Configuration Keys -->
+    <string name="alarmDelayConfigurationKey">alarmDelayConfigurationKey</string>
+    <string name="alarmRepeatDelayConfigurationKey">alarmRepeatDelayConfigurationKey</string>
+    <string name="userNameConfigurationKey">userNameConfigurationKey</string>
+
 </resources>

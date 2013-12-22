@@ -1,6 +1,7 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
 import android.content.Intent;
+import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.domain.ContactInterface;
 
 /**
@@ -48,6 +49,6 @@ public class ConfirmedState
     @Override
     public void putStateInfo (Intent intent)
     {
-        intent.putExtra ("contactId", contact.getId ());
+        intent.putExtra (ServiceMessage.Key.CONTACT_ID, contact.getId ());
     }
 }
