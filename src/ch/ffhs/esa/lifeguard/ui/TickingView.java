@@ -10,9 +10,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
-import android.widget.ToggleButton;
+import android.widget.TextView;
 
 public class TickingView
     implements ViewStateStrategy
@@ -23,16 +24,14 @@ public class TickingView
         { onStateChange (intent); }
     };
 
-    private BroadcastReceiver tickListener = new BroadcastReceiver()
-    {
+    private BroadcastReceiver tickListener = new BroadcastReceiver() {
         @Override
         public void onReceive (Context context, Intent intent)
         { onTick (intent); }
     };
 
     private CompoundButton.OnCheckedChangeListener tickToggleListener
-        = new CompoundButton.OnCheckedChangeListener()
-    {
+        = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged (CompoundButton buttonView, boolean isChecked)
         {
@@ -47,11 +46,17 @@ public class TickingView
 
     private ProgressBar bar;
 
+    private TextView delayText;
+
     @Override
     public void handleUi (Activity activity, Intent intent)
     {
         this.activity = activity;
         bar = (ProgressBar) activity.findViewById (R.id.progressBarDelay);
+        delayText = (TextView) activity.findViewById (R.id.textViewDelay);
+
+        Button button = (Button) activity.findViewById (R.id.SOSButton);
+        button.setEnabled (false);
 
         startListening ();
     }
@@ -79,8 +84,16 @@ public class TickingView
         /* Take the inverse - the amount to still tick instead of how long
          * already ticked. */
         double percentage = ((double) maxTick - tick) / maxTick;
-
         bar.setProgress ((int) (maxProgress * percentage));
+
+        long toGo = maxTick - tick;
+
+        long minutes = toGo / 60;
+        long seconds = toGo % 60;
+        long hours = minutes / 60;
+        minutes %= 60;
+
+        delayText.setText (String.format ("%02d:%02d:%02d", hours, minutes, seconds));
     }
 
     private void triggerManualCancel ()
@@ -102,7 +115,7 @@ public class TickingView
                 tickListener,
                 new IntentFilter (ServiceMessage.ALARM_CLOCK_TICK));
 
-        ToggleButton tickToggleButton = (ToggleButton) activity.
+        CompoundButton tickToggleButton = (CompoundButton) activity.
                 findViewById (R.id.toggleButtonAlarmSwitch);
         tickToggleButton.setOnCheckedChangeListener (null);
         tickToggleButton.setChecked (true);

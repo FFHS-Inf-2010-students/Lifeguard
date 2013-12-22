@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.CompoundButton;
-import ch.ffhs.esa.lifeguard.R;
 
 public class InitialView
     implements ViewStateStrategy
@@ -40,6 +39,9 @@ public class InitialView
         tickButton.setChecked (false);
         tickButton.setEnabled (true);
         tickButton.setOnCheckedChangeListener (tickToggleListener);
+
+        ProgressBar bar = (ProgressBar) activity.findViewById(R.id.progressBarDelay);
+        bar.setProgress(0);
     }
 
     @Override

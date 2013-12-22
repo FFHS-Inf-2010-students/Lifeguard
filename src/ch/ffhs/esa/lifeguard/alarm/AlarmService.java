@@ -45,11 +45,16 @@ public class AlarmService extends Service implements AlarmStateListener {
             onStateChangeRequest (intent);
         }
     };
-    
-    
+
     /*//////////////////////////////////////////////////////////////////////////
      * PUBLIC INTERFACE
      */
+
+    public AlarmService ()
+    {
+        super ();
+        alarmContext.addListener (this);
+    }
     
     @Override
     public void onCreate ()
