@@ -6,8 +6,9 @@ import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.CompoundButton;
-import android.widget.ToggleButton;
+import ch.ffhs.esa.lifeguard.R;
 
 public class InitialView
     implements ViewStateStrategy
@@ -20,8 +21,8 @@ public class InitialView
             @Override
             public void onCheckedChanged (CompoundButton buttonView, boolean isChecked)
             {
-                triggerStartTicking ();
                 buttonView.setEnabled (false);
+                triggerStartTicking ();
             }
         };
 
@@ -33,7 +34,7 @@ public class InitialView
         Button button = (Button) activity.findViewById (R.id.SOSButton);
         button.setEnabled (true);
 
-        ToggleButton tickButton = (ToggleButton) activity.findViewById (R.id.toggleButtonAlarmSwitch);
+        CompoundButton tickButton = (CompoundButton) activity.findViewById (R.id.toggleButtonAlarmSwitch);
 
         tickButton.setOnCheckedChangeListener (null);
         tickButton.setChecked (false);
