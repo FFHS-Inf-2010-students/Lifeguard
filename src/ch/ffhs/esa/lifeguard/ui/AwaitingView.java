@@ -12,14 +12,10 @@ public class AwaitingView
     public void handleUi (Activity activity, Intent intent)
     {
         Button button = (Button) activity.findViewById (R.id.SOSButton);
-        button.setEnabled (false);
+        button.setEnabled (true);
+        button.setText(R.string.main_label_cancel);
         button = (Button) activity.findViewById (R.id.toggleButtonAlarmSwitch);
         button.setEnabled (false);
-        
-        //Long id = Long.valueOf (intent.getExtras ().get ("rescuer").toString ());
-        //Contacts contacts = new Contacts (Lifeguard.getDatabaseHelper ());
-        //ContactInterface contact = contacts.findById (id);
-        
     }
 
     @Override

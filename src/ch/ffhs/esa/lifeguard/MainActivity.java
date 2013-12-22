@@ -71,12 +71,17 @@ public class MainActivity extends Activity {
 
         Button sosButton = (Button) findViewById(R.id.SOSButton);
 
-        // TODO 5sec Click
         sosButton.setOnLongClickListener(new OnLongClickListener() { 
                 @Override
                 public boolean onLongClick(View v) {
-                    Log.d(MainActivity.class.toString(), "Long Click");
-                    triggerManualAlarm ();
+                    AlarmStateId state = alarmService.getContext().getState().getId();
+                    Log.d(MainActivity.class.toString(), "Clicked button");
+                    
+                    if (state == AlarmStateId.AWAITING) {
+                        cancelManualAlarm();
+                    } else {
+                        triggerManualAlarm ();
+                    }
                     return true;
                 }
             });
@@ -169,6 +174,16 @@ public class MainActivity extends Activity {
         intent.putExtra (
                 ActivityMessage.Key.ALARM_STATE_ID,
                 AlarmStateId.ALARMING.toString ());
+
+        sendBroadcast (intent);
+    }
+    
+    private void cancelManualAlarm ()
+    {
+        Intent intent = new Intent (ActivityMessage.STATE_CHANGE_REQUEST);
+        intent.putExtra (
+                ActivityMessage.Key.ALARM_STATE_ID,
+                AlarmStateId.INIT.toString ());
 
         sendBroadcast (intent);
     }
