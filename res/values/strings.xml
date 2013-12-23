@@ -30,19 +30,41 @@
         Soll %s gelöscht werden?
     ]]></string>
     <string name="action_add_contact">Kontakt hinzufügen</string>
-    <string name="alarm_message_format_string"><![CDATA[
-        %s braucht dringend Deine Hilfe!
-        Bitte bestätige dieses SMS und eile so schnell wie möglich herbei!
-        ]]></string>
-    <string name="alarm_message_default_entry">Der Absender</string>
-    
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
+    <string name="main_label_cancel">Cancel</string>
 
     <!-- Configuration Keys -->
     <string name="alarmDelayConfigurationKey">alarmDelayConfigurationKey</string>
     <string name="alarmRepeatDelayConfigurationKey">alarmRepeatDelayConfigurationKey</string>
     <string name="userNameConfigurationKey">userNameConfigurationKey</string>
-    <string name="main_label_cancel">Cancel</string>
+
+    <!-- Alarm Message -->
+    <!--
+         Parameters:
+         {0} username
+     -->
+    <string name="alarm_message_format_string"><![CDATA[
+{0} braucht dringend Deine Hilfe!
+Bitte bestätige dieses SMS und eile so schnell wie möglich herbei!
+]]></string>
+    <!-- Default username -->
+    <string name="alarm_message_default_entry">Der Absender</string>
+
+    <!-- Alarm display message - text to display after an alarm has been sent. -->
+    <!--
+         Parameters:
+         {0} name
+         {1} phone number
+     -->
+    <string name="alarm_display_message_text"><![CDATA[{0} wurde alarmiert (Tel: {1})]]></string>
+
+    <!-- Alarm confirmation message - text to display after an alarm has been confirmed. -->
+    <!--
+         Parameters:
+         {0} name
+         {1} phone number
+    -->
+    <string name="alarm_confirmation_message_text"><![CDATA[{0} eilt zur Hilfe!]]></string>
 
 </resources>

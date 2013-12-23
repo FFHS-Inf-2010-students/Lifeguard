@@ -8,12 +8,6 @@ public abstract class ServiceMessage
     public static final String CURRENT_SERVICE_STATE
         = "ch.ffhs.esa.lifeguard.alarm.ServiceMessage.CURRENT_SERVICE_STATE";
 
-    public static final String RESCUE_CONFIRMED
-        = "ch.ffhs.esa.lifeguard.alarm.ServiceMessage.RESCUE_CONFIRMED";
-    
-    public static final String UI_MESSAGE
-        = "ch.ffhs.esa.lifeguard.alarm.ServiceMessage.UI_MESSAGE";
-
     public static final String ALARM_REPEATED
         = "ch.ffhs.esa.lifeguard.alarm.ServiceMessage.ALARM_REPEATED";
 
@@ -31,6 +25,5 @@ public abstract class ServiceMessage
 
         public static final String ALARM_RECEIVER_ID = "alarmReceiverId";
         public static final String RESCUER_ID = "rescuerId";
-        public static final String RESCUER_NAME = "rescuerName";
     }
 }

@@ -62,9 +62,6 @@ public class MainActivity extends Activity {
 		registerReceiver(stateChangeReceiver, new IntentFilter(
 				ServiceMessage.CURRENT_SERVICE_STATE));
 
-		registerReceiver(uiMessgageReceiver, new IntentFilter(
-				ServiceMessage.UI_MESSAGE));
-
 		Intent intent = new Intent(this, AlarmService.class);
 		Log.d(MainActivity.class.toString(), "Start Service");
 		startService(intent);

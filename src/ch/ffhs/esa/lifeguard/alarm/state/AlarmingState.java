@@ -19,6 +19,7 @@ import android.content.res.Resources;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
+import java.text.MessageFormat;
 
 /**
  * Sends an alarm message to the rescuer.
@@ -31,6 +32,7 @@ public class AlarmingState extends AbstractAlarmState
     private Contacts contacts;
     private long contactPosition;
     private long nrOfContacts = -1;
+    private ContactInterface recipient;
 
     /*
      * //////////////////////////////////////////////////////////////////////////
@@ -46,6 +48,7 @@ public class AlarmingState extends AbstractAlarmState
     {
         this.contactPosition = contactIndex;
         this.contacts = new Contacts (Lifeguard.getDatabaseHelper ());
+        recipient = getNextContact ();
     }
 
     @Override
@@ -57,7 +60,7 @@ public class AlarmingState extends AbstractAlarmState
     @Override
     public void putStateInfo (Intent intent)
     {
-        intent.putExtra (ServiceMessage.Key.CONTACT_ID, contactPosition);
+        intent.putExtra (ServiceMessage.Key.CONTACT_ID, recipient.getId ());
     }
 
     /*
@@ -68,8 +71,6 @@ public class AlarmingState extends AbstractAlarmState
     @Override
     protected void start ()
     {
-//        contactList = new Contacts(Lifeguard.getDatabaseHelper()).getAll().toArray();
-        ContactInterface recipient = getNextContact ();
         Log.d (this.getClass ().toString (), "doProcess ALarmingState");
         Log.d (this.getClass ().toString (),
                 "Try to notify " + recipient.getName () + " ("
@@ -98,9 +99,9 @@ public class AlarmingState extends AbstractAlarmState
         return contact;
     }
 
-    private void notifyRecipient (ContactInterface recipient)
+    private void notifyRecipient (ContactInterface contact)
     {
-        String phoneNumber = recipient.getPhone ();
+        String phoneNumber = contact.getPhone ();
 
         ArrayList<PendingIntent> sentPendingIntents = new ArrayList<PendingIntent> ();
         ArrayList<PendingIntent> deliveredPendingIntents = new ArrayList<PendingIntent> ();
@@ -146,6 +147,6 @@ public class AlarmingState extends AbstractAlarmState
                 getAndroidContext ().getString (R.string.userNameConfigurationKey),
                 entryForEmpty);
 
-        return String.format (format, userName);
+        return MessageFormat.format (format, userName);
     }
 }
