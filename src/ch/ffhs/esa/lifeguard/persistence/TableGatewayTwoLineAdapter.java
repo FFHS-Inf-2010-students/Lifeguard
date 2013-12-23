@@ -62,7 +62,7 @@ public abstract class TableGatewayTwoLineAdapter<T> extends ArrayAdapter<T> {
 		TextView lineOneView = (TextView)listItemView.findViewById(android.R.id.text1);
 		TextView lineTwoView = (TextView)listItemView.findViewById(android.R.id.text2);
 		
-		T item = (T)this.getItem(position);
+		T item = getItem(position);
 		lineOneView.setText(this.getLineOneText(item));
 		lineTwoView.setText(this.getLineTwoText(item));
 		

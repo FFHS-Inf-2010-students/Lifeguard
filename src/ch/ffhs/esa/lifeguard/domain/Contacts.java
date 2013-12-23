@@ -219,6 +219,7 @@ public class Contacts extends TableGateway implements ContactsInterface
         }
 
         Long count = cursor.getLong (0);
+        cursor.close ();
         closeDatabase ();
 
         return count;

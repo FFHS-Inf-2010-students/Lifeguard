@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -36,7 +35,7 @@ public class TickingView
         public void onCheckedChanged (CompoundButton buttonView, boolean isChecked)
         {
             buttonView.setEnabled (false);
-            triggerManualCancel ();
+            cancelTicking ();
         }
     };
 
@@ -55,8 +54,8 @@ public class TickingView
         bar = (ProgressBar) activity.findViewById (R.id.progressBarDelay);
         delayText = (TextView) activity.findViewById (R.id.textViewDelay);
 
-        Button button = (Button) activity.findViewById (R.id.SOSButton);
-        button.setEnabled (false);
+        TextView sosText = (TextView) activity.findViewById (R.id.textViewSOSButton);
+        sosText.setText ("");
 
         startListening ();
     }
@@ -89,9 +88,12 @@ public class TickingView
         delayText.setText (ClockTickFormatter.format (tick, maxTick));
     }
 
-    private void triggerManualCancel ()
+    private void cancelTicking ()
     {
-        activity.sendBroadcast (new Intent (ActivityMessage.CANCEL_OPERATION));
+        Intent intent = new Intent (ActivityMessage.STATE_CHANGE_REQUEST);
+        intent.putExtra (ActivityMessage.Key.ALARM_STATE_ID,
+                AlarmStateId.INIT.toString ());
+        activity.sendBroadcast (intent);
     }
 
     private void startListening ()

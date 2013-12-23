@@ -1,36 +1,49 @@
 package ch.ffhs.esa.lifeguard.alarm;
 
-/**
- * All service messages.
- */
+/** All messages emitted by the state machine. */
 public abstract class ServiceMessage
 {
+    /** Emitted on every state change */
     public static final String CURRENT_SERVICE_STATE
         = "ch.ffhs.esa.lifeguard.alarm.ServiceMessage.CURRENT_SERVICE_STATE";
 
-    public static final String RESCUE_CONFIRMED
-        = "ch.ffhs.esa.lifeguard.alarm.ServiceMessage.RESCUE_CONFIRMED";
-    
-    public static final String UI_MESSAGE
-        = "ch.ffhs.esa.lifeguard.alarm.ServiceMessage.UI_MESSAGE";
-
-    public static final String ALARM_REPEATED
-        = "ch.ffhs.esa.lifeguard.alarm.ServiceMessage.ALARM_REPEATED";
-
+    /** Emitted on every clock tick (every second) in TickingState */
     public static final String ALARM_CLOCK_TICK
         = "ch.ffhs.esa.lifeguard.alarm.ServiceMessage.ALARM_CLOCK_TICK";
 
+    /** Specific elements within the messages. */
     public static abstract class Key
     {
+        /**
+         * The AlarmStateId as a string (use getString to retrieve).
+         * Provided by all CURRENT_SERVICE_STATE messages.
+         */
         public static final String ALARM_STATE_ID = "alarmStateId";
 
-        public static final String CLOCK_TICK = "clockTick";
-        public static final String MAX_CLOCK_TICK = "maxClockTick";
-
+        /**
+         * The id of the correspondant contact as long (use getLong to retrieve).
+         * Provided the CURRENT_SERVICE_STATE message on the following states:
+         * - AwaitingState
+         * - ConfirmedState
+         */
         public static final String CONTACT_ID = "contactId";
 
-        public static final String ALARM_RECEIVER_ID = "alarmReceiverId";
-        public static final String RESCUER_ID = "rescuerId";
-        public static final String RESCUER_NAME = "rescuerName";
+        /**
+         * The position of the contact on the contact list as long (use getLong to retrieve).
+         * Provided the CURRENT_SERVICE_STATE message on the AlarmingState.
+         */
+        public static final String CONTACT_POSITION = "contactPosition";
+
+        /** Provided by the ALARM_CLOCK_TICK message, the current tick value as long */
+        public static final String CLOCK_TICK = "clockTick";
+
+        /** Provided by the ALARM_CLOCK_TICK message, the threshold as long */
+        public static final String MAX_CLOCK_TICK = "maxClockTick";
+
+        /** Provided by the CURRENT_SERVICE_STATE message on initial state */
+        public static final String PREVIOUS_ALARM_STATE_ID = "previousAlarmStateId";
+
+        /** Provided by the CURRENT_SERVICE_STATE message on initial state */
+        public static final String WAS_CANCELLED = "wasPreviousCancelled";
     }
 }

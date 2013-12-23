@@ -44,6 +44,7 @@ public class ConfirmedState
     protected void start ()
     {
         // nothing to do
+        getAlarmContext ().setNext (new InitialState ());
     }
 
     @Override

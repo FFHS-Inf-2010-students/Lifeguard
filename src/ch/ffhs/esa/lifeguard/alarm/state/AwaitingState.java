@@ -111,9 +111,6 @@ public class AwaitingState extends AbstractAlarmState
             public void run ()
             {
                 cancel ();
-                Intent intent = new Intent (ServiceMessage.ALARM_REPEATED);
-                intent.putExtra (ServiceMessage.Key.ALARM_RECEIVER_ID, contact.getId ());
-                getAlarmContext ().getAndroidContext ().sendBroadcast (intent);
                 getAlarmContext ().setNext (new AlarmingState (contact.getPosition ()));
             }
         };
@@ -158,11 +155,6 @@ public class AwaitingState extends AbstractAlarmState
 
         if (helpConfirmed) {
             cancel ();
-            Intent message = new Intent (ServiceMessage.UI_MESSAGE);
-            message.putExtra (ServiceMessage.Key.RESCUER_ID, contact.getId ());
-            message.putExtra (ServiceMessage.Key.RESCUER_NAME, contact.getName());
-            getAlarmContext ().getAndroidContext ().sendBroadcast (message);
-
             getAlarmContext ().setNext (new ConfirmedState (contact));
         }
     }
