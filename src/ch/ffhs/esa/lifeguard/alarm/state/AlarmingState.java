@@ -30,7 +30,6 @@ public class AlarmingState extends AbstractAlarmState
     private Contacts contacts;
     private long contactPosition;
     private long nrOfContacts = -1;
-    private ContactInterface recipient;
 
     /*
      * //////////////////////////////////////////////////////////////////////////
@@ -42,11 +41,9 @@ public class AlarmingState extends AbstractAlarmState
         this (0);
     }
 
-    public AlarmingState (long contactIndex)
+    public AlarmingState (long contactPosition)
     {
-        this.contactPosition = contactIndex;
-        this.contacts = new Contacts (Lifeguard.getDatabaseHelper ());
-        recipient = getNextContact ();
+        this.contactPosition = contactPosition;
     }
 
     @Override
@@ -58,7 +55,7 @@ public class AlarmingState extends AbstractAlarmState
     @Override
     public void putStateInfo (Intent intent)
     {
-        intent.putExtra (ServiceMessage.Key.CONTACT_ID, recipient.getId ());
+        intent.putExtra (ServiceMessage.Key.CONTACT_POSITION, contactPosition);
     }
 
     /*
@@ -69,6 +66,10 @@ public class AlarmingState extends AbstractAlarmState
     @Override
     protected void start ()
     {
+        if (contacts == null) {
+            contacts = new Contacts (Lifeguard.getDatabaseHelper ());
+        }
+        ContactInterface recipient = getNextContact ();
         Log.d (this.getClass ().toString (), "doProcess ALarmingState");
         Log.d (this.getClass ().toString (),
                 "Try to notify " + recipient.getName () + " ("

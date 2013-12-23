@@ -25,11 +25,11 @@ public class AwaitingView
             contacts = new Contacts (Lifeguard.getDatabaseHelper ());
         }
 
-        long contactId = intent.getExtras ().getLong (ServiceMessage.Key.CONTACT_ID);
+        long contactPosition = intent.getExtras ().getLong (ServiceMessage.Key.CONTACT_POSITION);
 
-        ContactInterface contact = contacts.findById (contactId);
+        ContactInterface contact = contacts.findByPosition (contactPosition);
         if (contact == null) {
-            throw new IllegalStateException ("Cannot find the contact with the id " + contactId);
+            throw new IllegalStateException ("Cannot find the contact on the position " + contactPosition);
         }
 
         TextView textView = (TextView) activity.findViewById (R.id.textViewSOSButton);

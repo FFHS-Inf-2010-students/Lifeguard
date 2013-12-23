@@ -59,6 +59,9 @@ public class InitialView
 
         tickButton.setEnabled (true);
         tickButton.setOnCheckedChangeListener (tickToggleListener);
+
+        TextView buttonText = (TextView) activity.findViewById (R.id.textViewSOSButton);
+        buttonText.setText ("");
     }
 
     @Override

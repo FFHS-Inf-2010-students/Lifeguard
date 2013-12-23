@@ -22,6 +22,7 @@ public abstract class ServiceMessage
         public static final String MAX_CLOCK_TICK = "maxClockTick";
 
         public static final String CONTACT_ID = "contactId";
+        public static final String CONTACT_POSITION = "contactPosition";
 
         public static final String ALARM_RECEIVER_ID = "alarmReceiverId";
         public static final String RESCUER_ID = "rescuerId";

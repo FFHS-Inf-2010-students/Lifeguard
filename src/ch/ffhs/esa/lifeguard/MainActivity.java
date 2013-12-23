@@ -33,17 +33,10 @@ import ch.ffhs.esa.lifeguard.ui.ViewStrategyFactory;
 public class MainActivity extends Activity {
 	AlarmService alarmService;
 	boolean bound = false;
-	private Intent uiMessageIntent;
 
 	private BroadcastReceiver stateChangeReceiver = new BroadcastReceiver() {
 		public void onReceive(Context context, Intent intent) {
 			onStateChanged(intent);
-		}
-	};
-
-	private BroadcastReceiver uiMessgageReceiver = new BroadcastReceiver() {
-		public void onReceive(Context context, Intent intent) {
-			setUiMessageIntent(intent);
 		}
 	};
 
@@ -160,7 +153,6 @@ public class MainActivity extends Activity {
 	@Override
 	public void onDestroy() {
 		unregisterReceiver(stateChangeReceiver);
-		unregisterReceiver(uiMessgageReceiver);
 		unbindService(serviceConnection);
 		viewStrategyFactory.notifiyClose();
 		super.onDestroy();
@@ -210,29 +202,11 @@ public class MainActivity extends Activity {
 	}
 
 	private void cancelManualAlarm() {
-		Intent intent = new Intent(ActivityMessage.STATE_CHANGE_REQUEST);
-		intent.putExtra(ActivityMessage.Key.ALARM_STATE_ID,
-				AlarmStateId.INIT.toString());
-
-		sendBroadcast(intent);
-	}
-
-	private void setUiMessageIntent(Intent intent) {
-		uiMessageIntent = intent;
-	}
-
-	private void putUiMessage(Intent intent) {
-		if (uiMessageIntent != null) {
-			Bundle extras = uiMessageIntent.getExtras();
-			if (extras != null) {
-				intent.putExtras(extras);
-			}
-		}
+		sendBroadcast(new Intent(ActivityMessage.CANCEL_OPERATION));
 	}
 
 	private void onStateChanged(Intent intent) {
 		Bundle bundle = intent.getExtras();
-		putUiMessage(intent);
 
 		AlarmStateId current = AlarmStateId.valueOf(AlarmStateId.class, bundle
 				.get(ServiceMessage.Key.ALARM_STATE_ID).toString());
