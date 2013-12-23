@@ -65,9 +65,11 @@ public class InitialView
 
         // a message queue or something similar would be nice, something to handle
         // thos messages with (the messages below the big fat sos button).
-        TextView buttonText = (TextView) activity.findViewById (R.id.textViewSOSButton);
-        boolean wasCancelled = intent.getExtras ().getBoolean (ServiceMessage.Key.WAS_CANCELLED);
+        boolean wasCancelled = intent.getExtras ()
+            .getBoolean (ServiceMessage.Key.WAS_CANCELLED);
         if (wasCancelled) {
+            TextView buttonText = (TextView) activity.findViewById (
+                    R.id.textViewSOSButton);
             buttonText.setText (activity.getString (R.string.operation_cancelled));
         }
     }
