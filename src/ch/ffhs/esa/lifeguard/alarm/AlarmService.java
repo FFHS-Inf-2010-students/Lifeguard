@@ -49,12 +49,12 @@ public class AlarmService extends Service implements AlarmStateListener {
      * PUBLIC INTERFACE
      */
 
-    public AlarmService ()
-    {
-        super ();
-        alarmContext.addListener (this);
+    public class AlarmBinder extends Binder {
+        public AlarmService getService() {
+            return AlarmService.this;
+        }
     }
-    
+
     public AlarmContext getContext() {
         return alarmContext;
     }
@@ -63,6 +63,7 @@ public class AlarmService extends Service implements AlarmStateListener {
     public void onCreate ()
     {
         super.onCreate ();
+        alarmContext.addListener (this);
         Log.d(AlarmService.class.toString(), "Service created");
 
         registerReceiver (
@@ -116,12 +117,6 @@ public class AlarmService extends Service implements AlarmStateListener {
         state.putStateInfo (intent);
 
         sendBroadcast (intent);
-    }
-
-    public class AlarmBinder extends Binder {
-        public AlarmService getService() {
-            return AlarmService.this;
-        }
     }
 
     private void handleManualCancel (Intent intent)
