@@ -8,15 +8,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-import android.widget.Button;
+
 import ch.ffhs.esa.lifeguard.alarm.AlarmService;
 import ch.ffhs.esa.lifeguard.alarm.AlarmService.AlarmBinder;
 import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
@@ -62,53 +58,6 @@ public class MainActivity extends Activity {
 		Log.d(MainActivity.class.toString(), "Before Bind");
 		bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 		Log.d(MainActivity.class.toString(), "After Bind");
-
-		Button sosButton = (Button) findViewById(R.id.SOSButton);
-
-		final Handler handler = new Handler();
-		final Runnable mLongPressed = new Runnable() {
-			public void run() {
-				// Toast.makeText(MainActivity.this, "Long press!",
-				// Toast.LENGTH_LONG).show();
-				Log.i(this.getClass().toString(), "Long press!");
-				AlarmStateId state = alarmService.getContext().getState()
-						.getId();
-				Log.d(MainActivity.class.toString(), "Clicked button");
-
-				if (state == AlarmStateId.AWAITING) {
-					cancelManualAlarm();
-				} else {
-					triggerManualAlarm();
-				}
-			}
-		};
-
-		// TODO: Visual button feedback (pressing button) should be possible
-		sosButton.setOnTouchListener(new OnTouchListener() {
-			public boolean onTouch(View view, MotionEvent event) {
-				if (event.getAction() == MotionEvent.ACTION_DOWN)
-					handler.postDelayed(mLongPressed, 5000);
-				if ((event.getAction() == MotionEvent.ACTION_MOVE)
-						|| (event.getAction() == MotionEvent.ACTION_UP))
-					handler.removeCallbacks(mLongPressed);
-				return true;
-			}
-		});
-
-		// sosButton.setOnLongClickListener(new OnLongClickListener() {
-		// @Override
-		// public boolean onLongClick(View v) {
-		// AlarmStateId state = alarmService.getContext().getState().getId();
-		// Log.d(MainActivity.class.toString(), "Clicked button");
-		//
-		// if (state == AlarmStateId.AWAITING) {
-		// cancelManualAlarm();
-		// } else {
-		// triggerManualAlarm ();
-		// }
-		// return true;
-		// }
-		// });
 	}
 
 	@Override
@@ -192,18 +141,6 @@ public class MainActivity extends Activity {
 			bound = false;
 		}
 	};
-
-	private void triggerManualAlarm() {
-		Intent intent = new Intent(ActivityMessage.STATE_CHANGE_REQUEST);
-		intent.putExtra(ActivityMessage.Key.ALARM_STATE_ID,
-				AlarmStateId.ALARMING.toString());
-
-		sendBroadcast(intent);
-	}
-
-	private void cancelManualAlarm() {
-		sendBroadcast(new Intent(ActivityMessage.CANCEL_OPERATION));
-	}
 
 	private void onStateChanged(Intent intent) {
 		Bundle bundle = intent.getExtras();

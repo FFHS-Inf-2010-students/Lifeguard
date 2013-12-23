@@ -7,7 +7,6 @@ import ch.ffhs.esa.lifeguard.domain.Contacts;
 import ch.ffhs.esa.lifeguard.domain.ContactInterface;
 
 import android.app.Activity;
-import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -25,11 +24,6 @@ public class RescuedView
         if (contacts == null) {
             contacts = new Contacts (Lifeguard.getDatabaseHelper ());
         }
-
-        Button button = (Button) activity.findViewById (R.id.SOSButton);
-        button.setEnabled (true);
-        button = (Button) activity.findViewById (R.id.toggleButtonAlarmSwitch);
-        button.setEnabled (true);
 
         final long id = intent.getExtras ().getLong (ServiceMessage.Key.CONTACT_ID);
 

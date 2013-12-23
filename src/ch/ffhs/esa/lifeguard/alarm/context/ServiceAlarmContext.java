@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmState;
+import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
 import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
 
@@ -70,7 +71,8 @@ public class ServiceAlarmContext
     public void cancel ()
     {
         current.cancel ();
-        setNext (new InitialState ());
+        AlarmStateId previous = current.getId ();
+        setNext (new InitialState (previous, true));
     }
 
     /*//////////////////////////////////////////////////////////////////////////

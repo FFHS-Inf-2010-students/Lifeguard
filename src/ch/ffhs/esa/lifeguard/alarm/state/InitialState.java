@@ -1,5 +1,6 @@
 package ch.ffhs.esa.lifeguard.alarm.state;
 
+import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import android.content.Intent;
 
 /**
@@ -10,10 +11,28 @@ import android.content.Intent;
 public class InitialState
     extends AbstractAlarmState
 {
+    private AlarmStateId previous;
+    private boolean cancelled = false;
 
     /*//////////////////////////////////////////////////////////////////////////
      * PUBLIC INTERFACE
      */
+
+    public InitialState ()
+    {
+        this (AlarmStateId.INIT, false);
+    }
+
+    public InitialState (AlarmStateId previous)
+    {
+        this (previous, false);
+    }
+
+    public InitialState (AlarmStateId previous, boolean cancelled)
+    {
+        this.previous = previous;
+        this.cancelled = cancelled;
+    }
 
     @Override
     public AlarmStateId getId ()
@@ -34,6 +53,8 @@ public class InitialState
     @Override
     public void putStateInfo (Intent intent)
     {
-        // no info available / none needed
+        intent.putExtra (
+                ServiceMessage.Key.PREVIOUS_ALARM_STATE_ID, previous.toString ());
+        intent.putExtra (ServiceMessage.Key.WAS_CANCELLED, cancelled);
     }
 }

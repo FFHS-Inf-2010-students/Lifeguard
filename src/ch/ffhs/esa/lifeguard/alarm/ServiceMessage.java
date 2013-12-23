@@ -39,5 +39,11 @@ public abstract class ServiceMessage
 
         /** Provided by the ALARM_CLOCK_TICK message, the threshold as long */
         public static final String MAX_CLOCK_TICK = "maxClockTick";
+
+        /** Provided by the CURRENT_SERVICE_STATE message on initial state */
+        public static final String PREVIOUS_ALARM_STATE_ID = "previousAlarmStateId";
+
+        /** Provided by the CURRENT_SERVICE_STATE message on initial state */
+        public static final String WAS_CANCELLED = "wasPreviousCancelled";
     }
 }

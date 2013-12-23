@@ -6,7 +6,6 @@ import ch.ffhs.esa.lifeguard.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.widget.Button;
 import android.widget.TextView;
 import ch.ffhs.esa.lifeguard.Lifeguard;
 import ch.ffhs.esa.lifeguard.domain.ContactInterface;
@@ -34,12 +33,6 @@ public class AwaitingView
 
         TextView textView = (TextView) activity.findViewById (R.id.textViewSOSButton);
         textView.setText (createAlarmDisplayMessage (activity, contact));
-
-        Button button = (Button) activity.findViewById (R.id.SOSButton);
-        button.setEnabled (true);
-        button.setText(R.string.main_label_cancel);
-        button = (Button) activity.findViewById (R.id.toggleButtonAlarmSwitch);
-        button.setEnabled (false);
     }
 
     @Override
