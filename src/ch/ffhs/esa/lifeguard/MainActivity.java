@@ -2,19 +2,15 @@ package ch.ffhs.esa.lifeguard;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import ch.ffhs.esa.lifeguard.alarm.AlarmService;
-import ch.ffhs.esa.lifeguard.alarm.AlarmService.AlarmBinder;
 import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
 import ch.ffhs.esa.lifeguard.ui.ViewStrategyFactory;
@@ -27,8 +23,6 @@ import ch.ffhs.esa.lifeguard.ui.ViewStrategyFactory;
  * 
  */
 public class MainActivity extends Activity {
-    AlarmService alarmService;
-    boolean bound = false;
 
     private BroadcastReceiver stateChangeReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -54,23 +48,11 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, AlarmService.class);
         Log.d(MainActivity.class.toString(), "Start Service");
         startService(intent);
-
-        Log.d(MainActivity.class.toString(), "Before Bind");
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-        Log.d(MainActivity.class.toString(), "After Bind");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (alarmService == null) {
-            Log.d(MainActivity.class.toString(),
-                    "AlarmService not started yet.");
-        } else {
-            // Log.d(MainActivity.class.toString(),
-            // alarmService.getState().toString());
-        }
     }
 
     @Override
@@ -102,7 +84,6 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy() {
         unregisterReceiver(stateChangeReceiver);
-        unbindService(serviceConnection);
         viewStrategyFactory.notifiyClose();
         super.onDestroy();
     }
@@ -127,20 +108,6 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, ContactListActivity.class);
         startActivity(intent);
     }
-
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName className, IBinder service) {
-            AlarmBinder binder = (AlarmBinder) service;
-            alarmService = binder.getService();
-            bound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            bound = false;
-        }
-    };
 
     private void onStateChanged(Intent intent) {
         Bundle bundle = intent.getExtras();
