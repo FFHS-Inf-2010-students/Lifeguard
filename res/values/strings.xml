@@ -36,9 +36,9 @@
     <string name="main_label_cancel">Cancel</string>
 
     <!-- Configuration Keys -->
-    <string name="alarmDelayConfigurationKey">alarmDelayConfigurationKey</string>
-    <string name="alarmRepeatDelayConfigurationKey">alarmRepeatDelayConfigurationKey</string>
-    <string name="userNameConfigurationKey">userNameConfigurationKey</string>
+    <string name="userNameConfigurationKey">userName</string>
+    <string name="alarmDelayConfigurationKey">alarmDelay</string>
+    <string name="alarmRepeatDelayConfigurationKey">alarmRepeatDelay</string>
 
     <!-- Alarm Message -->
     <!--
