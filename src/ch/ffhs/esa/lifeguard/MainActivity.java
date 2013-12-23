@@ -208,8 +208,8 @@ public class MainActivity extends Activity {
 	private void onStateChanged(Intent intent) {
 		Bundle bundle = intent.getExtras();
 
-		AlarmStateId current = AlarmStateId.valueOf(AlarmStateId.class, bundle
-				.get(ServiceMessage.Key.ALARM_STATE_ID).toString());
+		AlarmStateId current = AlarmStateId.valueOf(AlarmStateId.class,
+		        bundle.getString (ServiceMessage.Key.ALARM_STATE_ID));
 
 		Log.d(getClass().toString(), "State Change: " + current.toString());
 

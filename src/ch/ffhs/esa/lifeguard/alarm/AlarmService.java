@@ -26,9 +26,7 @@ import ch.ffhs.esa.lifeguard.alarm.state.TickingState;
  */
 public class AlarmService extends Service implements AlarmStateListener {
     private final IBinder binder = new AlarmBinder();
-//    private Contact lastNotifiedContact;
-    
-    
+
     /*//////////////////////////////////////////////////////////////////////////
      * PROPERTIES
      */
