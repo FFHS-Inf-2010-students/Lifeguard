@@ -8,29 +8,25 @@ import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateListener;
 import ch.ffhs.esa.lifeguard.alarm.state.InitialState;
 
 /**
- * 
  * @author David Daniel <david.daniel@students.ffhs.ch>
- *
  */
 public class ServiceAlarmContext
     implements AlarmContext
 {
-    
-	/*//////////////////////////////////////////////////////////////////////////
-	 * PROPERTIES
-	 */
-	
-	private ArrayList<AlarmStateListener> listeners
+    /*//////////////////////////////////////////////////////////////////////////
+     * PROPERTIES
+     */
+
+    private ArrayList<AlarmStateListener> listeners
         = new ArrayList<AlarmStateListener> ();
 
     private AlarmState current = null;
 
     private Context androidContext;
 
-    
     /*//////////////////////////////////////////////////////////////////////////
-	 * PUBLIC INTERFACE
-	 */
+     * PUBLIC INTERFACE
+     */
 
     public ServiceAlarmContext (Context androidContext)
     {
@@ -76,16 +72,15 @@ public class ServiceAlarmContext
         current.cancel ();
         setNext (new InitialState ());
     }
-    
+
     /*//////////////////////////////////////////////////////////////////////////
-	 * PROTECTED OPERATIONS
-	 */
-    
+     * PROTECTED OPERATIONS
+     */
+
     protected void notifyListeners ()
     {
         for (AlarmStateListener l : listeners) {
             l.onStateChanged (this);
         }
     }
-
 }
