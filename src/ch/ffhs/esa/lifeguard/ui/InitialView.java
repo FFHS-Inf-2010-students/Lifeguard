@@ -64,7 +64,7 @@ public class InitialView
         delayText.setText (ClockTickFormatter.format (0, maxTick));
 
         // a message queue or something similar would be nice, something to handle
-        // thos messages with (the messages below the big fat sos button).
+        // those messages with (the messages below the big fat sos button).
         boolean wasCancelled = intent.getExtras ()
             .getBoolean (ServiceMessage.Key.WAS_CANCELLED);
         if (wasCancelled) {

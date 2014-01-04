@@ -34,7 +34,6 @@ public class SOSButtonListener
         case MotionEvent.ACTION_DOWN:
             handler.postDelayed (realHandler, 5000);
             break;
-        case MotionEvent.ACTION_MOVE:
         case MotionEvent.ACTION_UP:
             handler.removeCallbacks (realHandler);
             break;
