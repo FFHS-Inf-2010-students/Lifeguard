@@ -7,6 +7,7 @@
     <string name="configuration_label_delay">Auslösedauer (in Sekunden)</string>
     <string name="configuration_user_name_label">Name (für den Empfänger des Alarms)</string>
     <string name="configuration_label_repeat_delay">Alarm erneut auslösen nach (Sekunden)</string>
+    <string name="configuration_label_button_delay">Alarm bei Knopfdruck für n Millisekunden auslösen</string>
     <string name="configuration_label_save">Speichern</string>
     <string name="configuration_label_cancel">Abbrechen</string>
     <string name="title_activity_contact_list">Kontakte</string>
@@ -27,9 +28,11 @@
     <string name="contact_detail_label_save">Speichern</string>
     <string name="contact_detail_label_cancel">Abbrechen</string>
     <string name="operation_cancelled">Abgebrochen</string>
-    <string name="contact_list_confirm_delete"><![CDATA[
+    <string name="contact_list_confirm_delete">
+<![CDATA[
         Soll %s gelöscht werden?
-    ]]></string>
+    ]]>
+    </string>
     <string name="action_add_contact">Kontakt hinzufügen</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
@@ -39,16 +42,19 @@
     <string name="userNameConfigurationKey">userName</string>
     <string name="alarmDelayConfigurationKey">alarmDelay</string>
     <string name="alarmRepeatDelayConfigurationKey">alarmRepeatDelay</string>
+    <string name="alarmButtonDelayConfigurationKey">alarmButtonDelay</string>
 
     <!-- Alarm Message -->
     <!--
          Parameters:
          {0} username
-     -->
-    <string name="alarm_message_format_string"><![CDATA[
+    -->
+    <string name="alarm_message_format_string">
+<![CDATA[
 {0} braucht dringend Deine Hilfe!
 Bitte bestätige dieses SMS und eile so schnell wie möglich herbei!
-]]></string>
+]]>
+    </string>
     <!-- Default username -->
     <string name="alarm_message_default_entry">Der Absender</string>
 
@@ -57,7 +63,7 @@ Bitte bestätige dieses SMS und eile so schnell wie möglich herbei!
          Parameters:
          {0} name
          {1} phone number
-     -->
+    -->
     <string name="alarm_display_message_text"><![CDATA[{0} wurde alarmiert (Tel: {1})]]></string>
 
     <!-- Alarm confirmation message - text to display after an alarm has been confirmed. -->

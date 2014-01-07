@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import ch.ffhs.esa.lifeguard.alarm.AlarmService;
 import ch.ffhs.esa.lifeguard.alarm.ServiceMessage;
 import ch.ffhs.esa.lifeguard.alarm.state.AlarmStateId;
@@ -20,6 +19,7 @@ import ch.ffhs.esa.lifeguard.ui.ViewStrategyFactory;
  * 
  * @author Thomas Aregger <thomas.aregger@students.ffhs.ch>
  * @author Juerg Gutknecht <juerg.gutknecht@students.ffhs.ch>
+ * @author Christof Kälin <christof.kaelin@students.ffhs.ch>
  * 
  */
 public class MainActivity extends Activity {
@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         registerReceiver(stateChangeReceiver, new IntentFilter(
-                    ServiceMessage.CURRENT_SERVICE_STATE));
+                ServiceMessage.CURRENT_SERVICE_STATE));
 
         Intent intent = new Intent(this, AlarmService.class);
         Log.d(MainActivity.class.toString(), "Start Service");
@@ -70,14 +70,14 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_configuration:
-                openConfiguration();
-                return true;
-            case R.id.action_contact_list:
-                viewContacts();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        case R.id.action_configuration:
+            openConfiguration();
+            return true;
+        case R.id.action_contact_list:
+            viewContacts();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -113,7 +113,7 @@ public class MainActivity extends Activity {
         Bundle bundle = intent.getExtras();
 
         AlarmStateId current = AlarmStateId.valueOf(AlarmStateId.class,
-                bundle.getString (ServiceMessage.Key.ALARM_STATE_ID));
+                bundle.getString(ServiceMessage.Key.ALARM_STATE_ID));
 
         Log.d(getClass().toString(), "State Change: " + current.toString());
 

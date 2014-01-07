@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
     <EditTextPreference
+        android:defaultValue="@string/alarm_message_default_entry"
         android:key="@string/userNameConfigurationKey"
         android:summary="Gibt den Namen für die Alarm Nachricht an."
-        android:title="Anzeige Name"
-        android:defaultValue="@string/alarm_message_default_entry" />
-
+        android:title="Anzeige Name" />
     <EditTextPreference
+        android:defaultValue="300"
+        android:inputType="number"
         android:key="@string/alarmDelayConfigurationKey"
         android:summary="Bestimmt die Anzahl Sekunden, bis ein Alarm ausgelöst wird."
-        android:title="Alarm auslösen nach"
-        android:inputType="number"
-        android:defaultValue="300"/>
-
+        android:title="Alarm auslösen nach" />
     <EditTextPreference
+        android:defaultValue="180"
+        android:inputType="number"
         android:key="@string/alarmRepeatDelayConfigurationKey"
         android:summary="Bestimmt die Anzahl Sekunden, bis das Erwarten einer Rückmeldung verworfen wird."
-        android:title="Alarm Wiederholung nach"
+        android:title="Alarm Wiederholung nach" />
+    <EditTextPreference
+        android:defaultValue="5000"
         android:inputType="number"
-        android:defaultValue="180"/>
+        android:key="@string/alarmButtonDelayConfigurationKey"
+        android:summary="Bestimmt die Anzahl Millisekunden die man den Alarmknopf drücken muss, bis der Alarm ausgelöst wird"
+        android:title="Alarmknopf auslösen nach" />
 
 </PreferenceScreen>
