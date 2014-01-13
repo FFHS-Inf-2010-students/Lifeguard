@@ -85,7 +85,7 @@ public class AlarmingState extends AbstractAlarmState
         if (nrOfContacts < 0) {
             nrOfContacts = contacts.getCount ();
         }
-        if (contactPosition >= nrOfContacts) {
+        if (contactPosition > nrOfContacts) {
             /* Circulate through all contacts over and over, help is needed! */
             contactPosition = 1;
         }
